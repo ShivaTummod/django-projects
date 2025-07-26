@@ -1,0 +1,65 @@
+15
+
+
+
+CREATE TABLE Dept (
+    deptno INT PRIMARY KEY,
+    dname VARCHAR(50),
+    loc VARCHAR(50)
+);
+INSERT INTO DEPT (DEPTNO, DNAME, LOC)
+VALUES (10, 'ACCOUNTING', 'NEW YORK'),
+       (20, 'RESEARCH', 'DALLAS'),
+       (30, 'SALES', 'CHICAGO'),
+       (40, 'OPERATIONS', 'BOSTON');
+
+
+
+CREATE TABLE Emp (
+    eno INT PRIMARY KEY,
+    ename VARCHAR(50) NOT NULL,
+    jobtitle VARCHAR(30),
+    managerno INT,
+    hiredate DATE,
+    salary DECIMAL(10, 2) CHECK (salary > 0),
+    comm DECIMAL(10, 2),
+    deptno INT,
+    FOREIGN KEY (deptno) REFERENCES Dept(deptno)
+);
+INSERT INTO Emp (eno, ename, Jobtitle, Managerno, hiredate, salary, comm, deptno)
+VALUES (7369, 'SMITH', 'CLERK', 7902, '1980-12-17', 800, 240, 20),
+       (7499, 'ALLEN', 'SALESMAN', 7698, '1981-02-20', 1600, 300, 30),
+       (7521, 'WARD', 'SALESMAN', 7698, '1981-02-22', 1250, 500, 30),
+       (7566, 'JONES', 'MANAGER', 7839, '1981-04-02', 2975, 100, 20),
+       (7654, 'MARTIN', 'SALESMAN', 7698, '1981-09-28', 1250, 1400, 30),
+       (7698, 'BLAKE', 'MANAGER', 7839, '1981-05-01', 2850, 150, 30),
+       (7782, 'CLARK', 'MANAGER', 7839, '1981-06-09', 2450, 200, 10),
+       (7788, 'SCOTT', 'ANALYST', 7566, '1982-12-09', 3000, 110, 20),
+       (7839, 'KING', 'PRESIDENT', 7777, '1981-11-17', 5000, 120, 10),
+       (7844, 'TURNER', 'SALESMAN', 7698, '1981-09-08', 1500, 320, 30),
+       (7876, 'ADAMS', 'CLERK', 7788, '1983-01-12', 1100, 240, 20),
+       (7900, 'JAMES', 'CLERK', 7698, '1981-12-03', 950, 130, 30),
+       (7902, 'FORD', 'ANALYST', 7566, '1981-12-03', 3000, 310, 20),
+       (7934, 'MILLER', 'CLERK', 7782, '1982-01-23', 1300, 150, 10);
+
+
+
+SELECT * 
+FROM Emp 
+WHERE salary >= 2500 AND deptno = 20;
+
+SELECT * 
+FROM Emp 
+WHERE jobtitle = 'MANAGER' AND deptno IN (20, 30);
+
+SELECT * 
+FROM Emp 
+WHERE jobtitle = 'MANAGER' AND managerno IS NULL;
+
+SELECT * 
+FROM Emp 
+WHERE comm IS NOT NULL AND jobtitle NOT IN ('MANAGER', 'ANALYST');
+
+SELECT * 
+FROM Emp 
+WHERE (salary + COALESCE(comm, 0)) > 2000;

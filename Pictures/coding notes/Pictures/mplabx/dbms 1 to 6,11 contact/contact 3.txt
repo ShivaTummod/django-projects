@@ -1,0 +1,133 @@
+create database mh22;
+use mh22;
+CREATE TABLE Student (
+    stud_no INT PRIMARY KEY,
+    stud_name VARCHAR(255),
+    class VARCHAR(50)
+);
+
+INSERT INTO Student VALUES
+(1, "naveen", "class I"),
+(2, "vinay", "class II"),
+(3, "vinesh", "class III"),
+(4, "kiran", "class IV"),
+(5, "srikanth", "class V"),
+(6, "srihari", "class VI"),
+(7, "ramya", "class VII"),
+(8, "mounika", "class VIII"),
+(9, "manjula", "class IX"),
+(10, "manoj", "class X");
+
+
+CREATE TABLE Class (
+    class VARCHAR(50) PRIMARY KEY,
+    descrip VARCHAR(255)
+);
+
+INSERT INTO Class VALUES
+(" I", "maths"),
+(" II", "CSIT"),
+(" III", "biology"),
+(" IV", "physics lab"),
+(" V", "CSIT"),
+(" VI", "english"),
+(" VII", "hindi"),
+(" VIII", "CSIT"),
+(" IX", "maths"),
+(" X", "social");
+
+CREATE TABLE Lab (
+    machi_no INT,
+    Lab_no INT,
+    description VARCHAR(255),
+    PRIMARY KEY (machi_no, Lab_no)
+);
+
+INSERT INTO Lab VALUES
+(101, 1001, "physics"),
+(102, 1002, "chemistry"),
+(103, 1003, "biology"),
+(104, 1004, "computer science"),
+(105, 1005, "maths"),
+(106, 1006, "english"),
+(107, 1007, "history"),
+(108, 1008, "geography"),
+(109, 1009, "physics"),
+(110, 1010, "chemistry");
+
+
+CREATE TABLE Allotment (
+    Stud_no INT,
+    mach_no INT,
+    day_of_week VARCHAR(20),
+    FOREIGN KEY (Stud_no) REFERENCES Student(stud_no),
+    FOREIGN KEY (mach_no) REFERENCES Lab(machi_no),
+    PRIMARY KEY (Stud_no, mach_no, day_of_week)
+);
+
+INSERT INTO Allotment VALUES
+(1, 101, "monday"),
+(2, 102, "saturday"),
+(3, 103, "tuesday"),
+(4, 104, "wednesday"),
+(5, 105, "thursday"),
+(6, 106, "friday"),
+(7, 107, "saturday"),
+(8, 108, "tuesday"),
+(9, 109, "tuesday"),
+(10, 110, "wednesday");
+
+ select * from student;
+
+
+select * from class;
+
+
+select * from lab;
+
+
+select * from allotment;
+
+SELECT Student.stud_name, Lab.description AS lab_description, Lab.machi_no AS machine_number FROM Allotment JOIN Student ON Allotment.Stud_no = Student.stud_no
+ JOIN Lab ON Allotment.mach_no = Lab.machi_no;
+
+
+
+ SELECT day_of_week, COUNT(*) AS total_lab_allotments FROM Allotment
+   GROUP BY day_of_week;
+
+SELECT Student.stud_no, Student.stud_name, Student.class, Lab.machi_no, Lab.Lab_no, Allotment.day_of_week
+ FROM Allotment
+ JOIN Student ON Allotment.Stud_no = Student.stud_no
+ JOIN Lab ON Allotment.mach_no = Lab.machi_no
+ WHERE Student.stud_no = 5;
+
+ SELECT s.class, COUNT(DISTINCT a.Stud_no) AS students_allocated
+ FROM Allotment a
+ JOIN Student s ON a.Stud_no = s.stud_no
+  GROUP BY s.class;
+
+CREATE VIEW MachineAllotmentDetails AS
+SELECT s.stud_no, s.stud_name, l.machi_no, l.Lab_no, a.day_of_week
+FROM Allotment a
+JOIN Student s ON a.Stud_no = s.stud_no
+JOIN Lab l ON a.mach_no = l.machi_no;
+select * from MachineAllotmentDetails;
+
+ 
+CREATE VIEW ThursdayMachineAllotments AS
+SELECT s.stud_no, s.stud_name, l.machi_no, l.Lab_no, a.day_of_week
+FROM Allotment a
+JOIN Student s ON a.Stud_no = s.stud_no
+JOIN Lab l ON a.mach_no = l.machi_no
+WHERE a.day_of_week = 'thursday';
+
+select * from ThursdayMachineAllotments;
+
+
+
+
+
+
+
+

@@ -1,0 +1,255 @@
+CREATE TABLE Student (
+    stud_no INT PRIMARY KEY,
+    stud_name VARCHAR(255),
+    class VARCHAR(50)
+);
+
+INSERT INTO Student VALUES
+(1, "naveen", "class I"),
+(2, "vinay", "class II"),
+(3, "vinesh", "class III"),
+(4, "kiran", "class IV"),
+(5, "srikanth", "class V"),
+(6, "srihari", "class VI"),
+(7, "ramya", "class VII"),
+(8, "mounika", "class VIII"),
+(9, "manjula", "class IX"),
+(10, "manoj", "class X");
+
+
+CREATE TABLE Class (
+    class VARCHAR(50) PRIMARY KEY,
+    descrip VARCHAR(255)
+);
+
+INSERT INTO Class VALUES
+(" I", "maths"),
+(" II", "CSIT"),
+(" III", "biology"),
+(" IV", "physics lab"),
+(" V", "CSIT"),
+(" VI", "english"),
+(" VII", "hindi"),
+(" VIII", "CSIT"),
+(" IX", "maths"),
+(" X", "social");
+
+CREATE TABLE Lab (
+    machi_no INT,
+    Lab_no INT,
+    description VARCHAR(255),
+    PRIMARY KEY (machi_no, Lab_no)
+);
+
+INSERT INTO Lab VALUES
+(101, 1001, "physics"),
+(102, 1002, "chemistry"),
+(103, 1003, "biology"),
+(104, 1004, "computer science"),
+(105, 1005, "maths"),
+(106, 1006, "english"),
+(107, 1007, "history"),
+(108, 1008, "geography"),
+(109, 1009, "physics"),
+(110, 1010, "chemistry");
+
+
+CREATE TABLE Allotment (
+    Stud_no INT,
+    mach_no INT,
+    day_of_week VARCHAR(20),
+    FOREIGN KEY (Stud_no) REFERENCES Student(stud_no),
+    FOREIGN KEY (mach_no) REFERENCES Lab(machi_no),
+    PRIMARY KEY (Stud_no, mach_no, day_of_week)
+);
+
+INSERT INTO Allotment VALUES
+(1, 101, "monday"),
+(2, 102, "saturday"),
+(3, 103, "tuesday"),
+(4, 104, "wednesday"),
+(5, 105, "thursday"),
+(6, 106, "friday"),
+(7, 107, "saturday"),
+(8, 108, "tuesday"),
+(9, 109, "tuesday"),
+(10, 110, "wednesday");
+
+mysql> select * from student;
++---------+-----------+------------+
+| stud_no | stud_name | class      |
++---------+-----------+------------+
+|       1 | naveen    | class I    |
+|       2 | vinay     | class II   |
+|       3 | vinesh    | class III  |
+|       4 | kiran     | class IV   |
+|       5 | srikanth  | class V    |
+|       6 | srihari   | class VI   |
+|       7 | ramya     | class VII  |
+|       8 | mounika   | class VIII |
+|       9 | manjula   | class IX   |
+|      10 | manoj     | class X    |
++---------+-----------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select * from class;
++-------+-------------+
+| class | descrip     |
++-------+-------------+
+|  I    | maths       |
+|  II   | CSIT        |
+|  III  | biology     |
+|  IV   | physics lab |
+|  V    | CSIT        |
+|  VI   | english     |
+|  VII  | hindi       |
+|  VIII | CSIT        |
+|  IX   | maths       |
+|  X    | social      |
++-------+-------------+
+10 rows in set (0.00 sec)
+
+mysql> select * from lab;
++----------+--------+------------------+
+| machi_no | Lab_no | description      |
++----------+--------+------------------+
+|      101 |   1001 | physics          |
+|      102 |   1002 | chemistry        |
+|      103 |   1003 | biology          |
+|      104 |   1004 | computer science |
+|      105 |   1005 | maths            |
+|      106 |   1006 | english          |
+|      107 |   1007 | history          |
+|      108 |   1008 | geography        |
+|      109 |   1009 | physics          |
+|      110 |   1010 | chemistry        |
++----------+--------+------------------+
+10 rows in set (0.00 sec)
+
+mysql> select * from allotment;
++---------+---------+-------------+
+| Stud_no | mach_no | day_of_week |
++---------+---------+-------------+
+|       1 |     101 | monday      |
+|       2 |     102 | saturday    |
+|       3 |     103 | tuesday     |
+|       4 |     104 | wednesday   |
+|       5 |     105 | thursday    |
+|       6 |     106 | friday      |
+|       7 |     107 | saturday    |
+|       8 |     108 | tuesday     |
+|       9 |     109 | tuesday     |
+|      10 |     110 | wednesday   |
++---------+---------+-------------+
+
+c) List all the machine allotments with the student names, lab, and machine numbers:
+SELECT Student.stud_name, Lab.description AS lab_description, Lab.machi_no AS machine_number FROM Allotment JOIN Student ON Allotment.Stud_no = Student.stud_no
+ JOIN Lab ON Allotment.mach_no = Lab.machi_no;
++-----------+------------------+----------------+
+| stud_name | lab_description  | machine_number |
++-----------+------------------+----------------+
+| naveen    | physics          |            101 |
+| vinay     | chemistry        |            102 |
+| vinesh    | biology          |            103 |
+| kiran     | computer science |            104 |
+| srikanth  | maths            |            105 |
+| srihari   | english          |            106 |
+| ramya     | history          |            107 |
+| mounika   | geography        |            108 |
+| manjula   | physics          |            109 |
+| manoj     | chemistry        |            110 |
++-----------+------------------+----------------+
+
+d) List the total number of lab allotments day wise:
+ SELECT day_of_week, COUNT(*) AS total_lab_allotments FROM Allotment
+   GROUP BY day_of_week;
++-------------+----------------------+
+| day_of_week | total_lab_allotments |
++-------------+----------------------+
+| monday      |                    1 |
+| saturday    |                    2 |
+| tuesday     |                    3 |
+| wednesday   |                    2 |
+| thursday    |                    1 |
+| friday      |                    1 |
++-------------+----------------------+
+
+f) Give machine allotment details of the stud_no 5 with his personal and class details:
+SELECT Student.stud_no, Student.stud_name, Student.class, Lab.machi_no, Lab.Lab_no, Allotment.day_of_week
+ FROM Allotment
+ JOIN Student ON Allotment.Stud_no = Student.stud_no
+ JOIN Lab ON Allotment.mach_no = Lab.machi_no
+ WHERE Student.stud_no = 5;
++---------+-----------+---------+----------+--------+-------------+
+| stud_no | stud_name | class   | machi_no | Lab_no | day_of_week |
++---------+-----------+---------+----------+--------+-------------+
+|       5 | srikanth  | class V |      105 |   1005 | thursday    |
++---------+-----------+---------+----------+--------+-------------+
+
+h) How many students class wise have allocated machines in the labs:
+ SELECT s.class, COUNT(DISTINCT a.Stud_no) AS students_allocated
+ FROM Allotment a
+ JOIN Student s ON a.Stud_no = s.stud_no
+  GROUP BY s.class;
++------------+--------------------+
+| class      | students_allocated |
++------------+--------------------+
+| class I    |                  1 |
+| class II   |                  1 |
+| class III  |                  1 |
+| class IV   |                  1 |
+| class IX   |                  1 |
+| class V    |                  1 |
+| class VI   |                  1 |
+| class VII  |                  1 |
+| class VIII |                  1 |
+| class X    |                  1 |
++------------+--------------------+
+
+I)Create a view which lists out the stud_no, stud_name, mach_no, lab_no, day of the week:
+CREATE VIEW MachineAllotmentDetails AS
+SELECT s.stud_no, s.stud_name, l.machi_no, l.Lab_no, a.day_of_week
+FROM Allotment a
+JOIN Student s ON a.Stud_no = s.stud_no
+JOIN Lab l ON a.mach_no = l.machi_no;
+select * from MachineAllotmentDetails;
++---------+-----------+----------+--------+-------------+
+| stud_no | stud_name | machi_no | Lab_no | day_of_week |
++---------+-----------+----------+--------+-------------+
+|       1 | naveen    |      101 |   1001 | monday      |
+|       2 | vinay     |      102 |   1002 | saturday    |
+|       3 | vinesh    |      103 |   1003 | tuesday     |
+|       4 | kiran     |      104 |   1004 | wednesday   |
+|       5 | srikanth  |      105 |   1005 | thursday    |
+|       6 | srihari   |      106 |   1006 | friday      |
+|       7 | ramya     |      107 |   1007 | saturday    |
+|       8 | mounika   |      108 |   1008 | tuesday     |
+|       9 | manjula   |      109 |   1009 | tuesday     |
+|      10 | manoj     |      110 |   1010 | wednesday   |
++---------+-----------+----------+--------+-------------+
+10 rows in set (0.00 sec)
+
+j) Create a view which lists the machine allotment details for “Thursday”:
+ 
+CREATE VIEW ThursdayMachineAllotments AS
+SELECT s.stud_no, s.stud_name, l.machi_no, l.Lab_no, a.day_of_week
+FROM Allotment a
+JOIN Student s ON a.Stud_no = s.stud_no
+JOIN Lab l ON a.mach_no = l.machi_no
+WHERE a.day_of_week = 'thursday';
+
+select * from ThursdayMachineAllotments;
++---------+-----------+----------+--------+-------------+
+| stud_no | stud_name | machi_no | Lab_no | day_of_week |
++---------+-----------+----------+--------+-------------+
+|       5 | srikanth  |      105 |   1005 | thursday    |
++---------+-----------+----------+--------+-------------+
+
+
+
+
+
+
+
+
+

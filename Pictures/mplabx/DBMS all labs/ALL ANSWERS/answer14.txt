@@ -1,0 +1,256 @@
+CREATE TABLE Products (
+    ProductNumber INT PRIMARY KEY,
+    ProductName VARCHAR(255),
+    SellingPrice DECIMAL(10, 2),
+    ManufacturerName VARCHAR(255)
+);
+
+INSERT INTO Products (ProductNumber, ProductName, SellingPrice, ManufacturerName) 
+VALUES (101, 'Desktop Computer', 900.00, 'HP'),
+       (102, 'Tablet', 400.00, 'Apple'),
+       (103, 'Printer', 250.00, 'Epson'),
+       (104, 'Smart TV', 1200.00, 'LG'),
+       (105, 'Wireless Mouse', 20.00, 'Logitech'),
+       (106, 'External Hard Drive', 100.00, 'Seagate');
+select * from products;
++---------------+---------------------+--------------+------------------+
+| ProductNumber | ProductName         | SellingPrice | ManufacturerName |
++---------------+---------------------+--------------+------------------+
+|           101 | Desktop Computer    |       900.00 | HP               |
+|           102 | Tablet              |       400.00 | Apple            |
+|           103 | Printer             |       250.00 | Epson            |
+|           104 | Smart TV            |      1200.00 | LG               |
+|           105 | Wireless Mouse      |        20.00 | Logitech         |
+|           106 | External Hard Drive |       100.00 | Seagate          |
++---------------+---------------------+--------------+------------------+
+6 rows in set (0.00 sec)
+
+CREATE TABLE Clients (
+    ClientNumber INT PRIMARY KEY,
+    ClientName VARCHAR(255),
+    ClientAddress VARCHAR(255),
+    City VARCHAR(255),
+    PinCode VARCHAR(20),
+    State VARCHAR(255),
+    TotalBalance DECIMAL(10, 2)
+);
+
+INSERT INTO Clients (ClientNumber, ClientName, ClientAddress, City, PinCode, State, TotalBalance) 
+VALUES (201, 'Aarav Patel', '789 Maple St', 'Mumbai', '400001', 'MH', 500.00),
+       (202, 'Diya Shah', '456 Oak St', 'Delhi', '110001', 'DL', 200.00),
+       (203, 'Aditya Singh', '123 Elm St', 'Bangalore', '560001', 'KA', 1000.00),
+       (204, 'Ishaan Kumar', '567 Pine St', 'Kolkata', '700001', 'WB', 0.00),
+       (205, 'Ayesha Gupta', '890 Cedar St', 'Chennai', '600001', 'TN', 750.00),
+       (206, 'Riya Sharma', '234 Birch St', 'Hyderabad', '500001', 'TS', 300.00);
+
+select * from clients;
++--------------+--------------+---------------+-----------+---------+-------+--------------+
+| ClientNumber | ClientName   | ClientAddress | City      | PinCode | State | TotalBalance |
++--------------+--------------+---------------+-----------+---------+-------+--------------+
+|          201 | Aarav Patel  | 789 Maple St  | Mumbai    | 400001  | MH    |       500.00 |
+|          202 | Diya Shah    | 456 Oak St    | Delhi     | 110001  | DL    |       200.00 |
+|          203 | Aditya Singh | 123 Elm St    | Bangalore | 560001  | KA    |      1000.00 |
+|          204 | Ishaan Kumar | 567 Pine St   | Kolkata   | 700001  | WB    |         0.00 |
+|          205 | Ayesha Gupta | 890 Cedar St  | Chennai   | 600001  | TN    |       750.00 |
+|          206 | Riya Sharma  | 234 Birch St  | Hyderabad | 500001  | TS    |       300.00 |
++--------------+--------------+---------------+-----------+---------+-------+--------------+
+
+CREATE TABLE Salesmen (
+    SalesmanNumber INT PRIMARY KEY,
+    Name VARCHAR(255),
+    Address VARCHAR(255),
+    City VARCHAR(255),
+    PinCode VARCHAR(20),
+    State VARCHAR(255),
+    Salary DECIMAL(10, 2)
+);
+
+INSERT INTO Salesmen (SalesmanNumber, Name, Address, City, PinCode, State, Salary) 
+VALUES (301, 'Vikram Gupta', '789 Elm St', 'Mumbai', '400001', 'MH', 55000.00),
+       (302, 'Priya Sharma', '123 Oak St', 'Delhi', '110001', 'DL', 60000.00),
+       (303, 'Amit Patel', '456 Maple St', 'Bangalore', '560001', 'KA', 50000.00),
+       (304, 'Neha Singh', '567 Pine St', 'Kolkata', '700001', 'WB', 60000.00),
+       (305, 'Rajesh Kumar', '890 Cedar St', 'Chennai', '600001', 'TN', 55000.00),
+       (306, 'Anjali Gupta', '234 Birch St', 'Hyderabad', '500001', 'TS', 50000.00);
+
+ select * from salesmen;
++----------------+--------------+--------------+-----------+---------+-------+----------+
+| SalesmanNumber | Name         | Address      | City      | PinCode | State | Salary   |
++----------------+--------------+--------------+-----------+---------+-------+----------+
+|            301 | Vikram Gupta | 789 Elm St   | Mumbai    | 400001  | MH    | 55000.00 |
+|            302 | Priya Sharma | 123 Oak St   | Delhi     | 110001  | DL    | 60000.00 |
+|            303 | Amit Patel   | 456 Maple St | Bangalore | 560001  | KA    | 50000.00 |
+|            304 | Neha Singh   | 567 Pine St  | Kolkata   | 700001  | WB    | 60000.00 |
+|            305 | Rajesh Kumar | 890 Cedar St | Chennai   | 600001  | TN    | 55000.00 |
+|            306 | Anjali Gupta | 234 Birch St | Hyderabad | 500001  | TS    | 50000.00 |
++----------------+--------------+--------------+-----------+---------+-------+----------+
+
+CREATE TABLE Orders (
+    SalesOrderNumber INT PRIMARY KEY,
+    SalesOrderDate DATE,
+    ClientNumber INT,
+    SalesmanNumber INT,
+    BilledWholePayment BOOLEAN,
+    DeliveryDate DATE,
+    FOREIGN KEY (ClientNumber) REFERENCES Clients(ClientNumber),
+    FOREIGN KEY (SalesmanNumber) REFERENCES Salesmen(SalesmanNumber)
+);
+INSERT INTO Orders (SalesOrderNumber, SalesOrderDate, ClientNumber, SalesmanNumber, BilledWholePayment, DeliveryDate) 
+VALUES (401, '2024-05-01', 201, 301, TRUE, '2024-05-08'),
+       (402, '2024-05-02', 202, 302, TRUE, '2024-05-10'),
+       (403, '2024-05-03', 203, 303, FALSE, '2024-05-12'),
+       (404, '2024-05-04', 204, 304, TRUE, '2024-05-15'),
+       (405, '2024-05-05', 205, 305, FALSE, '2024-05-18'),
+       (406, '2024-05-06', 206, 306, TRUE, '2024-05-20');
+ select * from orders;
++------------------+----------------+--------------+----------------+--------------------+--------------+
+| SalesOrderNumber | SalesOrderDate | ClientNumber | SalesmanNumber | BilledWholePayment | DeliveryDate |
++------------------+----------------+--------------+----------------+--------------------+--------------+
+|              401 | 2024-05-01     |          201 |            301 |                  1 | 2024-05-08   |
+|              402 | 2024-05-02     |          202 |            302 |                  1 | 2024-05-10   |
+|              403 | 2024-05-03     |          203 |            303 |                  0 | 2024-05-12   |
+|              404 | 2024-05-04     |          204 |            304 |                  1 | 2024-05-15   |
+|              405 | 2024-05-05     |          205 |            305 |                  0 | 2024-05-18   |
+|              406 | 2024-05-06     |          206 |            306 |                  1 | 2024-05-20   |
++------------------+----------------+--------------+----------------+--------------------+--------------+
+
+CREATE TABLE OrderDetails (
+    SalesOrderNumber INT,
+    ProductNumber INT,
+    QuantityOrdered INT,
+    ProductRate DECIMAL(10, 2),
+    FOREIGN KEY (SalesOrderNumber) REFERENCES Orders(SalesOrderNumber),
+    FOREIGN KEY (ProductNumber) REFERENCES Products(ProductNumber)
+);
+INSERT INTO OrderDetails (SalesOrderNumber, ProductNumber, QuantityOrdered, ProductRate) 
+VALUES (401, 101, 1, 900.00),
+       (401, 102, 2, 400.00),
+       (402, 103, 1, 250.00),
+       (403, 104, 1, 1200.00),
+       (404, 105, 3, 20.00),
+       (405, 106, 2, 100.00);
+select * from orderdetails;
++------------------+---------------+-----------------+-------------+
+| SalesOrderNumber | ProductNumber | QuantityOrdered | ProductRate |
++------------------+---------------+-----------------+-------------+
+|              401 |           101 |               1 |      900.00 |
+|              401 |           102 |               2 |      400.00 |
+|              402 |           103 |               1 |      250.00 |
+|              403 |           104 |               1 |     1200.00 |
+|              404 |           105 |               3 |       20.00 |
+|              405 |           106 |               2 |      100.00 |
+
+CREATE TABLE ClientOrderBalances (
+    ClientNumber INT,
+    SalesOrderNumber INT,
+    FOREIGN KEY (ClientNumber) REFERENCES Clients(ClientNumber),
+    FOREIGN KEY (SalesOrderNumber) REFERENCES Orders(SalesOrderNumber)
+);
+
+INSERT INTO ClientOrderBalances (ClientNumber, SalesOrderNumber) 
+VALUES (201, 401),
+       (202, 402),
+       (203, 403),
+       (204, 404),
+       (205, 405),
+       (206, 406);
+select * from clientorderbalances;
++--------------+------------------+
+| ClientNumber | SalesOrderNumber |
++--------------+------------------+
+|          201 |              401 |
+|          202 |              402 |
+|          203 |              403 |
+|          204 |              404 |
+|          205 |              405 |
+|          206 |              406 |
++--------------+------------------+
+1)Retrieve the list of names and the cities of all the clients.
+SELECT ClientName, City FROM Clients;
++--------------+-----------+
+| ClientName   | City      |
++--------------+-----------+
+| Aarav Patel  | Mumbai    |
+| Diya Shah    | Delhi     |
+| Aditya Singh | Bangalore |
+| Ishaan Kumar | Kolkata   |
+| Ayesha Gupta | Chennai   |
+| Riya Sharma  | Hyderabad |
++--------------+-----------+
+
+2)Find the names of all clients having ‘a’ as the second letter in their names.
+ SELECT ClientName FROM Clients WHERE SUBSTRING(ClientName, 2, 1) = 'a';
++-------------+
+| ClientName  |
++-------------+
+| Aarav Patel |
++-------------+
+
+3)Find the products whose selling price is greater than 100 and less than or equal to 1000.
+SELECT * FROM Products WHERE SellingPrice > 100 AND SellingPrice <= 1000;
++---------------+------------------+--------------+------------------+
+| ProductNumber | ProductName      | SellingPrice | ManufacturerName |
++---------------+------------------+--------------+------------------+
+|           101 | Desktop Computer |       900.00 | HP               |
+|           102 | Tablet           |       400.00 | Apple            |
+|           103 | Printer          |       250.00 | Epson            |
++---------------+------------------+--------------+------------------+
+
+4)Rename the column product_rate of Sales_Order_Details to new_product_rate.
+ALTER TABLE OrderDetails RENAME COLUMN ProductRate TO NewProductRate;
+ select  * from orderdetails;
++------------------+---------------+-----------------+----------------+
+| SalesOrderNumber | ProductNumber | QuantityOrdered | NewProductRate |
++------------------+---------------+-----------------+----------------+
+|              401 |           101 |               1 |         900.00 |
+|              401 |           102 |               2 |         400.00 |
+|              402 |           103 |               1 |         250.00 |
+|              403 |           104 |               1 |        1200.00 |
+|              404 |           105 |               3 |          20.00 |
+|              405 |           106 |               2 |         100.00 |
++------------------+---------------+-----------------+----------------+
+
+5)Display the order number and date on which the clients placed their order.
+  SELECT SalesOrderNumber, SalesOrderDate FROM Orders;
++------------------+----------------+
+| SalesOrderNumber | SalesOrderDate |
++------------------+----------------+
+|              401 | 2024-05-01     |
+|              402 | 2024-05-02     |
+|              403 | 2024-05-03     |
+|              404 | 2024-05-04     |
+|              405 | 2024-05-05     |
+|              406 | 2024-05-06     |
++------------------+----------------+
+
+6)Change the delivery date of order number 402 to 16-08-08.
+select * from orders;
++------------------+----------------+--------------+----------------+--------------------+--------------+
+| SalesOrderNumber | SalesOrderDate | ClientNumber | SalesmanNumber | BilledWholePayment | DeliveryDate |
++------------------+----------------+--------------+----------------+--------------------+--------------+
+|              401 | 2024-05-01     |          201 |            301 |                  1 | 2024-05-08   |
+|              402 | 2024-05-02     |          202 |            302 |                  1 | 2008-08-16   |
+|              403 | 2024-05-03     |          203 |            303 |                  0 | 2024-05-12   |
+|              404 | 2024-05-04     |          204 |            304 |                  1 | 2024-05-15   |
+|              405 | 2024-05-05     |          205 |            305 |                  0 | 2024-05-18   |
+|              406 | 2024-05-06     |          206 |            306 |                  1 | 2024-05-20   |
++------------------+----------------+--------------+----------------+--------------------+--------------+
+6 rows in set (0.00 sec)
+
+7)Find the product with description as ‘Smart TV’ and ‘Tablet’.
+SELECT * FROM Products WHERE ProductName IN ('Smart TV', 'Tablet');
++---------------+-------------+--------------+------------------+
+| ProductNumber | ProductName | SellingPrice | ManufacturerName |
++---------------+-------------+--------------+------------------+
+|           102 | Tablet      |       400.00 | Apple            |
+|           104 | Smart TV    |      1200.00 | LG               |
++---------------+-------------+--------------+------------------+
+
+8) List all orders that were canceled in the month of March.
+SELECT * FROM Orders WHERE MONTH(SalesOrderDate) = 5  AND BilledWholePayment = FALSE;
++------------------+----------------+--------------+----------------+--------------------+--------------+
+| SalesOrderNumber | SalesOrderDate | ClientNumber | SalesmanNumber | BilledWholePayment | DeliveryDate |
++------------------+----------------+--------------+----------------+--------------------+--------------+
+|              403 | 2024-05-03     |          203 |            303 |                  0 | 2024-05-12   |
+|              405 | 2024-05-05     |          205 |            305 |                  0 | 2024-05-18   |
++------------------+----------------+--------------+----------------+--------------------+--------------

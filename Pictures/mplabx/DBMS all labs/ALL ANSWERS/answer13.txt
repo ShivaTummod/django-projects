@@ -1,0 +1,182 @@
+CREATE DATABASE ANSWER13;
+USE ANSWER13;
+ 
+CREATE TABLE Dept (
+    dno INT PRIMARY KEY,
+    dname VARCHAR(50),
+    loc VARCHAR(50)
+);
+
+INSERT INTO Dept (dno, dname, loc) VALUES
+    (1, 'Account', 'Mumbai'),
+    (2, 'Quality', 'Pune'),
+    (3, 'computer science', 'Bangalore');
+
+
+CREATE TABLE Emp (
+    eno INT PRIMARY KEY,
+    ename VARCHAR(50) NOT NULL,
+    designation VARCHAR(50),
+    salary DECIMAL(10, 2) CHECK (salary > 0),
+    Date_Of_Joining DATE,
+    dno INT,
+    FOREIGN KEY (dno) REFERENCES Dept(dno)
+);
+ 
+INSERT INTO Emp (eno, ename, designation, salary, Date_Of_Joining, dno) VALUES
+(101, 'Advait', 'Sales Executive', 53000.00, '2023-03-15', 2),
+(102, 'Aditi Patel', 'Manager', 70000.00, '2022-09-20', 1),
+(103, 'Roy', 'Finance Analyst', 60000.00, '2023-01-10', 3),
+(104, 'Ishaan Kapoor', 'Manager', 45000.00, '2023-05-05', 1),
+(105, 'Neha Gupta', 'Senior Accountant', 65000.00, '2022-11-12', 3),
+(106, 'Priya Sharma', 'Marketing Executive', 50000.00, '2023-02-28', 2),
+(107, 'Rohan Patel', 'Manager', 75000.00, '2022-10-25', 1),
+(108, 'Ananya Singh', 'Financial Analyst', 62000.00, '2023-04-18', 2);
+
+
+Q.1. Add column phone_No into Emp table with data type int
+ALTER TABLE Emp
+ADD phone_No INT;
+SELECT * FROM EMP;
++-----+---------------+---------------------+----------+-----------------+------+----------+
+| eno | ename         | designation         | salary   | Date_Of_Joining | dno  | phone_No |
++-----+---------------+---------------------+----------+-----------------+------+----------+
+| 101 | Advait        | Sales Executive     | 53000.00 | 2023-03-15      |    2 |     NULL |
+| 102 | Aditi Patel   | Manager             | 70000.00 | 2022-09-20      |    1 |     NULL |
+| 103 | Roy           | Finance Analyst     | 60000.00 | 2023-01-10      |    3 |     NULL |
+| 104 | Ishaan Kapoor | Manager             | 45000.00 | 2023-05-05      |    1 |     NULL |
+| 105 | Neha Gupta    | Senior Accountant   | 65000.00 | 2022-11-12      |    3 |     NULL |
+| 106 | Priya Sharma  | Marketing Executive | 50000.00 | 2023-02-28      |    2 |     NULL |
+| 107 | Rohan Patel   | Manager             | 75000.00 | 2022-10-25      |    1 |     NULL |
+| 108 | Ananya Singh  | Financial Analyst   | 62000.00 | 2023-04-18      |    2 |     NULL |
+
+UPDATE Emp
+SET phone_No = 12345678
+WHERE eno = 101;
+
+UPDATE Emp
+SET phone_No = 23456789
+WHERE eno = 102;
+UPDATE Emp
+SET phone_No = 34567890
+WHERE eno = 103;
+
+UPDATE Emp
+SET phone_No = 45678901
+WHERE eno = 104;
+
+UPDATE Emp
+SET phone_No = 56789012
+WHERE eno = 105;
+
+UPDATE Emp
+SET phone_No = 67890123
+WHERE eno = 106;
+
+UPDATE Emp
+SET phone_No = 78901234
+WHERE eno = 107;
+
+UPDATE Emp
+SET phone_No = 89012345
+WHERE eno = 108;
+
+ SELECT * FROM EMP;
++-----+---------------+---------------------+----------+-----------------+------+----------+
+| eno | ename         | designation         | salary   | Date_Of_Joining | dno  | phone_No |
++-----+---------------+---------------------+----------+-----------------+------+----------+
+| 101 | Advait        | Sales Executive     | 53000.00 | 2023-03-15      |    2 | 12345678 |
+| 102 | Aditi Patel   | Manager             | 70000.00 | 2022-09-20      |    1 | 23456789 |
+| 103 | Roy           | Finance Analyst     | 60000.00 | 2023-01-10      |    3 | 34567890 |
+| 104 | Ishaan Kapoor | Manager             | 45000.00 | 2023-05-05      |    1 | 45678901 |
+| 105 | Neha Gupta    | Senior Accountant   | 65000.00 | 2022-11-12      |    3 | 56789012 |
+| 106 | Priya Sharma  | Marketing Executive | 50000.00 | 2023-02-28      |    2 | 67890123 |
+| 107 | Rohan Patel   | Manager             | 75000.00 | 2022-10-25      |    1 | 78901234 |
+| 108 | Ananya Singh  | Financial Analyst   | 62000.00 | 2023-04-18      |    2 | 89012345 |
++-----+---------------+---------------------+----------+-----------------+------+----------+
+
+3. Display the count of employee’s department wise.
+SELECT d.dname AS Department, COUNT(e.eno) AS Employee_Count
+    -> FROM Dept d
+    -> LEFT JOIN Emp e ON d.dno = e.dno
+    -> GROUP BY d.dname;
++------------------+----------------+
+| Department       | Employee_Count |
++------------------+----------------+
+| Account          |              3 |
+| Quality          |              3 |
+| computer science |              2 |
++------------------+----------------+
+
+4. Display the name of employee who is ‘Manager’ of “Account Department”.
+
+mysql> SELECT ename
+    -> FROM Emp
+    -> WHERE designation = 'Manager' AND dno IN (SELECT dno FROM Dept WHERE dname = 'Account');
++---------------+
+| ename         |
++---------------+
+| Aditi Patel   |
+| Ishaan Kapoor |
+| Rohan Patel   |
+
+5. Display the name of department whose location is “Pune” and “Mr. Advait” is working in it.
+SELECT d.dname
+    -> FROM Dept d
+    -> JOIN Emp e ON d.dno = e.dno
+    -> WHERE d.loc = 'Pune' AND e.ename = 'Advait';
++---------+
+| dname   |
++---------+
+| Quality |
++---------+
+
+6. Display the names of employees whose salary is greater than 50000 and department is “Quality”.
+ SELECT e.ename
+    -> FROM Emp e
+    -> JOIN Dept d ON e.dno = d.dno
+    -> WHERE e.salary > 50000 AND d.dname = 'Quality';
++--------------+
+| ename        |
++--------------+
+| Advait       |
+| Ananya Singh |
++--------------+
+
+
+7. Update Date of joining of employee to ‘15/06/2019’ whose department is ‘computer science’ and name is “Mr. Roy’
+UPDATE Emp
+SET Date_Of_Joining = '2019-06-15'
+WHERE ename = 'Roy' AND dno IN (SELECT dno FROM Dept WHERE dname = 'computer science');
+ select * from emp;
++-----+---------------+---------------------+----------+-----------------+------+----------+
+| eno | ename         | designation         | salary   | Date_Of_Joining | dno  | phone_No |
++-----+---------------+---------------------+----------+-----------------+------+----------+
+| 101 | Advait        | Sales Executive     | 53000.00 | 2023-03-15      |    2 | 12345678 |
+| 102 | Aditi Patel   | Manager             | 70000.00 | 2022-09-20      |    1 | 23456789 |
+| 103 | Roy           | Finance Analyst     | 60000.00 | 2019-06-15      |    3 | 34567890 |
+| 104 | Ishaan Kapoor | Manager             | 45000.00 | 2023-05-05      |    1 | 45678901 |
+| 105 | Neha Gupta    | Senior Accountant   | 65000.00 | 2022-11-12      |    3 | 56789012 |
+| 106 | Priya Sharma  | Marketing Executive | 50000.00 | 2023-02-28      |    2 | 67890123 |
+| 107 | Rohan Patel   | Manager             | 75000.00 | 2022-10-25      |    1 | 78901234 |
+| 108 | Ananya Singh  | Financial Analyst   | 62000.00 | 2023-04-18      |    2 | 89012345 |
++-----+---------------+---------------------+----------+-----------------+------+----------+
+
+ 
+
+2. Delete the details of Employee whose designation is ‘Manager’.
+DELETE FROM Emp
+    -> WHERE designation = 'Manager';
+
+select * from emp;
++-----+--------------+---------------------+----------+-----------------+------+----------+
+| eno | ename        | designation         | salary   | Date_Of_Joining | dno  | phone_No |
++-----+--------------+---------------------+----------+-----------------+------+----------+
+| 101 | Advait       | Sales Executive     | 53000.00 | 2023-03-15      |    2 | 12345678 |
+| 103 | Roy          | Finance Analyst     | 60000.00 | 2019-06-15      |    3 | 34567890 |
+| 105 | Neha Gupta   | Senior Accountant   | 65000.00 | 2022-11-12      |    3 | 56789012 |
+| 106 | Priya Sharma | Marketing Executive | 50000.00 | 2023-02-28      |    2 | 67890123 |
+| 108 | Ananya Singh | Financial Analyst   | 62000.00 | 2023-04-18      |    2 | 89012345 |
+
+
+

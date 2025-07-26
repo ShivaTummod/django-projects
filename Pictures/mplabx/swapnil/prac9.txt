@@ -1,0 +1,30 @@
+9
+
+
+CREATE TABLE Allotment_Log (
+    log_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    stud_no INT,
+    mach_no INT,
+    day_of_week VARCHAR(20),
+    action_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    action_type VARCHAR(10)
+);
+
+
+
+
+CREATE OR REPLACE TRIGGER trg_log_allotment
+AFTER INSERT ON Allotment
+FOR EACH ROW
+BEGIN
+    INSERT INTO Allotment_Log (stud_no, mach_no, day_of_week, action_type)
+    VALUES (:NEW.stud_no, :NEW.mach_no, :NEW.day_of_week, 'INSERT');
+END;
+/
+
+
+INSERT INTO Allotment (stud_no, mach_no, day_of_week)
+VALUES (3, 105, 'Wednesday');
+
+
+SELECT * FROM Allotment_Log;

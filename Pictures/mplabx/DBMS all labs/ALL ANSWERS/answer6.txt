@@ -1,0 +1,97 @@
+a) Display the first maximum salary.
+SELECT *
+    -> FROM EMP
+    -> ORDER BY SALARY DESC
+    -> LIMIT 1;
++-------+-------+-----------+---------+------------+---------+------------+--------+
+| EMPNO | ENAME | JOB       | MANAGER | HIREDATE   | SALARY  | COMMISSION | DEPTNO |
++-------+-------+-----------+---------+------------+---------+------------+--------+
+|  7839 | KING  | PRESIDENT |    7777 | 1981-11-17 | 5000.00 |     120.00 |     10 |
++-------+-------+-----------+---------+------------+---------+------------+--------+
+
+b) Display all the employees who total salary is more than 2000. (Total Salary= Sal + Comm)
+
+ SELECT *
+    -> FROM EMP
+    -> WHERE SALARY + COALESCE(COMMISSION, 0) > 2000;
++-------+--------+-----------+---------+------------+---------+------------+--------+
+| EMPNO | ENAME  | JOB       | MANAGER | HIREDATE   | SALARY  | COMMISSION | DEPTNO |
++-------+--------+-----------+---------+------------+---------+------------+--------+
+|  7566 | JONES  | MANAGER   |    7839 | 1981-04-02 | 2975.00 |     100.00 |     20 |
+|  7654 | MARTIN | SALESMAN  |    7698 | 1981-09-28 | 1250.00 |    1400.00 |     30 |
+|  7698 | BLAKE  | MANAGER   |    7839 | 1981-05-01 | 2850.00 |     150.00 |     30 |
+|  7782 | CLARK  | MANAGER   |    7839 | 1981-06-09 | 2450.00 |     200.00 |     10 |
+|  7788 | SCOTT  | ANALYST   |    7566 | 1982-12-09 | 3000.00 |     110.00 |     20 |
+|  7839 | KING   | PRESIDENT |    7777 | 1981-11-17 | 5000.00 |     120.00 |     10 |
+|  7902 | FORD   | ANALYST   |    7566 | 1981-12-03 | 3000.00 |     310.00 |     20 |
++-------+--------+-----------+---------+------------+---------+------------+--------+
+
+c) Display department-wise total salaries for all the Managers andAnalysts, only if the average salaries for the same is 
+greater than or equal to 3000.
+SELECT DEPTNO, SUM(SALARY + COALESCE(COMMISSION, 0)) AS TOTAL_SALARY
+    -> FROM EMP
+    -> WHERE JOB IN ('MANAGER', 'ANALYST')
+    -> GROUP BY DEPTNO
+    -> HAVING AVG(SALARY + COALESCE(COMMISSION, 0)) >= 3000;
++--------+--------------+
+| DEPTNO | TOTAL_SALARY |
++--------+--------------+
+|     20 |      9495.00 |
+|     30 |      3000.00 |
++--------+--------------+
+
+
+
+d) Display all the employees who are getting 2500 and excess salaries in department 20.
+ SELECT *
+    -> FROM EMP
+    -> WHERE DEPTNO = 20 AND SALARY >= 2500;
++-------+-------+---------+---------+------------+---------+------------+--------+
+| EMPNO | ENAME | JOB     | MANAGER | HIREDATE   | SALARY  | COMMISSION | DEPTNO |
++-------+-------+---------+---------+------------+---------+------------+--------+
+|  7566 | JONES | MANAGER |    7839 | 1981-04-02 | 2975.00 |     100.00 |     20 |
+|  7788 | SCOTT | ANALYST |    7566 | 1982-12-09 | 3000.00 |     110.00 |     20 |
+|  7902 | FORD  | ANALYST |    7566 | 1981-12-03 | 3000.00 |     310.00 |     20 |
++-------+-------+---------+---------+------------+---------+------------+--------+
+
+
+e) Select all the employees who work in DALLAS.
+ SELECT *
+    -> FROM EMP
+    -> WHERE DEPTNO IN (SELECT DEPTNO FROM DEPT WHERE LOC = 'DALLAS');
++-------+-------+---------+---------+------------+---------+------------+--------+
+| EMPNO | ENAME | JOB     | MANAGER | HIREDATE   | SALARY  | COMMISSION | DEPTNO |
++-------+-------+---------+---------+------------+---------+------------+--------+
+|  7369 | SMITH | CLERK   |    7902 | 1980-12-17 |  800.00 |     240.00 |     20 |
+|  7566 | JONES | MANAGER |    7839 | 1981-04-02 | 2975.00 |     100.00 |     20 |
+|  7788 | SCOTT | ANALYST |    7566 | 1982-12-09 | 3000.00 |     110.00 |     20 |
+|  7876 | ADAMS | CLERK   |    7788 | 1983-01-12 | 1100.00 |     240.00 |     20 |
+|  7902 | FORD  | ANALYST |    7566 | 1981-12-03 | 3000.00 |     310.00 |     20 |
++-------+-------+---------+---------+------------+---------+------------+--------+
+
+
+f) Display all the managers whose name doesn't start with A & S
+SELECT *
+    -> FROM EMP
+    -> WHERE JOB = 'MANAGER' AND ENAME NOT LIKE 'A%' AND ENAME NOT LIKE 'S%';
++-------+-------+---------+---------+------------+---------+------------+--------+
+| EMPNO | ENAME | JOB     | MANAGER | HIREDATE   | SALARY  | COMMISSION | DEPTNO |
++-------+-------+---------+---------+------------+---------+------------+--------+
+|  7566 | JONES | MANAGER |    7839 | 1981-04-02 | 2975.00 |     100.00 |     20 |
+|  7698 | BLAKE | MANAGER |    7839 | 1981-05-01 | 2850.00 |     150.00 |     30 |
+|  7782 | CLARK | MANAGER |    7839 | 1981-06-09 | 2450.00 |     200.00 |     10 |
++-------+-------+---------+---------+------------+---------+------------+--------+
+
+
+g) Display all the managers working in 20 & 30 department.
+SELECT *
+    -> FROM EMP
+    -> WHERE JOB = 'MANAGER' AND DEPTNO IN (20, 30);
++-------+-------+---------+---------+------------+---------+------------+--------+
+| EMPNO | ENAME | JOB     | MANAGER | HIREDATE   | SALARY  | COMMISSION | DEPTNO |
++-------+-------+---------+---------+------------+---------+------------+--------+
+|  7566 | JONES | MANAGER |    7839 | 1981-04-02 | 2975.00 |     100.00 |     20 |
+|  7698 | BLAKE | MANAGER |    7839 | 1981-05-01 | 2850.00 |     150.00 |     30 |
++-------+-------+---------+---------+------------+---------+------------+--------+
+2 rows in set (0.00 sec)
+

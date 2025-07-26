@@ -1,0 +1,112 @@
+3
+
+CREATE TABLE Class (
+  class VARCHAR(20) PRIMARY KEY,
+  descrip VARCHAR(100)
+);
+
+CREATE TABLE Student (
+  stud_no INT PRIMARY KEY,
+  stud_name VARCHAR(50),
+  class VARCHAR(20),
+  FOREIGN KEY (class) REFERENCES Class(class)
+);
+
+CREATE TABLE Lab (
+  machi_no INT PRIMARY KEY,
+  lab_no INT,
+  description VARCHAR(100)
+);
+
+CREATE TABLE Allotment (
+  stud_no INT,
+  mach_no INT,
+  day_of_week VARCHAR(20),
+  FOREIGN KEY (stud_no) REFERENCES Student(stud_no),
+  FOREIGN KEY (mach_no) REFERENCES Lab(machi_no)
+);
+
+
+
+INSERT INTO Class VALUES ('CSIT', 'Computer Science and IT');
+INSERT INTO Class VALUES ('EXTC', 'Electronics & Telecommunication');
+-- Add more if needed
+
+INSERT INTO Student VALUES (1, 'Amit', 'CSIT');
+INSERT INTO Student VALUES (2, 'Riya', 'EXTC');
+INSERT INTO Student VALUES (3, 'Rohan', 'CSIT');
+-- Add 7 more...
+
+INSERT INTO Lab VALUES (101, 1, 'Programming Lab');
+INSERT INTO Lab VALUES (102, 1, 'Networking Lab');
+-- Add 8 more...
+
+INSERT INTO Allotment VALUES (1, 101, 'Monday');
+INSERT INTO Allotment VALUES (2, 102, 'Thursday');
+-- Add 8 more...
+
+
+
+
+
+SELECT S.stud_name, L.lab_no, A.mach_no
+FROM Allotment A
+JOIN Student S ON A.stud_no = S.stud_no
+JOIN Lab L ON A.mach_no = L.machi_no;
+
+
+
+SELECT day_of_week, COUNT(*) AS total_allotments
+FROM Allotment
+GROUP BY day_of_week;
+
+
+SELECT COUNT(*) AS csit_allocations
+FROM Allotment A
+JOIN Student S ON A.stud_no = S.stud_no
+WHERE S.class = 'CSIT';
+
+
+
+
+SELECT S.stud_no, S.stud_name, S.class, A.mach_no, A.day_of_week
+FROM Student S
+JOIN Allotment A ON S.stud_no = A.stud_no
+WHERE S.stud_no = 5;
+
+
+
+SELECT COUNT(*) AS total
+FROM Allotment A
+JOIN Lab L ON A.mach_no = L.machi_no
+WHERE L.lab_no = 1 AND A.day_of_week = 'Monday';
+
+
+
+
+SELECT S.class, COUNT(DISTINCT S.stud_no) AS students_allocated
+FROM Student S
+JOIN Allotment A ON S.stud_no = A.stud_no
+GROUP BY S.class;
+
+
+
+
+CREATE VIEW StudAllotmentView AS
+SELECT S.stud_no, S.stud_name, A.mach_no, L.lab_no, A.day_of_week
+FROM Student S
+JOIN Allotment A ON S.stud_no = A.stud_no
+JOIN Lab L ON A.mach_no = L.machi_no;
+
+
+
+
+
+CREATE VIEW ThursdayAllotments AS
+SELECT S.stud_name, A.mach_no, L.lab_no
+FROM Student S
+JOIN Allotment A ON S.stud_no = A.stud_no
+JOIN Lab L ON A.mach_no = L.machi_no
+WHERE A.day_of_week = 'Thursday';
+
+

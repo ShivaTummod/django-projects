@@ -1,0 +1,208 @@
+mysql> use lab11;
+Database changed
+mysql> CREATE TABLE employees (
+      Employee_ID INT AUTO_INCREMENT PRIMARY KEY,
+      Name VARCHAR(50),
+       Age INT,
+        Position VARCHAR(50),
+      Salary DECIMAL(10, 2),
+      Department_ID INT,
+      Department_Name VARCHAR(50),
+      FOREIGN KEY (Department_ID) REFERENCES departments(Department_ID)
+     );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> INSERT INTO employees (Name, Age, Position, Salary, Department_ID, Department_Name) VALUES
+    ('Rajesh Kumar', 30, 'Software Engineer', 60000.00, 1, 'Engineering'),
+    ('Priya Patel', 28, 'HR Manager', 70000.00, 2, 'Human Resources'),
+    ('Amit Sharma', 35, 'Project Manager', 80000.00, 4, 'Finance'),
+    ('Neha Singh', 32, 'Marketing Executive', 55000.00, 3, 'Marketing'),
+    ('Sanjay Gupta', 40, 'Senior Developer', 65000.00, 1, 'Engineering'),
+     ('Anjali Desai', 27, 'Data Analyst', 60000.00, 1, 'Engineering');
+Query OK, 6 rows affected (0.00 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE departments (
+    Department_ID INT AUTO_INCREMENT PRIMARY KEY,
+     Department_Name VARCHAR(50),
+     Location VARCHAR(50),
+       Manager_ID INT,
+       FOREIGN KEY (Manager_ID) REFERENCES employees(Employee_ID)
+     );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> INSERT INTO departments (Department_Name, Location, Manager_ID) VALUES
+     ('Engineering', 'Bangalore', 1),
+     ('Human Resources', 'Mumbai', 2),
+    ('Marketing', 'Delhi', 4),
+
+
+CREATE PROCEDURE fetchEmployees()
+    BEGIN
+        -- Declare variables for employee attributes
+        DECLARE emp_id INT;
+       DECLARE emp_name VARCHAR(100);
+        DECLARE emp_age INT;
+         DECLARE emp_position VARCHAR(100);
+         DECLARE emp_salary DECIMAL(10, 2);
+    
+         -- Declare a variable to signal the end of fetching
+         DECLARE no_more_rows BOOLEAN DEFAULT FALSE;
+    
+      -- Open a cursor for the SELECT query
+       DECLARE emp_cursor CURSOR FOR
+            SELECT Employee_ID, Name, Age, Position, Salary FROM employees;
+    
+       -- Declare a handler for when no more rows are found
+       DECLARE CONTINUE HANDLER FOR NOT FOUND SET no_more_rows = TRUE;
+   
+        -- Open the cursor
+       OPEN emp_cursor;
+    
+       -- Fetch data from the cursor into variables
+       fetch_loop: LOOP
+           FETCH emp_cursor INTO emp_id, emp_name, emp_age, emp_position, emp_salary;
+             IF no_more_rows THEN
+               LEAVE fetch_loop;
+           END IF;
+           -- Print or use the fetched data
+          SELECT CONCAT(emp_id, ': ', emp_name, ', ', emp_age, ', ', emp_position, ', ', emp_salary) AS emp_info;
+        END LOOP;
+   
+        -- Close the cursor
+        CLOSE emp_cursor;
+     END //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql> CALL fetchEmployees();
++--------------------------------------------------+
+| emp_info                                         |
++--------------------------------------------------+
+| 1: Rajesh Kumar, 30, Software Engineer, 60000.00 |
++--------------------------------------------------+
+1 row in set (0.00 sec)
+
++------------------------------------------+
+| emp_info                                 |
++------------------------------------------+
+| 2: Priya Patel, 28, HR Manager, 70000.00 |
++------------------------------------------+
+1 row in set (0.03 sec)
+
++-----------------------------------------------+
+| emp_info                                      |
++-----------------------------------------------+
+| 3: Amit Sharma, 35, Project Manager, 80000.00 |
++-----------------------------------------------+
+1 row in set (0.05 sec)
+
++--------------------------------------------------+
+| emp_info                                         |
++--------------------------------------------------+
+| 4: Neha Singh, 32, Marketing Executive, 55000.00 |
++--------------------------------------------------+
+1 row in set (0.08 sec)
+
++-------------------------------------------------+
+| emp_info                                        |
++-------------------------------------------------+
+| 5: Sanjay Gupta, 40, Senior Developer, 65000.00 |
++-------------------------------------------------+
+1 row in set (0.11 sec)
+
++---------------------------------------------+
+| emp_info                                    |
++---------------------------------------------+
+| 6: Anjali Desai, 27, Data Analyst, 60000.00 |
++---------------------------------------------+
+
+CREATE FUNCTION CalculateTotalSalaryExpense() RETURNS DECIMAL(10, 2)
+    BEGIN
+        -- Declare variables
+       DECLARE total_salary DECIMAL(10, 2) DEFAULT 0;
+       DECLARE emp_salary DECIMAL(10, 2);
+       DECLARE no_more_rows BOOLEAN DEFAULT FALSE;
+    
+        -- Declare cursor to select salaries of all employees
+       DECLARE emp_cursor CURSOR FOR
+           SELECT Salary FROM employees;
+    
+         -- Declare handler for no more rows found
+         DECLARE CONTINUE HANDLER FOR NOT FOUND SET no_more_rows = TRUE;
+  
+         -- Open the cursor
+       OPEN emp_cursor;
+    
+        -- Loop through the result set and calculate total salary expense
+        calc_loop: LOOP
+           FETCH emp_cursor INTO emp_salary;
+           IF no_more_rows THEN
+               LEAVE calc_loop;
+           END IF;
+    
+             -- Increment total_salary
+            SET total_salary = total_salary + emp_salary;
+         END LOOP;
+    
+       -- Close the cursor
+        CLOSE emp_cursor;
+    
+        -- Return the total salary expense
+     RETURN total_salary;
+     END //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql> SELECT CalculateTotalSalaryExpense();
++-------------------------------+
+| CalculateTotalSalaryExpense() |
++-------------------------------+
+|                     390000.00 |
+
+
+
+mysql> CREATE FUNCTION CountEmployeesInDepartment(dept_name VARCHAR(100)) RETURNS INT
+     BEGIN
+        -- Declare variables
+         DECLARE total_employees INT DEFAULT 0;
+         DECLARE emp_count INT;
+    
+        -- Cursor to count employees in the specified department
+         DECLARE emp_cursor CURSOR FOR
+             SELECT COUNT(*) FROM employees WHERE Department_Name = dept_name;
+    
+        -- Declare handler for no more rows found
+         DECLARE CONTINUE HANDLER FOR NOT FOUND SET emp_count = -1;
+    
+         -- Open the cursor
+         OPEN emp_cursor;
+   
+        -- Fetch the count of employees
+        FETCH emp_cursor INTO emp_count;
+    
+        -- Close the cursor
+       CLOSE emp_cursor;
+   
+      -- Check if count was fetched successfully
+      IF emp_count != -1 THEN
+       SET total_employees = emp_count;
+      END IF;
+    
+      -- Return the total number of employees
+      RETURN total_employees;
+     END //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql> SELECT CountEmployeesInDepartment('Engineering');
++-------------------------------------------+
+| CountEmployeesInDepartment('Engineering') |
++-------------------------------------------+
+|                                         3 |
++-------------------------------------------+
+1 row in set (0.01 sec)
++-------------------------------+

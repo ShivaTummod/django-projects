@@ -1,0 +1,209 @@
+ create database lab8;
+ use lab8;
+
+  CREATE TABLE Department (
+    ->     DeptID INT PRIMARY KEY,
+    ->     DeptName VARCHAR(50)
+    -> );
+
+ CREATE TABLE Employee (
+    ->     EmpID INT PRIMARY KEY,
+    ->     EmpName VARCHAR(50),
+    ->     DeptID INT,
+    ->     Salary DECIMAL(10, 2),
+    ->     FOREIGN KEY (DeptID) REFERENCES Department(DeptID)
+    -> );
+
+INSERT INTO Department (DeptID, DeptName) VALUES
+    -> (1, 'Sales'),
+    -> (2, 'Marketing'),
+    -> (3, 'Engineering');
+
+
+INSERT INTO Employee (EmpID, EmpName, DeptID, Salary) VALUES
+    -> (1, 'Rahul Gupta', 1, 50000.00),
+    -> (2, 'Priya Patel', 1, 60000.00),
+    -> (3, 'Vikram Singh', 2, 55000.00),
+    -> (4, 'Aarti Sharma', 3, 70000.00),
+    -> (5, 'Ravi Patel', 1, 55000.00),
+    -> (6, 'Priya Sharma', 2, 62000.00),
+    -> (7, 'Arun Kumar', 3, 58000.00);
+
+ CREATE TABLE Project (
+    ->     ProjectID INT PRIMARY KEY,
+    ->     ProjectName VARCHAR(50),
+    ->     DeptID INT,
+    ->     FOREIGN KEY (DeptID) REFERENCES Department(DeptID)
+    -> );
+ INSERT INTO Project (ProjectID, ProjectName, DeptID) VALUES
+    -> (101, 'Sales Expansion', 1),
+    -> (102, 'New Product Launch', 2),
+    -> (103, 'Software Development', 3);
+
+
+
+ CREATE VIEW EmployeeView AS
+    -> SELECT EmpID, EmpName, DeptID, Salary
+    -> FROM Employee;
+ select * from EmployeeView;
+
++-------+--------------+--------+----------+
+| EmpID | EmpName      | DeptID | Salary   |
++-------+--------------+--------+----------+
+|     1 | Rahul Gupta  |      1 | 50000.00 |
+|     2 | Priya Patel  |      1 | 60000.00 |
+|     3 | Vikram Singh |      2 | 55000.00 |
+|     4 | Aarti Sharma |      3 | 70000.00 |
+|     5 | Ravi Patel   |      1 | 55000.00 |
+|     6 | Priya Sharma |      2 | 62000.00 |
+|     7 | Arun Kumar   |      3 | 58000.00 |
++-------+--------------+--------+----------+
+
+CREATE VIEW EmployeeDepartmentView AS
+    -> SELECT e.EmpID, e.EmpName, e.Salary, d.DeptName
+    -> FROM Employee e
+    -> INNER JOIN Department d ON e.DeptID = d.DeptID;
+ select * from EmployeeDepartmentView;
+
++-------+--------------+----------+-------------+
+| EmpID | EmpName      | Salary   | DeptName    |
++-------+--------------+----------+-------------+
+|     1 | Rahul Gupta  | 50000.00 | Sales       |
+|     2 | Priya Patel  | 60000.00 | Sales       |
+|     5 | Ravi Patel   | 55000.00 | Sales       |
+|     3 | Vikram Singh | 55000.00 | Marketing   |
+|     6 | Priya Sharma | 62000.00 | Marketing   |
+|     4 | Aarti Sharma | 70000.00 | Engineering |
+|     7 | Arun Kumar   | 58000.00 | Engineering |
++-------+--------------+----------+-------------+
+7 rows in set (0.00 sec)
+
+ CREATE VIEW ProjectDetails AS
+    -> SELECT p.ProjectID, p.ProjectName, d.DeptName
+    -> FROM Project p
+    -> INNER JOIN Department d ON p.DeptID = d.DeptID;
+
+select * from  ProjectDetails;
++-----------+----------------------+-------------+
+| ProjectID | ProjectName          | DeptName    |
++-----------+----------------------+-------------+
+|       101 | Sales Expansion      | Sales       |
+|       102 | New Product Launch   | Marketing   |
+|       103 | Software Development | Engineering |
++-----------+----------------------+-------------+
+
+ CREATE VIEW EmployeeProjects AS
+    -> SELECT e.EmpID, e.EmpName, p.ProjectName
+    -> FROM Employee e
+    -> LEFT JOIN Project p ON e.DeptID = p.DeptID;
+select * from  EmployeeProjects;
++-------+--------------+----------------------+
+| EmpID | EmpName      | ProjectName          |
++-------+--------------+----------------------+
+|     1 | Rahul Gupta  | Sales Expansion      |
+|     2 | Priya Patel  | Sales Expansion      |
+|     3 | Vikram Singh | New Product Launch   |
+|     4 | Aarti Sharma | Software Development |
+|     5 | Ravi Patel   | Sales Expansion      |
+|     6 | Priya Sharma | New Product Launch   |
+|     7 | Arun Kumar   | Software Development |
++-------+--------------+----------------------+
+ CREATE VIEW DepartmentSalaryTotal AS
+    -> SELECT d.DeptID, d.DeptName, SUM(e.Salary) AS TotalSalary
+    -> FROM Department d
+    -> LEFT JOIN Employee e ON d.DeptID = e.DeptID
+    -> GROUP BY d.DeptID, d.DeptName;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from DepartmentSalaryTotal;
++--------+-------------+-------------+
+| DeptID | DeptName    | TotalSalary |
++--------+-------------+-------------+
+|      1 | Sales       |   165000.00 |
+|      2 | Marketing   |   117000.00 |
+|      3 | Engineering |   128000.00 |
++--------+-------------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> CREATE VIEW DepartmentAvgSalary AS
+    -> SELECT d.DeptID, d.DeptName, AVG(e.Salary) AS AvgSalary
+    -> FROM Department d
+    -> LEFT JOIN Employee e ON d.DeptID = e.DeptID
+    -> GROUP BY d.DeptID, d.DeptName;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from  DepartmentAvgSalary;
++--------+-------------+--------------+
+| DeptID | DeptName    | AvgSalary    |
++--------+-------------+--------------+
+|      1 | Sales       | 55000.000000 |
+|      2 | Marketing   | 58500.000000 |
+|      3 | Engineering | 64000.000000 |
++--------+-------------+--------------+
+
+ UPDATE  EmployeeView  SET Salary = '89000' WHERE EmpID = 3;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from EmployeeView;
++-------+--------------+--------+----------+
+| EmpID | EmpName      | DeptID | Salary   |
++-------+--------------+--------+----------+
+|     1 | Rahul Gupta  |      1 | 50000.00 |
+|     2 | Priya Patel  |      1 | 60000.00 |
+|     3 | Vikram Singh |      2 | 89000.00 |
+|     4 | Aarti Sharma |      3 | 70000.00 |
+|     5 | Ravi Patel   |      1 | 55000.00 |
+|     6 | Priya Sharma |      2 | 62000.00 |
+|     7 | Arun Kumar   |      3 | 58000.00 |
++-------+--------------+--------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select * from DepartmentView;
+ERROR 1146 (42S02): Table 'lab8.departmentview' doesn't exist
+mysql> CREATE VIEW DepartmentView AS
+    -> SELECT DeptID, DeptName
+    -> FROM Department;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from DepartmentView;
++--------+-------------+
+| DeptID | DeptName    |
++--------+-------------+
+|      1 | Sales       |
+|      2 | Marketing   |
+|      3 | Engineering |
++--------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> Update DepartmentView SET DeptName ='Sales
+    '> Update DepartmentView SET DeptName ='Sale^C
+mysql> Update DepartmentView SET DeptName ='SalesForce' WHERE DeptID='1';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from DepartmentView;
++--------+-------------+
+| DeptID | DeptName    |
++--------+-------------+
+|      1 | SalesForce  |
+|      2 | Marketing   |
+|      3 | Engineering |
++--------+-------------+
+3 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

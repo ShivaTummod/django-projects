@@ -1,0 +1,67 @@
+11
+
+
+-- Dept Table
+CREATE TABLE Dept (
+    dno INT PRIMARY KEY,
+    dname VARCHAR(50),
+    loc VARCHAR(50)
+);
+
+-- Emp Table
+CREATE TABLE Emp (
+    eno INT PRIMARY KEY,
+    ename VARCHAR(50) NOT NULL,
+    designation VARCHAR(30),
+    salary DECIMAL(10, 2) CHECK (salary > 0),
+    Date_Of_Joining DATE,
+    dno INT,
+    FOREIGN KEY (dno) REFERENCES Dept(dno)
+);
+
+
+ALTER TABLE Emp 
+ADD phone_No INT;
+
+
+DELETE FROM Emp 
+WHERE designation = 'Manager';
+
+
+SELECT D.dname, COUNT(E.eno) AS emp_count
+FROM Dept D
+LEFT JOIN Emp E ON D.dno = E.dno
+GROUP BY D.dname;
+
+
+SELECT E.ename
+FROM Emp E
+JOIN Dept D ON E.dno = D.dno
+WHERE E.designation = 'Manager' 
+  AND D.dname = 'Account Department';
+
+
+
+SELECT D.dname
+FROM Emp E
+JOIN Dept D ON E.dno = D.dno
+WHERE E.ename = 'Mr. Advait' 
+  AND D.loc = 'Pune';
+
+
+SELECT E.ename
+FROM Emp E
+JOIN Dept D ON E.dno = D.dno
+WHERE E.salary > 50000 
+  AND D.dname = 'Quality';
+
+
+
+UPDATE Emp
+SET Date_Of_Joining = '2019-06-15'
+WHERE ename = 'Mr. Roy'
+  AND dno = (
+      SELECT dno 
+      FROM Dept 
+      WHERE dname = 'computer science'
+  );

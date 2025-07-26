@@ -1,0 +1,36 @@
+{% extends "database/base.html" %}
+{% block content %}
+<h2>Upload CSV to "{{ table }}"</h2>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="mb-3">
+    <label class="form-label">CSV File</label>
+    <input type="file" name="csv_file" class="form-control" required>
+  </div>
+  {% if preview %}
+    <h5 class="mt-4">Preview (First 5 Rows)</h5>
+    <table class="table table-bordered table-sm">
+      <thead>
+        <tr>
+          {% for key in preview.0.keys %}
+            <th>{{ key }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in preview %}
+          <tr>
+            {% for val in row.values %}
+              <td>{{ val }}</td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <input type="hidden" name="confirm" value="1">
+    <button type="submit" class="btn btn-success">Confirm Insert</button>
+  {% else %}
+    <button type="submit" class="btn btn-primary">Upload</button>
+  {% endif %}
+</form>
+{% endblock %}

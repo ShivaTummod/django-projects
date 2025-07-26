@@ -1,0 +1,299 @@
+-- Create table query
+CREATE TABLE employees (
+    emp_id INT PRIMARY KEY,
+    name VARCHAR(50),
+    dept_id INT,
+    salary DECIMAL(10, 2),
+    DOB DATE,
+    phone_no BIGINT,
+    city VARCHAR(50)
+);
+
+-- Insert queries with Indian people names
+INSERT INTO employees (emp_id, name, dept_id, salary, DOB, phone_no, city) VALUES
+(101, 'Rajesh', 401, 1500.00, '1995-07-24', 8908908908, 'Delhi'),
+(102, 'Amit', 401, 1687.50, '1996-07-14', 8908358918, 'Mumbai'),
+(103, 'Sunita', 402, 12000.00, '1990-11-01', 7234358722, 'Mumbai'),
+(104, 'Anita', 403, 15000.00, '1988-12-31', 7456758722, 'Chennai'),
+(105, 'Deepak', 404, 6000.00, '1997-02-09', 7482538719, 'Bangalore'),
+(106, 'Rahul', 405, 21000.00, '1995-04-09', 7682538510, 'Pune'),
+(107, 'Priya', 405, 25000.00, '1992-07-26', 7682513596, 'Kolkata');
+
+-- Create table query
+CREATE TABLE departments (
+    dept_id INT PRIMARY KEY,
+    dept_name VARCHAR(50),
+    location VARCHAR(50),
+    budget DECIMAL(10, 2)
+);
+
+-- Insert queries
+INSERT INTO departments (dept_id, dept_name, location, budget) VALUES
+(401, 'Computer', '2nd Floor North', 15000.00),
+(402, 'Mechanical', '2nd Floor South', 12000.00),
+(403, 'I.T.', '3rd Floor South', 30000.00),
+(404, 'Electronics', '3rd Floor East', 17000.00),
+(405, 'Human Resources', 'Ground Floor', 14000.00),
+(406, 'Finance', '4th Floor West', 25000.00),
+(407, 'Marketing', '1st Floor East', 20000.00);
+
+mysql> DELIMITER ;
+mysql> CALL show_emp_details();
++--------+--------+---------+----------+------------+------------+-----------+
+| emp_id | name   | dept_id | salary   | DOB        | phone_no   | city      |
++--------+--------+---------+----------+------------+------------+-----------+
+|    101 | Rajesh |     401 |  1500.00 | 1995-07-24 | 8908908908 | Delhi     |
+|    102 | Amit   |     401 |  1687.50 | 1996-07-14 | 8908358918 | Mumbai    |
+|    103 | Sunita |     402 | 12000.00 | 1990-11-01 | 7234358722 | Mumbai    |
+|    104 | Anita  |     403 | 15000.00 | 1988-12-31 | 7456758722 | Chennai   |
+|    105 | Deepak |     404 |  6000.00 | 1997-02-09 | 7482538719 | Bangalore |
+|    106 | Rahul  |     405 | 21000.00 | 1995-04-09 | 7682538510 | Pune      |
+|    107 | Priya  |     405 | 25000.00 | 1992-07-26 | 7682513596 | Kolkata   |
++--------+--------+---------+----------+------------+------------+-----------+
+7 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> ^C
+mysql> DELIMITER $$
+mysql>
+mysql> CREATE PROCEDURE dept_name_show()
+   BEGIN
+   SELECT dept_name FROM departments;
+   END $$
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql> CALL dept_name_show();
++-----------------+
+| dept_name       |
++-----------------+
+| Computer        |
+| Mechanical      |
+| I.T.            |
+| Electronics     |
+| Human Resources |
+| Finance         |
+| Marketing       |
++-----------------+
+7 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> DELIMITER @@
+mysql>
+mysql> CREATE PROCEDURE data_show()
+   BEGIN
+   SELECT * FROM departments;
+   END @@
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql> CALL data_show();
++---------+-----------------+-----------------+----------+
+| dept_id | dept_name       | location        | budget   |
++---------+-----------------+-----------------+----------+
+|     401 | Computer        | 2nd Floor North | 15000.00 |
+|     402 | Mechanical      | 2nd Floor South | 12000.00 |
+|     403 | I.T.            | 3rd Floor South | 30000.00 |
+|     404 | Electronics     | 3rd Floor East  | 17000.00 |
+|     405 | Human Resources | Ground Floor    | 14000.00 |
+|     406 | Finance         | 4th Floor West  | 25000.00 |
+|     407 | Marketing       | 1st Floor East  | 20000.00 |
++---------+-----------------+-----------------+----------+
+7 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> DELIMITER ##
+mysql>
+mysql> CREATE PROCEDURE emp_name()
+    BEGIN
+    SELECT name FROM employees;
+    END ##
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql> CALL emp_name();
++--------+
+| name   |
++--------+
+| Rajesh |
+| Amit   |
+| Sunita |
+| Anita  |
+| Deepak |
+| Rahul  |
+| Priya  |
++--------+
+7 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE FUNCTION hello1(s CHAR(20))
+     RETURNS CHAR(50) DETERMINISTIC
+     RETURN CONCAT('Hello ', s, '!');
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>  select hello1('DBMS');
++----------------+
+| hello1('DBMS') |
++----------------+
+| Hello DBMS!    |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> DELIMITER //
+mysql>
+mysql> CREATE PROCEDURE GetEmployeesInDepartment(
+    IN dept_id_in INT
+    )
+    BEGIN
+    SELECT * FROM employees
+    WHERE dept_id = dept_id_in;
+    END //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql> CALL GetEmployeesInDepartment(401);
++--------+--------+---------+---------+------------+------------+--------+
+| emp_id | name   | dept_id | salary  | DOB        | phone_no   | city   |
++--------+--------+---------+---------+------------+------------+--------+
+|    101 | Rajesh |     401 | 1500.00 | 1995-07-24 | 8908908908 | Delhi  |
+|    102 | Amit   |     401 | 1687.50 | 1996-07-14 | 8908358918 | Mumbai |
++--------+--------+---------+---------+------------+------------+--------+
+2 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> DELIMITER //
+mysql>
+mysql> CREATE PROCEDURE GetTotalBudget(
+     OUT total_budget DECIMAL(10, 2)
+      )
+     BEGIN
+     SELECT SUM(budget) INTO total_budget
+     FROM departments;
+     END //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql> CALL GetTotalBudget(@total_budget);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select @totalbudget;
++----------------------------+
+| @totalbudget               |
++----------------------------+
+| NULL                       |
++----------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT @total_budget;
++---------------+
+| @total_budget |
++---------------+
+|     133000.00 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> DELIMITER //
+mysql>
+mysql> CREATE PROCEDURE GetEmployeeSalary(
+   IN emp_id_in INT,
+    OUT emp_salary_out DECIMAL(10, 2)
+     )
+    BEGIN
+   SELECT salary INTO emp_salary_out
+   FROM employees
+  WHERE emp_id = emp_id_in;
+  END //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql> CALL GetEmployeeSalary(101, @salary);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT @salary;
++---------+
+| @salary |
++---------+
+| 1500.00 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> SELECT @salary;
++---------+
+| @salary |
++---------+
+| 1500.00 |
++---------+
+1 row in set (0.00 sec)
+
+mysql>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

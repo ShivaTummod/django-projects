@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head><title>Create Model</title></head>
+<body>
+    <h2>Create a Dynamic Model</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Create Model</button>
+    </form>
+    <p>{{ msg }}</p>
+</body>
+</html>

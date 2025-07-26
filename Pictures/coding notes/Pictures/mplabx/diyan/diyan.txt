@@ -1,0 +1,341 @@
+Absolutely! Here's a compiled list of all **15 DBMS Lab practicals** you provided, neatly organized:
+
+---
+
+### **1. College and Faculty Info Tables**
+
+* Tables: `College_info`, `Faculty_info`
+* `college_code` is a **foreign key** in `Faculty_info`.
+* Queries:
+
+  1. List faculty with ≥10 years experience and M.Tech.
+  2. List faculty with ≥10 years experience but **not** M.Tech.
+
+---
+
+### **2. Emp and Dept Tables**
+
+* Tables: `Emp(eno, ename, jobtitle, managerno, hiredate, salary, deptno)`
+  `Dept(deptno, dname, loc)`
+* Queries (Any 5):
+
+  1. Employees in dept 10, 20, 30
+->SELECT * FROM Emp WHERE deptno IN (10, 20, 30);
+
+  2. Employees with name starting with 'A' or 'a'
+->select * from Emp where ename like "a&" OR ename like "A%";
+
+  3. Employees with department names
+
+  4. Insert data in `Emp`
+
+  5. Employees in Raj’s department
+->select * from emp join dept on Dept.deptno=Emp.deptno where Emp.deptno=(select deptno from Emp where ename="Raj");
+-> Select * from Emp where deptno=(select deptno from Emp where ename="Raj");
+
+  6. Update department name of deptno 10
+->UPDATE table_name
+SET column1 = value1, column2 = value2, ...
+WHERE condition;
+
+update Dept set dname="Mech" where deptno=10;
+
+
+
+
+  7. Employees with max salary in each department
+
+---
+
+### **3. Student-Class-Lab Allotment**
+
+* Tables: `Student`, `Class`, `Lab`, `Allotment`
+* Tasks (Any 6):
+  a) Create tables with constraints
+  b) Insert \~10 records
+
+
+  c) List machine allotments with student names, lab and machine
+Connecting Tables:
+The Allotment table links students (Stud_no) to machines (Mach_no).
+We need to connect Allotment to Student using Stud_no to get the name.
+We need to connect Allotment to Lab using Mach_no to get the Lab_no.
+Join Strategy: Since we need information from all three tables (Allotment, Student, Lab) and we only want to see valid allotments (where the student and machine exist), INNER JOIN is the way to go.
+
+->select Allotment.*,Student.Stud_name,Lab.Lab_no from Allotment inner join Student on Student.Stud_no=Allotment.Stud_no inner join Lab on Lab.Mach_no=Allotment.Mach_no;
+
+  d) Total lab allotments day-wise
+->select Day_of_week,Count(Day_of_week) from Allotment Group by Day_of_week;
+
+  e) Count of machines allocated to ‘CSIT’ class
+-> select Student.Class,Count(Distinct Allotment.Mach_no) from Allotment inner join Student on Allotment.Stud_no=Student.Stud_no where Student.Class="CS" OR Student.Class="IT" Group by Allotment.Mach_no;
+
+  f) Allotment details of `stud_no` 5 with class & personal details
+-> Select A.*,S.* from Allotment A inner join Student S on A.Stud_no=S.Stud_no where S.Stud_no=5;
+
+
+  g) Machines allocated in Lab 1 on “Monday”
+-> Select Count(A.Mach_no) from Allotment A Inner join Lab L on A.Mach_no=L.Mach_no where L.Lab_no=1 AND Day_of_week="Monday";
+
+
+  h) Students count (class-wise) who got machines
+->  Select S.Class,Count(Distinct S.Stud_no) from Allotment A inner join Student S on A.Stud_no=S.Stud_no Group by S.Class;
+
+
+  i) View: `stud_no`, `stud_name`, `mach_no`, `lab_no`, `day of week`
+->CREATE VIEW view_name AS
+SELECT column1, column2, ... -- The columns you want in your view
+FROM table_name(s)           -- The table(s) the data comes from
+WHERE condition(s)           -- Any filtering conditions (optional)
+-- You can include JOINs, GROUP BY, etc. in the SELECT statement
+;
+
+create view Student_Allotment2 As Select S.Stud_no,S.Stud_name,A.Mach_no,A.Day_of_week from Allotment A inner join Student S on S.Stud_no=A.Stud_no;
+
+
+  j) View for Thursday machine allotments
+-> Create View Allotment_Thursday AS Select * from Allotment where Day_of_week="Thursday";
+Query OK, 0 rows affected (0.02 sec)
+
+---
+
+### **4. Relational Schema Queries (Any 5)**
+
+a) Managers in departments 20 & 30
+
+b) Job-wise average salary (excluding empno 7788–7790)
+-> SELECT JOB,AVG(SAL) FROM EMPLOY WHERE EMPNO NOT IN (7788,7789,7790) GROUP BY JOB;
+
+c) Employees in DALLAS
+->SELECT E.* FROM EMPLOY E INNER JOIN DEPART D ON E.DEPTNO=D.PTNO WHERE E.DEPTNO=(SELECT PTNO FROM DEPART WHERE LOC="DALLAS");
+
+d) Managers & clerks in Accounts and Marketing
+-> SELECT E.* FROM EMPLOY E INNER JOIN DEPART D ON E.DEPTNO=D.PTNO WHERE (E.DEPTNO=(SELECT PTNO FROM DEPART WHERE DNAME="ACCOUNTING") OR E.DEPTNO=(SELECT PTNO FROM DEPART WHERE DNAME="SALES")) AND (JOB="MANAGER" OR JOB="CLERK");
+
+e) Employees whose second-last letter in name is 'E'
+-> SELECT * FROM EMPLOY WHERE ENAME LIKE "%E_";
+
+f) First maximum salary
+->
+
+
+g) Analysts whose name doesn't end with 'S'
+-> SELECT * FROM EMPLOY WHERE JOB="ANALYST" AND ENAME NOT LIKE "%E";
++-------+-------+---------+------+------------+------+------+--------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+-------+---------+------+------------+------+------+--------+
+|  7788 | SCOTT | ANALYST | 7566 | 1982-12-09 | 3000 | NULL |     20 |
+|  7902 | FORD  | ANALYST | 7566 | 1981-12-03 | 3000 | NULL |     20 |
++-------+-------+---------+------+------------+------+------+--------+
+2 rows in set (0.00 sec)
+---
+
+### **5. Relational Schema - More Queries (Any 5)**
+
+a) Job-wise max salary
+->
+
+b) Department info for all managers
+c) Employees with `Sal + Comm > 2000`
+->SELECT EMPNO,ENAME,(SAL+IFNULL(COMM,0)) FROM EMPLOY;
+
+d) Dept name & location of employees working for CLARK
+-> SELECT D.DNAME,D.LOC FROM DEPART D INNER JOIN EMPLOY E ON E.DEPTNO=D.DEPTNO WHERE E.JOB="CLERK";
+
+e) Managers in dept 20 & 30
+-> SELECT * FROM EMPLOY WHERE (DEPTNO=20 OR DEPTNO=30) AND JOB="MANAGER";
+
+f) Employees earning **not between 2500–5000** in dept 10 & 20
+->SELECT * FROM EMPLOY WHERE (SAL NOT BETWEEN 2500 AND 5000) AND DEPTNO IN (20,30);
+
+g) Managers with no manager
+-> SELECT * FROM EMPLOY WHERE JOB="MANAGER" AND MGR IS NULL;
+
+---
+
+### **6. Relational Schema - Advanced Salary Filters (Any 5)**
+
+a) First maximum salary
+b) Employees with `Sal + Comm > 2000`
+c) Dept-wise total salaries for Managers & Analysts if avg ≥3000
+d) Employees with ≥2500 salary in dept 20
+e) Employees in DALLAS
+f) Managers whose name doesn’t start with A or S
+g) Managers in dept 20 & 30
+
+---
+
+### **7. Views and Updatable View Restrictions**
+
+* Execute DDL/DML to:
+
+  * Create **views** from one or more tables
+  * Update base table through view
+  * Show restrictions on updatable views
+
+->
+Use CREATE VIEW to make a simple, single-table view (e.g., v_Clerk_Employees). This is DDL.
+Use SELECT to query data from that view. This is DML/DQL.
+Use UPDATE on the simple view to change data (e.g., SAL). Verify the change in the base table (EMPLOY). This is DML.
+Understand and be able to explain why some views (especially complex ones) are not updatable (the restrictions: Joins, Aggregates, GROUP BY, DISTINCT, etc.).
+Use CREATE VIEW to make a view based on multiple tables using a JOIN (e.g., v_Employee_Department_Names). This is DDL.
+Use SELECT to query this multi-table view. This is DML/DQL.
+Attempt to use UPDATE on the multi-table view and observe/explain the error, demonstrating the updatability restrictions. This is DML (attempted).
+---
+
+
+### **8. PL/SQL Stored Procedure and Function**
+
+* Write and execute:
+
+  * A **stored procedure**
+  * A **function**
+  * Demonstrate their use on the database
+
+-> 
+---
+
+### **9. Triggers**
+
+* Write and execute:
+
+  * A **row-level database trigger**
+
+---
+
+### **10. Cursors in PL/SQL**
+
+* PL/SQL block that uses:
+
+  * **Implicit cursor**
+  * **Explicit cursor**
+  * **Cursor with `FOR` loop**
+  * **Parameterized cursor**
+
+---
+
+### **11. Emp and Dept Table (One-to-Many Relationship)**
+
+* Create `Emp(eno, ename, designation, salary, Date_Of_Joining)`
+  and `Dept(dno, dname, loc)` with:
+
+  * `ename` NOT NULL
+  * `salary > 0`
+* Queries (Any 5):
+
+->CREATE TABLE Emp (
+    eno INT PRIMARY KEY,                  -- Employee Number (Unique identifier for each employee)
+    ename VARCHAR(255) NOT NULL,          -- Employee Name (Cannot be empty - NOT NULL constraint)
+    designation VARCHAR(50),              -- Employee Designation (like 'Manager', 'Clerk', etc.)
+    salary INT CHECK (salary > 0),        -- Salary (Integer, must be greater than 0 - CHECK constraint)
+    Date_Of_Joining DATE,                 -- Date the employee joined
+    deptno INT,                           -- This column will hold the department number the employee belongs to
+    FOREIGN KEY (deptno) REFERENCES Dept(dno) -- Defines the Foreign Key constraint, linking deptno in Emp to dno in Dept
+);
+
+  1. Add column `phone_No` to `Emp`
+  2. Delete employee where designation = ‘Manager’
+  3. Count employees department-wise
+  4. Name of Manager of “Accounts” dept
+  5. Dept located in “Pune” where “Mr. Advait” works
+  6. Employees with salary >50000 in “Quality” dept
+  7. Update DOJ of “Mr. Roy” in ‘computer science’ to ‘15/06/2019’
+
+---
+
+### **12. Salary and Duplicate Analysis (Any 5)**
+
+a) Job-wise max salary
+
+b) Departments with >3 employees
+->SELECT DNAME,COUNT(E.DEPTNO) FROM DEPART D INNER JOIN EMPLOY E ON E.DEPTNO=D.DEPTNO GROUP BY D.DEPTNO HAVING COUNT(E.DEPTNO)>3;
+
+
+c) Job-wise avg salary excluding empno 7788–7790
+d) Dept-wise total salaries for Managers & Analysts where avg ≥3000
+e) Select only **duplicate records with their count**
+
+-> SELECT
+    EMPNO,
+    ENAME,
+    JOB,
+    MGR,
+    HIREDATE,
+    SAL,
+    COMM,
+    DEPTNO,
+    COUNT(*) AS Duplicate_Count -- Select the count of each identical row
+FROM
+    EMPLOY
+GROUP BY
+    EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO -- Group by ALL columns to find identical rows
+HAVING
+    COUNT(*) > 1; -- Keep only those groups (identical rows) that appear more than once
+
+---
+
+### **13. Subqueries on Salary Comparison (Any 5)**
+
+a) Employees earning more than **all** managers
+-> SELECT
+    EMPNO,
+    ENAME,
+    JOB,
+    SAL,
+    DEPTNO
+    -- Select all columns or specific ones as needed
+FROM
+    EMPLOY
+WHERE
+    SAL > (SELECT MAX(SAL)         -- Find the maximum salary
+           FROM EMPLOY             -- From the Employee table
+           WHERE JOB = 'MANAGER'); -- Only for employees whose job is 'MANAGER'
+
+
+b) Employees earning more than **any** manager
+-> SELECT * FROM EMPLOY WHERE SAL>(SELECT MIN(SAL) FROM EMPLOY WHERE JOB="MANAGER");
++-------+-------+-----------+------+------------+------+------+--------+
+| EMPNO | ENAME | JOB       | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+-------+-----------+------+------------+------+------+--------+
+|  7566 | JONES | MANAGER   | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|  7698 | BLAKE | MANAGER   | 7839 | 2019-06-15 | 2850 | NULL |     30 |
+|  7788 | SCOTT | ANALYST   | 7566 | 1982-12-09 | 3000 | NULL |     20 |
+|  7839 | KING  | PRESIDENT | NULL | 1981-11-17 | 5000 | NULL |     10 |
+|  7902 | FORD  | ANALYST   | 7566 | 1981-12-03 | 3000 | NULL |     20 |
++-------+-------+-----------+------+------------+------+------+--------+
+
+
+c) Empno, job, salary of Analysts earning more than **any** manager
+->
+
+
+d) Employees in DALLAS
+e) Dept name & location of employees working for CLARK
+f) Department info for all managers
+g) First maximum salary
+
+---
+
+### **14. Location & Role Filters (Any 5)**
+
+a) Managers & clerks in Accounts and Marketing
+b) Salesmen not located in DALLAS
+c) Dept name & location of employees working for CLARK
+d) Department info for all managers
+e) Employees in DALLAS
+
+---
+
+### **15. Salary and Pattern Filters (Any 5)**
+
+a) Employees with ≥2500 salary in dept 20
+b) Managers in dept 20 & 30
+c) Managers without managers
+d) Employees with commission but not MANAGER/ANALYST
+e) Analysts whose name doesn’t end with ‘S’
+f) Employees whose second-last letter is ‘E’
+g) Employees where `Sal + Comm > 2000`
+
+---
+
+Let me know if you want summaries, ER diagrams, example code, or output snapshots for any of them! Which one would you like to study first again?

@@ -1,0 +1,17 @@
+{% extends "database/base.html" %}
+{% block content %}
+<h2>Available Tables</h2>
+<a href="{% url 'create_table' %}" class="btn btn-primary mb-3">Create New Table</a>
+<ul class="list-group">
+  {% for table in tables %}
+    <li class="list-group-item">
+      <strong>{{ table }}</strong>
+      <a href="{% url 'add_column' table %}" class="btn btn-sm btn-success mx-2">Add Column</a>
+      <a href="{% url 'insert_data' table %}" class="btn btn-sm btn-info">Insert Data</a>
+      <a href="{% url 'upload_csv' table %}" class="btn btn-sm btn-warning">Upload CSV</a>
+    </li>
+  {% empty %}
+    <li class="list-group-item">No tables found.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

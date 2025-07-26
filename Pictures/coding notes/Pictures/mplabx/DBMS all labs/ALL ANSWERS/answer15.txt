@@ -1,0 +1,92 @@
+same tables from answer14
+
+1)List the various products available.
+SELECT * FROM Products;
++---------------+---------------------+--------------+------------------+
+| ProductNumber | ProductName         | SellingPrice | ManufacturerName |
++---------------+---------------------+--------------+------------------+
+|           101 | Desktop Computer    |       900.00 | HP               |
+|           102 | Tablet              |       400.00 | Apple            |
+|           103 | Printer             |       250.00 | Epson            |
+|           104 | Smart TV            |      1200.00 | LG               |
+|           105 | Wireless Mouse      |        20.00 | Logitech         |
+|           106 | External Hard Drive |       100.00 | Seagate          |
++---------------+---------------------+--------------+------------------+
+
+2)List all the clients who are located in Mumbai.
+
+mysql> SELECT * FROM Clients WHERE City = 'Mumbai';
++--------------+-------------+---------------+--------+---------+-------+--------------+
+| ClientNumber | ClientName  | ClientAddress | City   | PinCode | State | TotalBalance |
++--------------+-------------+---------------+--------+---------+-------+--------------+
+|          201 | Aarav Patel | 789 Maple St  | Mumbai | 400001  | MH    |       500.00 |
++--------------+-------------+---------------+--------+---------+-------+--------------+
+
+3)Add a new column NEW_PRICE into the product table.
+ ALTER TABLE products ADD COLUMN NEW_PRICE DECIMAL(10, 2);
+select * from products;
++---------------+---------------------+--------------+------------------+-----------+
+| ProductNumber | ProductName         | SellingPrice | ManufacturerName | NEW_PRICE |
++---------------+---------------------+--------------+------------------+-----------+
+|           101 | Desktop Computer    |       900.00 | HP               |      NULL |
+|           102 | Tablet              |       400.00 | Apple            |      NULL |
+|           103 | Printer             |       250.00 | Epson            |      NULL |
+|           104 | Smart TV            |      1200.00 | LG               |      NULL |
+|           105 | Wireless Mouse      |        20.00 | Logitech         |      NULL |
+|           106 | External Hard Drive |       100.00 | Seagate          |      NULL |
++---------------+---------------------+--------------+------------------+-----------+
+
+4)List the products in sorted order of their description.
+SELECT * FROM Products ORDER BY ProductName;
++---------------+---------------------+--------------+------------------+-----------+
+| ProductNumber | ProductName         | SellingPrice | ManufacturerName | NEW_PRICE |
++---------------+---------------------+--------------+------------------+-----------+
+|           101 | Desktop Computer    |       900.00 | HP               |      NULL |
+|           106 | External Hard Drive |       100.00 | Seagate          |      NULL |
+|           103 | Printer             |       250.00 | Epson            |      NULL |
+|           104 | Smart TV            |      1200.00 | LG               |      NULL |
+|           102 | Tablet              |       400.00 | Apple            |      NULL |
+|           105 | Wireless Mouse      |        20.00 | Logitech         |      NULL |
++---------------+---------------------+--------------+------------------+-----------+
+
+6)Change the bal_due of client_no 2 to 1200.
+UPDATE Clients SET TotalBalance = 1200 WHERE ClientNumber = 202;
+select * from clients;
++--------------+--------------+---------------+-----------+---------+-------+--------------+
+| ClientNumber | ClientName   | ClientAddress | City      | PinCode | State | TotalBalance |
++--------------+--------------+---------------+-----------+---------+-------+--------------+
+|          201 | Aarav Patel  | 789 Maple St  | Mumbai    | 400001  | MH    |       500.00 |
+|          202 | Diya Shah    | 456 Oak St    | Delhi     | 110001  | DL    |      1200.00 |
+|          203 | Aditya Singh | 123 Elm St    | Bangalore | 560001  | KA    |      1000.00 |
+|          204 | Ishaan Kumar | 567 Pine St   | Kolkata   | 700001  | WB    |         0.00 |
+|          205 | Ayesha Gupta | 890 Cedar St  | Chennai   | 600001  | TN    |       750.00 |
+|          206 | Riya Sharma  | 234 Birch St  | Hyderabad | 500001  | TS    |       300.00 |
++--------------+--------------+---------------+-----------+---------+-------+--------------+
+
+7)List the names, city, and state of the clients not in the state of ‘ASSAM’.
+SELECT ClientName, City, State FROM Clients WHERE State != 'DL';
++--------------+-----------+-------+
+| ClientName   | City      | State |
++--------------+-----------+-------+
+| Aarav Patel  | Mumbai    | MH    |
+| Aditya Singh | Bangalore | KA    |
+| Ishaan Kumar | Kolkata   | WB    |
+| Ayesha Gupta | Chennai   | TN    |
+| Riya Sharma  | Hyderabad | TS    |
++--------------+-----------+-------+
+
+5)Delete all the records having delivery date before 25th December, 2008.
+
+DELETE FROM Orders WHERE DeliveryDate < '2008-12-25';
+
+SELECT * FROM ORDERS;
++------------------+----------------+--------------+----------------+--------------------+--------------+
+| SalesOrderNumber | SalesOrderDate | ClientNumber | SalesmanNumber | BilledWholePayment | DeliveryDate |
++------------------+----------------+--------------+----------------+--------------------+--------------+
+|              401 | 2024-05-01     |          201 |            301 |                  1 | 2024-05-08   |
+|              403 | 2024-05-03     |          203 |            303 |                  0 | 2024-05-12   |
+|              404 | 2024-05-04     |          204 |            304 |                  1 | 2024-05-15   |
+|              405 | 2024-05-05     |          205 |            305 |                  0 | 2024-05-18   |
+|              406 | 2024-05-06     |          206 |            306 |                  1 | 2024-05-20   |
+
+

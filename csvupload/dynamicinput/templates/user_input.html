@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head><title>CSV Upload + Manual Entry</title></head>
+<body>
+    <h2>Manual Data Entry</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ manual_form.as_p }}
+        <button type="submit" name="submit_manual">Submit</button>
+    </form>
+
+    <h2>Upload CSV</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ csv_form.as_p }}
+        <button type="submit" name="submit_csv">Upload</button>
+    </form>
+
+    <h3>Saved Data</h3>
+    <ul>
+        {% for item in data %}
+            <li><b>{{ item.field_name }}</b> ({{ item.field_type }}): {{ item.field_value }}</li>
+        {% empty %}
+            <li>No data yet.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

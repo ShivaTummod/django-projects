@@ -1,0 +1,64 @@
+10
+
+
+CREATE TABLE Dept2 (
+    dno INT PRIMARY KEY,
+    dname VARCHAR(20),
+    loc VARCHAR(20)
+);
+
+CREATE TABLE Emp2 (
+    eno INT PRIMARY KEY,
+    ename VARCHAR(50) NOT NULL,
+    jobtitle VARCHAR(20),
+    salary DECIMAL(10,2) CHECK (salary > 0),
+    deptno INT,
+    FOREIGN KEY (deptno) REFERENCES Dept2(dno)
+);
+
+INSERT INTO Dept2 VALUES (10, 'Accounts', 'Mumbai');
+INSERT INTO Dept2 VALUES (20, 'Marketing', 'Pune');
+INSERT INTO Dept2 VALUES (30, 'Sales', 'Delhi');
+
+INSERT INTO Emp2 VALUES (1001, 'Clark', 'MANAGER', 5000, 10);
+INSERT INTO Emp2 VALUES (1002, 'Smith', 'CLERK', 1500, 10);
+INSERT INTO Emp2 VALUES (1003, 'Jones', 'ANALYST', 4000, 20);
+INSERT INTO Emp2 VALUES (1004, 'Blake', 'MANAGER', 5500, 30);
+INSERT INTO Emp2 VALUES (1005, 'Allen', 'SALESMAN', 2000, 30);
+INSERT INTO Emp2 VALUES (1006, 'James', 'CLERK', 1300, 30);
+INSERT INTO Emp2 VALUES (1007, 'Roy', 'CLERK', 1200, 20);
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE demo_cursor2()
+BEGIN
+    DECLARE done INT DEFAULT FALSE;
+    DECLARE v_name VARCHAR(50);
+    DECLARE v_salary DECIMAL(10,2);
+
+    DECLARE emp_cursor CURSOR FOR
+        SELECT ename, salary FROM Emp2;
+
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+    OPEN emp_cursor;
+
+    emp_loop: LOOP
+        FETCH emp_cursor INTO v_name, v_salary;
+        IF done THEN
+            LEAVE emp_loop;
+        END IF;
+        SELECT CONCAT('Name: ', v_name, ', Salary: ', v_salary) AS employee_info;
+    END LOOP;
+
+    CLOSE emp_cursor;
+END;
+//
+
+DELIMITER ;
+
+
+CALL demo_cursor2();
+

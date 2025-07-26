@@ -1,0 +1,2871 @@
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 9.1.0 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> \c
+mysql> ;
+ERROR:
+No query specified
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.00 sec)
+
+mysql> create database dbmsPractical;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> use dbmsPractical;
+Database changed
+mysql> Create table College_info;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> Create table College_info(College_Code,College_name,Address);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',College_name,Address)' at line 1
+mysql> Create table College_info(College_Code int,College_name varchar(255),Address varchar(255));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> Create table Faculty_info(College_Code int,Faculty_Code varchar(255),Faculty_name varchar(255),Qualification varchar(255), Experience_in_no_of_years int,Address varchar(255));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> Drop table College_info;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> Drop table Faculty_info;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> Create table College_info(College_Code int,College_name varchar(255),Address varchar(255));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> Create table Faculty_info(College_Code int,Faculty_Code varchar(255),Faculty_name varchar(255),Qualification varchar(255), Experience_in_no_of_years int,Address varchar(255));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> alter table Colege_info add constraint pk_college Primary key College_Code;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> alter table College_info add constraint pk_college Primary key College_Code;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> alter table College_info add constraint pk_college Primary key (College_Code);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table Faculty_info Foreign key (College_Code) references (College_info) ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Foreign key (College_Code) references (College_info)' at line 1
+mysql> alter table Faculty_info Foreign key (College_Code) references College_info(College_Code) ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Foreign key (College_Code) references College_info(College_Code)' at line 1
+mysql> alter table Faculty_info Foreign key (College_Code) references College_info(College_Code);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Foreign key (College_Code) references College_info(College_Code)' at line 1
+mysql> alter table Faculty_info Foreign key (College_Code) references College_info(College_Code);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Foreign key (College_Code) references College_info(College_Code)' at line 1
+mysql> alter table Faculty_info add constraint pk_faculty Primary key (Faculty_Code);
+ERROR 1071 (42000): Specified key was too long; max key length is 1000 bytes
+mysql> alter table Faculty_info modify Faculty_Code int;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table Faculty_info add constraint pk_faculty Primary key (Faculty_Code);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table Faculty_info Foreign key (College_Code) references College_info(College_Code);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Foreign key (College_Code) references College_info(College_Code)' at line 1
+mysql> alter table Faculty_info add constraint fk_faculty Foreign Key (College_Code) References College_info(College_Code);
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into College_code values (4065,"TCOER","Bopdev Ghat"),(4245,"ZCOER","Narhe"),(4035,""VIT","Kondhwa");
+    ">
+    "> ;
+    "> insert into College_code values (4065,"TCOER","Bopdev Ghat"),(4245,"ZCOER","Narhe"),(4035,""VIT","Kondhwa");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'VIT","Kondhwa");
+
+;
+insert into College_code values (4065,"TCOER","Bopdev Ghat")' at line 1
+mysql> insert into College_code values (4065,"TCOER","Bopdev Ghat"),(4245,"ZCOER","Narhe"),(4035,""VIT","Kondhwa");
+    "> ;
+    ">
+    ">
+    "> ;
+    "> insert into College_code values (4065,"TCOER","Bopdev Ghat"),(4245,"ZCOER","Narhe"),(4035,""VIT","Kondhwa");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'VIT","Kondhwa");
+;
+
+
+;
+insert into College_code values (4065,"TCOER","Bopdev Gha' at line 1
+mysql> insert into College_code values (4065,"TCOER","Bopdev Ghat");
+ERROR 1146 (42S02): Table 'dbmspractical.college_code' doesn't exist
+mysql> insert into College_Code values (4065,"TCOER","Bopdev Ghat"),(4245,"ZCOER","Narhe"),(4035,""VIT","Kondhwa");
+    "> ;
+    "> insert into College_Code values (4065,"TCOER","Bopdev Ghat"),(4245,"ZCOER","Narhe"),(4035,""VIT","Kondhwa");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'VIT","Kondhwa");
+;
+insert into College_Code values (4065,"TCOER","Bopdev Ghat"),' at line 1
+mysql> insert into College_Code values (4065,"TCOER","Bopdev Ghat");
+ERROR 1146 (42S02): Table 'dbmspractical.college_code' doesn't exist
+mysql> insert into College_info values (4065,"TCOER","Bopdev Ghat"),(4245,"ZCOER","Narhe"),(4035,"VIT","Kondhwa");
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> insert into College_info values (4065,100,"Arti_Kale","M.Tech",14,"Bopdev Ghat");
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into Faculty_info values (4065,100,"Arti_Kale","M.Tech",14,"Bopdev Ghat");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Faculty_info values (4065,101,"Pravin Kamble","B.Tech",15,"Kondhwa");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Faculty_info values (4065,102,"Pravin Patil","B.Tech",9,"Narhe");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Faculty_info values (4245,201,"Sai Puspulate","M.Tech",10,"Narhe");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Faculty_info values (4245,202,"Tarim Ansari","M.Tech",15,"Kondhwa");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Faculty_info values (4035,301,"Harshili Thakre","B.Tech",18,"Kondhwa");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Faculty_info values (4035,302,"Sandu","M.Tech",12,"Kondhwa");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Select * from Faculty_info where Experience>=10 AND Qualification="M.Tech";
+ERROR 1054 (42S22): Unknown column 'Experience' in 'where clause'
+mysql> Select * from Faculty_info where Experience_in_no_of_years>=10 AND Qualification="M.Tech";
++--------------+--------------+---------------+---------------+---------------------------+-------------+
+| College_Code | Faculty_Code | Faculty_name  | Qualification | Experience_in_no_of_years | Address     |
++--------------+--------------+---------------+---------------+---------------------------+-------------+
+|         4065 |          100 | Arti_Kale     | M.Tech        |                        14 | Bopdev Ghat |
+|         4245 |          201 | Sai Puspulate | M.Tech        |                        10 | Narhe       |
+|         4245 |          202 | Tarim Ansari  | M.Tech        |                        15 | Kondhwa     |
+|         4035 |          302 | Sandu         | M.Tech        |                        12 | Kondhwa     |
++--------------+--------------+---------------+---------------+---------------------------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> Select * from Faculty_info;
++--------------+--------------+-----------------+---------------+---------------------------+-------------+
+| College_Code | Faculty_Code | Faculty_name    | Qualification | Experience_in_no_of_years | Address     |
++--------------+--------------+-----------------+---------------+---------------------------+-------------+
+|         4065 |          100 | Arti_Kale       | M.Tech        |                        14 | Bopdev Ghat |
+|         4065 |          101 | Pravin Kamble   | B.Tech        |                        15 | Kondhwa     |
+|         4065 |          102 | Pravin Patil    | B.Tech        |                         9 | Narhe       |
+|         4245 |          201 | Sai Puspulate   | M.Tech        |                        10 | Narhe       |
+|         4245 |          202 | Tarim Ansari    | M.Tech        |                        15 | Kondhwa     |
+|         4035 |          301 | Harshili Thakre | B.Tech        |                        18 | Kondhwa     |
+|         4035 |          302 | Sandu           | M.Tech        |                        12 | Kondhwa     |
++--------------+--------------+-----------------+---------------+---------------------------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> insert into Faculty_info values (4035,303,"Dipti Kale","M.Tech",9,"Kondhwa");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Select * from Faculty_info where Experience_in_no_of_years>=10 AND Qualification="M.Tech";
++--------------+--------------+---------------+---------------+---------------------------+-------------+
+| College_Code | Faculty_Code | Faculty_name  | Qualification | Experience_in_no_of_years | Address     |
++--------------+--------------+---------------+---------------+---------------------------+-------------+
+|         4065 |          100 | Arti_Kale     | M.Tech        |                        14 | Bopdev Ghat |
+|         4245 |          201 | Sai Puspulate | M.Tech        |                        10 | Narhe       |
+|         4245 |          202 | Tarim Ansari  | M.Tech        |                        15 | Kondhwa     |
+|         4035 |          302 | Sandu         | M.Tech        |                        12 | Kondhwa     |
++--------------+--------------+---------------+---------------+---------------------------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> Select * from Faculty_info where Experience_in_no_of_years>=10 AND Qualification!="M.Tech";
++--------------+--------------+-----------------+---------------+---------------------------+---------+
+| College_Code | Faculty_Code | Faculty_name    | Qualification | Experience_in_no_of_years | Address |
++--------------+--------------+-----------------+---------------+---------------------------+---------+
+|         4065 |          101 | Pravin Kamble   | B.Tech        |                        15 | Kondhwa |
+|         4035 |          301 | Harshili Thakre | B.Tech        |                        18 | Kondhwa |
++--------------+--------------+-----------------+---------------+---------------------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> Create Table Emp(eno int,ename Varchar(255),jobtitle Varchar(255),managerno int,hiredate date,salary int,deptno int);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> Create Table Dept(deptno int,dname Varchar(255),loc Varchar(255));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> alter table Emp Add constaints Primary Key (eno);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Primary Key (eno)' at line 1
+mysql> alter table Emp Add constaints pk_Emp Primary Key (eno);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'pk_Emp Primary Key (eno)' at line 1
+mysql> alter table Emp Add constaint pk_Emp Primary Key (eno);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'pk_Emp Primary Key (eno)' at line 1
+mysql> alter table Emp Add constaint pk_Emp Primary Key eno;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'pk_Emp Primary Key eno' at line 1
+mysql> alter table Emp Add constaints pk_Emp Primary Key eno;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'pk_Emp Primary Key eno' at line 1
+mysql> alter table Emp Add constaints "pk_Emp" Primary Key eno;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"pk_Emp" Primary Key eno' at line 1
+mysql> alter table Emp Add constraint "pk_Emp" Primary Key eno;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"pk_Emp" Primary Key eno' at line 1
+mysql> alter table Emp Add constraint "pk_Emp" Primary Key (eno);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"pk_Emp" Primary Key (eno)' at line 1
+mysql> alter table Emp Add constraint pk_Emp Primary Key (eno);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table Emp Add constraint fk_Emp Foreign key (deptno) references Emp(deptno);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table Dept Add constraint pk_Dept Primary Key (deptno);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into Dept values (4065,"IT","Bopdev Ghat"),(4245,"CS","Narhe"),(4035,"Ele","Kondhwa");
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> insert into Dept values (10,"Raj","Bopdev Ghat"),(20,"CS","Narhe"),(30,"Nilisha","Kondhwa");
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> insert into Faculty_info values (100,"Harshili Thakre","Ass_Prof",18,"2015-01-04",50000,10);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into Emp values (100,"Harshili Thakre","Ass_Prof",18,"2015-01-04",50000,10);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Emp values (101,"Raj","Prof",12,"2015-01-04",80000,10);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Emp values (102,"Wagh","Prof",11,"2015-01-04",80000,11);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from dept;
++--------+---------+-------------+
+| deptno | dname   | loc         |
++--------+---------+-------------+
+|   4065 | IT      | Bopdev Ghat |
+|   4245 | CS      | Narhe       |
+|   4035 | Ele     | Kondhwa     |
+|     10 | Raj     | Bopdev Ghat |
+|     20 | CS      | Narhe       |
+|     30 | Nilisha | Kondhwa     |
++--------+---------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from Emp
+    -> ;
++-----+-----------------+----------+-----------+------------+--------+--------+
+| eno | ename           | jobtitle | managerno | hiredate   | salary | deptno |
++-----+-----------------+----------+-----------+------------+--------+--------+
+| 100 | Harshili Thakre | Ass_Prof |        18 | 2015-01-04 |  50000 |     10 |
+| 101 | Raj             | Prof     |        12 | 2015-01-04 |  80000 |     10 |
+| 102 | Wagh            | Prof     |        11 | 2015-01-04 |  80000 |     11 |
++-----+-----------------+----------+-----------+------------+--------+--------+
+3 rows in set (0.00 sec)
+
+mysql> insert into Emp values (102,"Wagh","Prof",11,"2015-01-04",80000,10);
+ERROR 1062 (23000): Duplicate entry '102' for key 'emp.PRIMARY'
+mysql> insert into Emp values (103,"Wagh","Prof",11,"2015-01-04",80000,10);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> alter table drop row where eno=102;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'drop row where eno=102' at line 1
+mysql> alter table Emp drop row where eno=102;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'row where eno=102' at line 1
+mysql> alter table Emp drop foreign key fk_emp;
+Query OK, 4 rows affected (0.03 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> alter table Emp add constraints fk_emp foreign key deptno references Dept(deptno);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'fk_emp foreign key deptno references Dept(deptno)' at line 1
+mysql> alter table Emp add constraint fk_emp foreign key deptno references Dept(deptno);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'references Dept(deptno)' at line 1
+mysql> alter table Emp add constraint fk_emp foreign key deptno reference Dept(deptno);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'reference Dept(deptno)' at line 1
+mysql> alter table Emp add constraint fk_emp foreign key (deptno) references Dept(deptno);
+Query OK, 4 rows affected (0.03 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> Delete from Emp where eno=102;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from Emp;
++-----+-----------------+----------+-----------+------------+--------+--------+
+| eno | ename           | jobtitle | managerno | hiredate   | salary | deptno |
++-----+-----------------+----------+-----------+------------+--------+--------+
+| 100 | Harshili Thakre | Ass_Prof |        18 | 2015-01-04 |  50000 |     10 |
+| 101 | Raj             | Prof     |        12 | 2015-01-04 |  80000 |     10 |
+| 103 | Wagh            | Prof     |        11 | 2015-01-04 |  80000 |     10 |
++-----+-----------------+----------+-----------+------------+--------+--------+
+3 rows in set (0.00 sec)
+
+mysql> insert into Emp values (200,"Anjum","HOD",00,"2016-04-01",100000,20);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Emp values (201,"Giga","Prof",01,"2020-04-01",40000,20);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Emp values (202,"Nigga","Ass_Prof",01,"2020-04-01",50000,20);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Emp values (303,"Slaga","Ass_Prof",03,"2021-04-01",40000,30);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Emp values (302,"Sonic","Prof",03,"2012-04-01",200000,30);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Emp values (301,"Side Chick","HOD",03,"2012-04-01",300000,30);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from dept;
++--------+---------+-------------+
+| deptno | dname   | loc         |
++--------+---------+-------------+
+|   4065 | IT      | Bopdev Ghat |
+|   4245 | CS      | Narhe       |
+|   4035 | Ele     | Kondhwa     |
+|     10 | Raj     | Bopdev Ghat |
+|     20 | CS      | Narhe       |
+|     30 | Nilisha | Kondhwa     |
++--------+---------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> update dept dname="IT" where deptno=10;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '="IT" where deptno=10' at line 1
+mysql> update dept SET dname="IT" where deptno=10;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update dept SET dname="Elec" where deptno=30;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> Delete from Dept where deptno=4065;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Delete from Dept where deptno=4245;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Delete from Dept where deptno=4035;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from Dept;
++--------+-------+-------------+
+| deptno | dname | loc         |
++--------+-------+-------------+
+|     10 | IT    | Bopdev Ghat |
+|     20 | CS    | Narhe       |
+|     30 | Elec  | Kondhwa     |
++--------+-------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from Emp;
++-----+-----------------+----------+-----------+------------+--------+--------+
+| eno | ename           | jobtitle | managerno | hiredate   | salary | deptno |
++-----+-----------------+----------+-----------+------------+--------+--------+
+| 100 | Harshili Thakre | Ass_Prof |        18 | 2015-01-04 |  50000 |     10 |
+| 101 | Raj             | Prof     |        12 | 2015-01-04 |  80000 |     10 |
+| 200 | Anjum           | HOD      |         0 | 2016-04-01 | 100000 |     20 |
+| 103 | Wagh            | Prof     |        11 | 2015-01-04 |  80000 |     10 |
+| 201 | Giga            | Prof     |         1 | 2020-04-01 |  40000 |     20 |
+| 202 | Nigga           | Ass_Prof |         1 | 2020-04-01 |  50000 |     20 |
+| 303 | Slaga           | Ass_Prof |         3 | 2021-04-01 |  40000 |     30 |
+| 302 | Sonic           | Prof     |         3 | 2012-04-01 | 200000 |     30 |
+| 301 | Side Chick      | HOD      |         3 | 2012-04-01 | 300000 |     30 |
++-----+-----------------+----------+-----------+------------+--------+--------+
+9 rows in set (0.00 sec)
+
+mysql> select * from Emp order by deptno asc;
++-----+-----------------+----------+-----------+------------+--------+--------+
+| eno | ename           | jobtitle | managerno | hiredate   | salary | deptno |
++-----+-----------------+----------+-----------+------------+--------+--------+
+| 100 | Harshili Thakre | Ass_Prof |        18 | 2015-01-04 |  50000 |     10 |
+| 101 | Raj             | Prof     |        12 | 2015-01-04 |  80000 |     10 |
+| 103 | Wagh            | Prof     |        11 | 2015-01-04 |  80000 |     10 |
+| 200 | Anjum           | HOD      |         0 | 2016-04-01 | 100000 |     20 |
+| 201 | Giga            | Prof     |         1 | 2020-04-01 |  40000 |     20 |
+| 202 | Nigga           | Ass_Prof |         1 | 2020-04-01 |  50000 |     20 |
+| 303 | Slaga           | Ass_Prof |         3 | 2021-04-01 |  40000 |     30 |
+| 302 | Sonic           | Prof     |         3 | 2012-04-01 | 200000 |     30 |
+| 301 | Side Chick      | HOD      |         3 | 2012-04-01 | 300000 |     30 |
++-----+-----------------+----------+-----------+------------+--------+--------+
+9 rows in set (0.02 sec)
+
+mysql> select * from Emp;
++-----+-----------------+----------+-----------+------------+--------+--------+
+| eno | ename           | jobtitle | managerno | hiredate   | salary | deptno |
++-----+-----------------+----------+-----------+------------+--------+--------+
+| 100 | Harshili Thakre | Ass_Prof |        18 | 2015-01-04 |  50000 |     10 |
+| 101 | Raj             | Prof     |        12 | 2015-01-04 |  80000 |     10 |
+| 200 | Anjum           | HOD      |         0 | 2016-04-01 | 100000 |     20 |
+| 103 | Wagh            | Prof     |        11 | 2015-01-04 |  80000 |     10 |
+| 201 | Giga            | Prof     |         1 | 2020-04-01 |  40000 |     20 |
+| 202 | Nigga           | Ass_Prof |         1 | 2020-04-01 |  50000 |     20 |
+| 303 | Slaga           | Ass_Prof |         3 | 2021-04-01 |  40000 |     30 |
+| 302 | Sonic           | Prof     |         3 | 2012-04-01 | 200000 |     30 |
+| 301 | Side Chick      | HOD      |         3 | 2012-04-01 | 300000 |     30 |
++-----+-----------------+----------+-----------+------------+--------+--------+
+9 rows in set (0.00 sec)
+
+mysql> Select * from Emp where ename="a&" AND ename="A&";
+Empty set (0.00 sec)
+
+mysql> insert into Emp values (300,"Aide Chick","Prof",03,"2019-04-01",30000,30);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Emp values (203,"ana","Prof",03,"2019-04-05",30000,20);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Emp values (102,"Anya","HOD",03,"2020-04-05",50000,10);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Emp values (102,"Anya","HOD",03,"2020-04-05",50000,10);
+ERROR 1062 (23000): Duplicate entry '102' for key 'emp.PRIMARY'
+mysql> insert into Emp values (104,"Anya","HOD",03,"2020-04-05",50000,11);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SHOW CREATE TABLE Emp;
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                                                                                                                                          |
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Emp   | CREATE TABLE `emp` (
+  `eno` int NOT NULL,
+  `ename` varchar(255) DEFAULT NULL,
+  `jobtitle` varchar(255) DEFAULT NULL,
+  `managerno` int DEFAULT NULL,
+  `hiredate` date DEFAULT NULL,
+  `salary` int DEFAULT NULL,
+  `deptno` int DEFAULT NULL,
+  PRIMARY KEY (`eno`),
+  KEY `fk_emp` (`deptno`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.02 sec)
+
+mysql> Delete from Emp where eno=104;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from Emp;
++-----+-----------------+----------+-----------+------------+--------+--------+
+| eno | ename           | jobtitle | managerno | hiredate   | salary | deptno |
++-----+-----------------+----------+-----------+------------+--------+--------+
+| 100 | Harshili Thakre | Ass_Prof |        18 | 2015-01-04 |  50000 |     10 |
+| 101 | Raj             | Prof     |        12 | 2015-01-04 |  80000 |     10 |
+| 200 | Anjum           | HOD      |         0 | 2016-04-01 | 100000 |     20 |
+| 103 | Wagh            | Prof     |        11 | 2015-01-04 |  80000 |     10 |
+| 201 | Giga            | Prof     |         1 | 2020-04-01 |  40000 |     20 |
+| 202 | Nigga           | Ass_Prof |         1 | 2020-04-01 |  50000 |     20 |
+| 303 | Slaga           | Ass_Prof |         3 | 2021-04-01 |  40000 |     30 |
+| 302 | Sonic           | Prof     |         3 | 2012-04-01 | 200000 |     30 |
+| 301 | Side Chick      | HOD      |         3 | 2012-04-01 | 300000 |     30 |
+| 300 | Aide Chick      | Prof     |         3 | 2019-04-01 |  30000 |     30 |
+| 203 | ana             | Prof     |         3 | 2019-04-05 |  30000 |     20 |
+| 102 | Anya            | HOD      |         3 | 2020-04-05 |  50000 |     10 |
++-----+-----------------+----------+-----------+------------+--------+--------+
+12 rows in set (0.00 sec)
+
+mysql> alter table Dept Engine=InnoDB;
+Query OK, 3 rows affected (0.10 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> alter table Emp engine=innodb;
+Query OK, 12 rows affected (0.11 sec)
+Records: 12  Duplicates: 0  Warnings: 0
+
+mysql> insert into Emp values (104,"Anya","HOD",03,"2020-04-05",50000,11);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> SHOW VARIABLES LIKE 'foreign_key_checks';
++--------------------+-------+
+| Variable_name      | Value |
++--------------------+-------+
+| foreign_key_checks | ON    |
++--------------------+-------+
+1 row in set (0.03 sec)
+
+mysql> SHOW CREATE TABLE Emp;
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                                                                                                                                          |
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Emp   | CREATE TABLE `emp` (
+  `eno` int NOT NULL,
+  `ename` varchar(255) DEFAULT NULL,
+  `jobtitle` varchar(255) DEFAULT NULL,
+  `managerno` int DEFAULT NULL,
+  `hiredate` date DEFAULT NULL,
+  `salary` int DEFAULT NULL,
+  `deptno` int DEFAULT NULL,
+  PRIMARY KEY (`eno`),
+  KEY `fk_emp` (`deptno`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.02 sec)
+
+mysql> ALTER TABLE Emp
+    -> ADD CONSTRAINT fk_emp FOREIGN KEY (deptno) REFERENCES Dept(deptno);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`dbmspractical`.`#sql-2c70_9`, CONSTRAINT `fk_emp` FOREIGN KEY (`deptno`) REFERENCES `dept` (`deptno`))
+mysql> alter table Emp drop foreign key fk_emp;
+ERROR 1091 (42000): Can't DROP 'fk_emp'; check that column/key exists
+mysql> alter table Emp drop foreign key fk_emp;
+ERROR 1091 (42000): Can't DROP 'fk_emp'; check that column/key exists
+mysql> alter table Emp drop key fk_emp;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Emp
+    -> ADD CONSTRAINT fk_emp FOREIGN KEY (deptno) REFERENCES Dept(deptno);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`dbmspractical`.`#sql-2c70_9`, CONSTRAINT `fk_emp` FOREIGN KEY (`deptno`) REFERENCES `dept` (`deptno`))
+mysql> delete from Emp where deptno=104;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> ALTER TABLE Emp
+    -> ADD CONSTRAINT fk_emp FOREIGN KEY (deptno) REFERENCES Dept(deptno);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`dbmspractical`.`#sql-2c70_9`, CONSTRAINT `fk_emp` FOREIGN KEY (`deptno`) REFERENCES `dept` (`deptno`))
+mysql> SELECT *
+    -> FROM Emp
+    -> WHERE deptno NOT IN (SELECT deptno FROM Dept);
++-----+-------+----------+-----------+------------+--------+--------+
+| eno | ename | jobtitle | managerno | hiredate   | salary | deptno |
++-----+-------+----------+-----------+------------+--------+--------+
+| 104 | Anya  | HOD      |         3 | 2020-04-05 |  50000 |     11 |
++-----+-------+----------+-----------+------------+--------+--------+
+1 row in set (0.02 sec)
+
+mysql> delete from Emp where deptno=11;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> ALTER TABLE Emp
+    -> ADD CONSTRAINT fk_emp FOREIGN KEY (deptno) REFERENCES Dept(deptno);
+Query OK, 12 rows affected (0.11 sec)
+Records: 12  Duplicates: 0  Warnings: 0
+
+mysql> insert into Emp values (104,"Anya","HOD",03,"2020-04-05",50000,11);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`dbmspractical`.`emp`, CONSTRAINT `fk_emp` FOREIGN KEY (`deptno`) REFERENCES `dept` (`deptno`))
+mysql> SHOW CREATE TABLE Emp;
++-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                     |
++-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Emp   | CREATE TABLE `emp` (
+  `eno` int NOT NULL,
+  `ename` varchar(255) DEFAULT NULL,
+  `jobtitle` varchar(255) DEFAULT NULL,
+  `managerno` int DEFAULT NULL,
+  `hiredate` date DEFAULT NULL,
+  `salary` int DEFAULT NULL,
+  `deptno` int DEFAULT NULL,
+  PRIMARY KEY (`eno`),
+  KEY `fk_emp` (`deptno`),
+  CONSTRAINT `fk_emp` FOREIGN KEY (`deptno`) REFERENCES `dept` (`deptno`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from Emp where ename like "a&" OR ename like "A%";
++-----+------------+----------+-----------+------------+--------+--------+
+| eno | ename      | jobtitle | managerno | hiredate   | salary | deptno |
++-----+------------+----------+-----------+------------+--------+--------+
+| 102 | Anya       | HOD      |         3 | 2020-04-05 |  50000 |     10 |
+| 200 | Anjum      | HOD      |         0 | 2016-04-01 | 100000 |     20 |
+| 203 | ana        | Prof     |         3 | 2019-04-05 |  30000 |     20 |
+| 300 | Aide Chick | Prof     |         3 | 2019-04-01 |  30000 |     30 |
++-----+------------+----------+-----------+------------+--------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select Emp.*,Dept.* from Emp inner join Dept on Emp.deptno=Dept.deptno;
++-----+-----------------+----------+-----------+------------+--------+--------+--------+-------+-------------+
+| eno | ename           | jobtitle | managerno | hiredate   | salary | deptno | deptno | dname | loc         |
++-----+-----------------+----------+-----------+------------+--------+--------+--------+-------+-------------+
+| 100 | Harshili Thakre | Ass_Prof |        18 | 2015-01-04 |  50000 |     10 |     10 | IT    | Bopdev Ghat |
+| 101 | Raj             | Prof     |        12 | 2015-01-04 |  80000 |     10 |     10 | IT    | Bopdev Ghat |
+| 102 | Anya            | HOD      |         3 | 2020-04-05 |  50000 |     10 |     10 | IT    | Bopdev Ghat |
+| 103 | Wagh            | Prof     |        11 | 2015-01-04 |  80000 |     10 |     10 | IT    | Bopdev Ghat |
+| 200 | Anjum           | HOD      |         0 | 2016-04-01 | 100000 |     20 |     20 | CS    | Narhe       |
+| 201 | Giga            | Prof     |         1 | 2020-04-01 |  40000 |     20 |     20 | CS    | Narhe       |
+| 202 | Nigga           | Ass_Prof |         1 | 2020-04-01 |  50000 |     20 |     20 | CS    | Narhe       |
+| 203 | ana             | Prof     |         3 | 2019-04-05 |  30000 |     20 |     20 | CS    | Narhe       |
+| 300 | Aide Chick      | Prof     |         3 | 2019-04-01 |  30000 |     30 |     30 | Elec  | Kondhwa     |
+| 301 | Side Chick      | HOD      |         3 | 2012-04-01 | 300000 |     30 |     30 | Elec  | Kondhwa     |
+| 302 | Sonic           | Prof     |         3 | 2012-04-01 | 200000 |     30 |     30 | Elec  | Kondhwa     |
+| 303 | Slaga           | Ass_Prof |         3 | 2021-04-01 |  40000 |     30 |     30 | Elec  | Kondhwa     |
++-----+-----------------+----------+-----------+------------+--------+--------+--------+-------+-------------+
+12 rows in set (0.00 sec)
+
+mysql> select Emp.ename,dept.dname from Emp inner join Dept on Emp.deptno=Dept.deptno;
++-----------------+-------+
+| ename           | dname |
++-----------------+-------+
+| Harshili Thakre | IT    |
+| Raj             | IT    |
+| Anya            | IT    |
+| Wagh            | IT    |
+| Anjum           | CS    |
+| Giga            | CS    |
+| Nigga           | CS    |
+| ana             | CS    |
+| Aide Chick      | Elec  |
+| Side Chick      | Elec  |
+| Sonic           | Elec  |
+| Slaga           | Elec  |
++-----------------+-------+
+12 rows in set (0.00 sec)
+
+mysql> Select * from Emp where deptno=(select deptno from Emp where ename="Raj");
++-----+-----------------+----------+-----------+------------+--------+--------+
+| eno | ename           | jobtitle | managerno | hiredate   | salary | deptno |
++-----+-----------------+----------+-----------+------------+--------+--------+
+| 100 | Harshili Thakre | Ass_Prof |        18 | 2015-01-04 |  50000 |     10 |
+| 101 | Raj             | Prof     |        12 | 2015-01-04 |  80000 |     10 |
+| 102 | Anya            | HOD      |         3 | 2020-04-05 |  50000 |     10 |
+| 103 | Wagh            | Prof     |        11 | 2015-01-04 |  80000 |     10 |
++-----+-----------------+----------+-----------+------------+--------+--------+
+4 rows in set (0.00 sec)
+
+mysql> Select * from Emp join Dept on Emp.deptno=Dept.deptno where ename="Raj";
++-----+-------+----------+-----------+------------+--------+--------+--------+-------+-------------+
+| eno | ename | jobtitle | managerno | hiredate   | salary | deptno | deptno | dname | loc         |
++-----+-------+----------+-----------+------------+--------+--------+--------+-------+-------------+
+| 101 | Raj   | Prof     |        12 | 2015-01-04 |  80000 |     10 |     10 | IT    | Bopdev Ghat |
++-----+-------+----------+-----------+------------+--------+--------+--------+-------+-------------+
+1 row in set (0.00 sec)
+
+mysql> Select * from Emp join Dept on Emp.deptno=Dept.deptno where Dept.dname="Raj";
+Empty set (0.00 sec)
+
+mysql> Select Emp.ename from Emp join Dept on Emp.deptno=Dept.deptno where Dept.dname="Raj";
+Empty set (0.00 sec)
+
+mysql> Select Emp.ename from Emp join Dept on Emp.deptno=Dept.deptno where Dept.deptno=(select deptno from Emp where ename="Raj");
++-----------------+
+| ename           |
++-----------------+
+| Harshili Thakre |
+| Raj             |
+| Anya            |
+| Wagh            |
++-----------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from emp join dept on Dept.deptno=Emp.dept where Emp.deptno=(select deptno from Emp where ename="Raj");
+ERROR 1054 (42S22): Unknown column 'Emp.dept' in 'on clause'
+mysql> select * from emp join dept on Dept.deptno=Emp.deptno where Emp.deptno=(select deptno from Emp where ename="Raj");
++-----+-----------------+----------+-----------+------------+--------+--------+--------+-------+-------------+
+| eno | ename           | jobtitle | managerno | hiredate   | salary | deptno | deptno | dname | loc         |
++-----+-----------------+----------+-----------+------------+--------+--------+--------+-------+-------------+
+| 100 | Harshili Thakre | Ass_Prof |        18 | 2015-01-04 |  50000 |     10 |     10 | IT    | Bopdev Ghat |
+| 101 | Raj             | Prof     |        12 | 2015-01-04 |  80000 |     10 |     10 | IT    | Bopdev Ghat |
+| 102 | Anya            | HOD      |         3 | 2020-04-05 |  50000 |     10 |     10 | IT    | Bopdev Ghat |
+| 103 | Wagh            | Prof     |        11 | 2015-01-04 |  80000 |     10 |     10 | IT    | Bopdev Ghat |
++-----+-----------------+----------+-----------+------------+--------+--------+--------+-------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> update Dept set dname="Mech" where deptno=10;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from Dept;
++--------+-------+-------------+
+| deptno | dname | loc         |
++--------+-------+-------------+
+|     10 | Mech  | Bopdev Ghat |
+|     20 | CS    | Narhe       |
+|     30 | Elec  | Kondhwa     |
++--------+-------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select deptno,Max(salary) from Emp where deptno in(10,20,30) group by deptno;
++--------+-------------+
+| deptno | Max(salary) |
++--------+-------------+
+|     10 |       80000 |
+|     20 |      100000 |
+|     30 |      300000 |
++--------+-------------+
+3 rows in set (0.02 sec)
+
+mysql> create table Student(Stud_info int,Stud_name Varchar(255), Class Varchar(20));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table Class(Class Varchar(20),Descrip Varchar(255));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table Lab(Mach_no int,Lab_no int,Descrip Varchar(255));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table Stud_no(Stud_no int,Mach_no int,DOW Varchar(255));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> drop table Stud_no;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create table Allotment(Stud_no int,Mach_no int,DOW Varchar(255));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> alter table Student add constraint pk_stud Primary key Stud_info;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> alter table Student add constraint pk_stud Primary key (Stud_info);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> update Student Set Column Stud_info=Stud_no;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Column Stud_info=Stud_no' at line 1
+mysql> alter table Student change column Stud_info Stud_no INT;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into Student values(100,"Diyan","SEIT");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from Studnet;
+ERROR 1146 (42S02): Table 'dbmspractical.studnet' doesn't exist
+mysql> select * from Student;
++---------+-----------+-------+
+| Stud_no | Stud_name | Class |
++---------+-----------+-------+
+|     100 | Diyan     | SEIT  |
++---------+-----------+-------+
+1 row in set (0.00 sec)
+
+mysql> Alter table Class add constraint fk_Class Foreign Key (Class) references Student(Class);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> Alter table Allotment add constraint fk_Allotment Foreign Key (Mach_no) references Lab(Mach_no);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> Alter table Allotment add constraint fk_Allotment Foreign Key (Stud_no) references Studnet(Stud_no);
+ERROR 1061 (42000): Duplicate key name 'fk_Allotment'
+mysql> Alter table Allotment add constraint fk_Allotment2 Foreign Key (Stud_no) references Studnet(Stud_no);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into Studnet values(101,"Swapnil","SECS"),(102,"Unus Angus","SEELEC");
+ERROR 1146 (42S02): Table 'dbmspractical.studnet' doesn't exist
+mysql> insert into Student values(101,"Swapnil","SECS"),(102,"Unus Angus","SEELEC");
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from Studentl
+    -> ;
+ERROR 1146 (42S02): Table 'dbmspractical.studentl' doesn't exist
+mysql> select * from Student;
++---------+------------+--------+
+| Stud_no | Stud_name  | Class  |
++---------+------------+--------+
+|     100 | Diyan      | SEIT   |
+|     101 | Swapnil    | SECS   |
+|     102 | Unus Angus | SEELEC |
++---------+------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> Insert into Class values("SEIT", "Vilas Gaikwad");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Insert into Class values("SECS", "Pankaj Phadtare"),("SEELEC","Nilima Anjel");
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> insert into Lab values(4065,401,"China"),(4044,202,"Something"),(4030,303,"Nothing");
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> insert into Allotment values(100,4065,"Thursday"),(101,4044,"Monday"),(103,4030,"Wednesday");
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> Alter table class  drop fk_Class;
+ERROR 1091 (42000): Can't DROP 'fk_Class'; check that column/key exists
+mysql> Alter table Class drop fk_Class;
+ERROR 1091 (42000): Can't DROP 'fk_Class'; check that column/key exists
+mysql> Alter table Class drop foreign key fk_Class;
+Query OK, 3 rows affected (0.06 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> Alter table Student Add constraint fk_Student foreign key (Class) references Class(Class);
+Query OK, 3 rows affected (0.03 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Class (Class, Descrip) VALUES
+    -> ('CS', 'Computer Science'),
+    -> ('IT', 'Information Technology'),
+    -> ('ENTC', 'Electronics and Telecommunication'),
+    -> ('MECH', 'Mechanical Engineering'),
+    -> ('CIVIL', 'Civil Engineering'),
+    -> ('EE', 'Electrical Engineering'),
+    -> ('AI', 'Artificial Intelligence'),
+    -> ('DS', 'Data Science'),
+    -> ('CHEM', 'Chemical Engineering'),
+    -> ('FE', 'First Year Engineering');
+Query OK, 10 rows affected (0.03 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Lab (Mach_no, Lab_no, Description) VALUES
+    -> (101, 1, 'Dell Optiplex - Programming Lab'),
+    -> (102, 1, 'HP EliteDesk - Programming Lab'),
+    -> (103, 1, 'Lenovo ThinkCentre - Programming Lab'),
+    -> (104, 2, 'Dell Optiplex - Networking Lab'),
+    -> (105, 2, 'HP EliteDesk - Networking Lab'),
+    -> (106, 2, 'Apple iMac - Multimedia Lab'),
+    -> (107, 3, 'Dell Precision - Project Lab'),
+    -> (108, 3, 'HP Z Workstation - Project Lab'),
+    -> (109, 3, 'Lenovo ThinkStation - Project Lab'),
+    -> (110, 1, 'Raspberry Pi Kit - IoT Lab');
+ERROR 1054 (42S22): Unknown column 'Description' in 'field list'
+mysql> INSERT INTO Lab (Mach_no, Lab_no, Description) VALUES
+    -> (101, 1, 'Dell Optiplex - Programming Lab'),
+    -> (102, 1, 'HP EliteDesk - Programming Lab'),
+    -> (103, 1, 'Lenovo ThinkCentre - Programming Lab'),
+    -> (104, 2, 'Dell Optiplex - Networking Lab'),
+    -> (105, 2, 'HP EliteDesk - Networking Lab'),
+    -> (106, 2, 'Apple iMac - Multimedia Lab'),
+    -> (107, 3, 'Dell Precision - Project Lab'),
+    -> (108, 3, 'HP Z Workstation - Project Lab'),
+    -> (109, 3, 'Lenovo ThinkStation - Project Lab'),
+    ->
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 10
+mysql> Alter table Lab change Descrip Description Varchar(255);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Lab (Mach_no, Lab_no, Description) VALUES
+    -> (101, 1, 'Dell Optiplex - Programming Lab'),
+    -> (102, 1, 'HP EliteDesk - Programming Lab'),
+    -> (103, 1, 'Lenovo ThinkCentre - Programming Lab'),
+    -> (104, 2, 'Dell Optiplex - Networking Lab'),
+    -> (105, 2, 'HP EliteDesk - Networking Lab'),
+    -> (106, 2, 'Apple iMac - Multimedia Lab'),
+    -> (107, 3, 'Dell Precision - Project Lab'),
+    -> (108, 3, 'HP Z Workstation - Project Lab'),
+    -> (109, 3, 'Lenovo ThinkStation - Project Lab'),
+    -> (110, 1, 'Raspberry Pi Kit - IoT Lab');
+Query OK, 10 rows affected (0.00 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Student (Stud_no, Stud_name, Class) VALUES
+    -> (1, 'Aarav Sharma', 'CS'),
+    -> (2, 'Vivaan Singh', 'IT'),
+    -> (3, 'Aditya Kumar', 'ENTC'),
+    -> (4, 'Vihaan Gupta', 'MECH'),
+    -> (5, 'Arjun Patel', 'CS'),
+    -> (6, 'Sai Reddy', 'IT'),
+    -> (7, 'Reyansh Mishra', 'DS'),
+    -> (8, 'Krishna Verma', 'AI'),
+    -> (9, 'Ishaan Joshi', 'ENTC'),
+    -> (10, 'Advik Tiwari', 'CS');
+Query OK, 10 rows affected (0.00 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Allotment (Stud_no, Mach_no, Day_of_week) VALUES
+    -> (1, 101, 'Monday'),
+    -> (5, 101, 'Monday'),    -- Same machine, same day, different student
+    -> (2, 104, 'Tuesday'),
+    -> (6, 104, 'Tuesday'),   -- Same machine, same day, different student
+    -> (3, 107, 'Wednesday'),
+    -> (7, 107, 'Wednesday'), -- Same machine, same day, different student
+    -> (4, 102, 'Thursday'),
+    -> (8, 106, 'Thursday'),  -- Different machine, same day
+    -> (9, 109, 'Friday'),
+    -> (10, 105, 'Friday');   -- Different machine, same day
+ERROR 1054 (42S22): Unknown column 'Day_of_week' in 'field list'
+mysql> Alter table Allotment change DOW Day_of_week Varchar(20);
+Query OK, 3 rows affected (0.05 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Allotment (Stud_no, Mach_no, Day_of_week) VALUES
+    -> (1, 101, 'Monday'),
+    -> (5, 101, 'Monday'),    -- Same machine, same day, different student
+    -> (2, 104, 'Tuesday'),
+    -> (6, 104, 'Tuesday'),   -- Same machine, same day, different student
+    -> (3, 107, 'Wednesday'),
+    -> (7, 107, 'Wednesday'), -- Same machine, same day, different student
+    -> (4, 102, 'Thursday'),
+    -> (8, 106, 'Thursday'),  -- Different machine, same day
+    -> (9, 109, 'Friday'),
+    -> (10, 105, 'Friday');   -- Different machine, same day
+Query OK, 10 rows affected (0.00 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> select Allotment.*,Student.Stud_name,Lab.Lab_no from Allotment inner join Studnet on Student.Stud_no=Allotment.Stud_no inner join Lab on Lab.Lab_no=Allotment.Lab_no;
+ERROR 1146 (42S02): Table 'dbmspractical.studnet' doesn't exist
+mysql> select Allotment.*,Student.Stud_name,Lab.Lab_no from Allotment inner join Student on Student.Stud_no=Allotment.Stud_no inner join Lab on Lab.Lab_no=Allotment.Lab_no;
+ERROR 1054 (42S22): Unknown column 'Allotment.Lab_no' in 'on clause'
+mysql> select Allotment.*,Student.Stud_name,Lab.Lab_no from Allotment inner join Student on Student.Stud_no=Allotment.Stud_no inner join Lab on Lab.Mach_no=Allotment.Mach_no;
++---------+---------+-------------+----------------+--------+
+| Stud_no | Mach_no | Day_of_week | Stud_name      | Lab_no |
++---------+---------+-------------+----------------+--------+
+|     100 |    4065 | Thursday    | Diyan          |    401 |
+|     101 |    4044 | Monday      | Swapnil        |    202 |
+|       1 |     101 | Monday      | Aarav Sharma   |      1 |
+|       5 |     101 | Monday      | Arjun Patel    |      1 |
+|       4 |     102 | Thursday    | Vihaan Gupta   |      1 |
+|       2 |     104 | Tuesday     | Vivaan Singh   |      2 |
+|       6 |     104 | Tuesday     | Sai Reddy      |      2 |
+|      10 |     105 | Friday      | Advik Tiwari   |      2 |
+|       8 |     106 | Thursday    | Krishna Verma  |      2 |
+|       3 |     107 | Wednesday   | Aditya Kumar   |      3 |
+|       7 |     107 | Wednesday   | Reyansh Mishra |      3 |
+|       9 |     109 | Friday      | Ishaan Joshi   |      3 |
++---------+---------+-------------+----------------+--------+
+12 rows in set (0.00 sec)
+
+mysql> select Day_of_week,Count(Day_of_week) from Allotment;
++-------------+--------------------+
+| Day_of_week | Count(Day_of_week) |
++-------------+--------------------+
+| Thursday    |                 13 |
++-------------+--------------------+
+1 row in set (0.00 sec)
+
+mysql> select Day_of_week,Count(Day_of_week) from Allotment Group by Day_of_week;
++-------------+--------------------+
+| Day_of_week | Count(Day_of_week) |
++-------------+--------------------+
+| Thursday    |                  3 |
+| Monday      |                  3 |
+| Wednesday   |                  3 |
+| Tuesday     |                  2 |
+| Friday      |                  2 |
++-------------+--------------------+
+5 rows in set (0.00 sec)
+
+mysql> select Count(Mach_no) from Class where Class="CS" OR Class="IT" Group by Mach_no;
+ERROR 1054 (42S22): Unknown column 'Mach_no' in 'field list'
+mysql> select Count(Allotment.Mach_no) from Allotment inner join Class where Class.Class="CS" OR Class.Class="IT" Group by Allotment.Mach_no;
++--------------------------+
+| Count(Allotment.Mach_no) |
++--------------------------+
+|                        4 |
+|                        2 |
+|                        4 |
+|                        2 |
+|                        2 |
+|                        4 |
+|                        2 |
+|                        2 |
+|                        2 |
+|                        2 |
++--------------------------+
+10 rows in set (0.00 sec)
+
+mysql> select Class.*,Count(Allotment.Mach_no) from Allotment inner join Class where Class.Class="CS" OR Class.Class="IT" Group by Allotment.Mach_no;
++-------+------------------------+--------------------------+
+| Class | Descrip                | Count(Allotment.Mach_no) |
++-------+------------------------+--------------------------+
+| IT    | Information Technology |                        4 |
+| IT    | Information Technology |                        2 |
+| IT    | Information Technology |                        4 |
+| IT    | Information Technology |                        2 |
+| IT    | Information Technology |                        2 |
+| IT    | Information Technology |                        4 |
+| IT    | Information Technology |                        2 |
+| IT    | Information Technology |                        2 |
+| IT    | Information Technology |                        2 |
+| IT    | Information Technology |                        2 |
++-------+------------------------+--------------------------+
+10 rows in set (0.00 sec)
+
+mysql> select Student.Class,Count(Allotment.Mach_no) from Allotment inner join Student on Allotment.Stud_no=Student.Stud_no where Student.Class="CS" OR Student.Class="IT" Group by Allotment.Mach_no;
++-------+--------------------------+
+| Class | Count(Allotment.Mach_no) |
++-------+--------------------------+
+| CS    |                        2 |
+| CS    |                        1 |
+| IT    |                        2 |
++-------+--------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select Student.Class,Count(Distinct Allotment.Mach_no) from Allotment inner join Student on Allotment.Stud_no=Student.Stud_no where Student.Class="CS" OR Student.Class="IT" Group by Allotment.Mach_no;
++-------+-----------------------------------+
+| Class | Count(Distinct Allotment.Mach_no) |
++-------+-----------------------------------+
+| CS    |                                 1 |
+| IT    |                                 1 |
+| CS    |                                 1 |
++-------+-----------------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from Studnet;
+ERROR 1146 (42S02): Table 'dbmspractical.studnet' doesn't exist
+mysql> select * from Student;
++---------+----------------+--------+
+| Stud_no | Stud_name      | Class  |
++---------+----------------+--------+
+|     100 | Diyan          | SEIT   |
+|     101 | Swapnil        | SECS   |
+|     102 | Unus Angus     | SEELEC |
+|       1 | Aarav Sharma   | CS     |
+|       2 | Vivaan Singh   | IT     |
+|       3 | Aditya Kumar   | ENTC   |
+|       4 | Vihaan Gupta   | MECH   |
+|       5 | Arjun Patel    | CS     |
+|       6 | Sai Reddy      | IT     |
+|       7 | Reyansh Mishra | DS     |
+|       8 | Krishna Verma  | AI     |
+|       9 | Ishaan Joshi   | ENTC   |
+|      10 | Advik Tiwari   | CS     |
++---------+----------------+--------+
+13 rows in set (0.00 sec)
+
+mysql> Select * from Class;
++--------+-----------------------------------+
+| Class  | Descrip                           |
++--------+-----------------------------------+
+| SEIT   | Vilas Gaikwad                     |
+| SECS   | Pankaj Phadtare                   |
+| SEELEC | Nilima Anjel                      |
+| CS     | Computer Science                  |
+| IT     | Information Technology            |
+| ENTC   | Electronics and Telecommunication |
+| MECH   | Mechanical Engineering            |
+| CIVIL  | Civil Engineering                 |
+| EE     | Electrical Engineering            |
+| AI     | Artificial Intelligence           |
+| DS     | Data Science                      |
+| CHEM   | Chemical Engineering              |
+| FE     | First Year Engineering            |
++--------+-----------------------------------+
+13 rows in set (0.00 sec)
+
+mysql> Select * from Lab;;
++---------+--------+--------------------------------------+
+| Mach_no | Lab_no | Description                          |
++---------+--------+--------------------------------------+
+|    4065 |    401 | China                                |
+|    4044 |    202 | Something                            |
+|    4030 |    303 | Nothing                              |
+|     101 |      1 | Dell Optiplex - Programming Lab      |
+|     102 |      1 | HP EliteDesk - Programming Lab       |
+|     103 |      1 | Lenovo ThinkCentre - Programming Lab |
+|     104 |      2 | Dell Optiplex - Networking Lab       |
+|     105 |      2 | HP EliteDesk - Networking Lab        |
+|     106 |      2 | Apple iMac - Multimedia Lab          |
+|     107 |      3 | Dell Precision - Project Lab         |
+|     108 |      3 | HP Z Workstation - Project Lab       |
+|     109 |      3 | Lenovo ThinkStation - Project Lab    |
+|     110 |      1 | Raspberry Pi Kit - IoT Lab           |
++---------+--------+--------------------------------------+
+13 rows in set (0.00 sec)
+
+ERROR:
+No query specified
+
+mysql> Select * from Allotment;
++---------+---------+-------------+
+| Stud_no | Mach_no | Day_of_week |
++---------+---------+-------------+
+|     100 |    4065 | Thursday    |
+|     101 |    4044 | Monday      |
+|     103 |    4030 | Wednesday   |
+|       1 |     101 | Monday      |
+|       5 |     101 | Monday      |
+|       2 |     104 | Tuesday     |
+|       6 |     104 | Tuesday     |
+|       3 |     107 | Wednesday   |
+|       7 |     107 | Wednesday   |
+|       4 |     102 | Thursday    |
+|       8 |     106 | Thursday    |
+|       9 |     109 | Friday      |
+|      10 |     105 | Friday      |
++---------+---------+-------------+
+13 rows in set (0.00 sec)
+
+mysql> Select A.*,S.* from Allotment A inner join Student S on A.studno=S.studno where studno=5;
+ERROR 1054 (42S22): Unknown column 'studno' in 'where clause'
+mysql> Select A.*,S.* from Allotment A inner join Student S on A.Stud_no=S.Stud_no where Stud_no=5;
+ERROR 1052 (23000): Column 'Stud_no' in where clause is ambiguous
+mysql> Select A.*,S.* from Allotment A inner join Student S on A.Stud_no=S.Stud_no where Stud_no=5;
+ERROR 1052 (23000): Column 'Stud_no' in where clause is ambiguous
+mysql> Select A.*,S.* from Allotment A inner join Student S on A.Stud_no=S.Stud_no where S.Stud_no=5;
++---------+---------+-------------+---------+-------------+-------+
+| Stud_no | Mach_no | Day_of_week | Stud_no | Stud_name   | Class |
++---------+---------+-------------+---------+-------------+-------+
+|       5 |     101 | Monday      |       5 | Arjun Patel | CS    |
++---------+---------+-------------+---------+-------------+-------+
+1 row in set (0.00 sec)
+
+mysql> Select S.*,A.*,C.* from Allotment A inner join Student S on S.Stud_no=A.Stud_no inner join Class C on C.Class=S.Class;
++---------+----------------+-------+---------+---------+-------------+-------+-----------------------------------+
+| Stud_no | Stud_name      | Class | Stud_no | Mach_no | Day_of_week | Class | Descrip                           |
++---------+----------------+-------+---------+---------+-------------+-------+-----------------------------------+
+|     100 | Diyan          | SEIT  |     100 |    4065 | Thursday    | SEIT  | Vilas Gaikwad                     |
+|     101 | Swapnil        | SECS  |     101 |    4044 | Monday      | SECS  | Pankaj Phadtare                   |
+|       1 | Aarav Sharma   | CS    |       1 |     101 | Monday      | CS    | Computer Science                  |
+|       5 | Arjun Patel    | CS    |       5 |     101 | Monday      | CS    | Computer Science                  |
+|       2 | Vivaan Singh   | IT    |       2 |     104 | Tuesday     | IT    | Information Technology            |
+|       6 | Sai Reddy      | IT    |       6 |     104 | Tuesday     | IT    | Information Technology            |
+|       3 | Aditya Kumar   | ENTC  |       3 |     107 | Wednesday   | ENTC  | Electronics and Telecommunication |
+|       7 | Reyansh Mishra | DS    |       7 |     107 | Wednesday   | DS    | Data Science                      |
+|       4 | Vihaan Gupta   | MECH  |       4 |     102 | Thursday    | MECH  | Mechanical Engineering            |
+|       8 | Krishna Verma  | AI    |       8 |     106 | Thursday    | AI    | Artificial Intelligence           |
+|       9 | Ishaan Joshi   | ENTC  |       9 |     109 | Friday      | ENTC  | Electronics and Telecommunication |
+|      10 | Advik Tiwari   | CS    |      10 |     105 | Friday      | CS    | Computer Science                  |
++---------+----------------+-------+---------+---------+-------------+-------+-----------------------------------+
+12 rows in set (0.00 sec)
+
+mysql> Select Count(A.Mach_no) from Allotment A Inner join Lab L on A.Mach_no=L.Mach_no where L.Lab_no=1 AND Day_of_week="Monday";
++------------------+
+| Count(A.Mach_no) |
++------------------+
+|                2 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> Select S.Class,Count(A.Mach_no) from Allotment A inner join Student S on A.Stud_no=S.Stud_no;
++-------+------------------+
+| Class | Count(A.Mach_no) |
++-------+------------------+
+| SEIT  |               12 |
++-------+------------------+
+1 row in set (0.00 sec)
+
+mysql> Select S.Class,Count(A.Mach_no) from Allotment A inner join Student S on A.Stud_no=S.Stud_noGroup by Class;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'by Class' at line 1
+mysql> Select S.Class,Count(A.Mach_no) from Allotment A inner join Student S on A.Stud_no=S.Stud_noGroup by S.Class;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'by S.Class' at line 1
+mysql> Select S.Class,Count(A.Mach_no) from Allotment A inner join Student S on A.Stud_no=S.Stud_no Group by S.Class;
++-------+------------------+
+| Class | Count(A.Mach_no) |
++-------+------------------+
+| SEIT  |                1 |
+| SECS  |                1 |
+| CS    |                3 |
+| IT    |                2 |
+| ENTC  |                2 |
+| DS    |                1 |
+| MECH  |                1 |
+| AI    |                1 |
++-------+------------------+
+8 rows in set (0.00 sec)
+
+mysql> Select S.Class,Count(S.Stud_no) from Allotment A inner join Student S on A.Stud_no=S.Stud_no Group by S.Class;
++-------+------------------+
+| Class | Count(S.Stud_no) |
++-------+------------------+
+| CS    |                3 |
+| IT    |                2 |
+| ENTC  |                2 |
+| MECH  |                1 |
+| DS    |                1 |
+| AI    |                1 |
+| SEIT  |                1 |
+| SECS  |                1 |
++-------+------------------+
+8 rows in set (0.00 sec)
+
+mysql> Select S.Class,Count(Distinct S.Stud_no) from Allotment A inner join Student S on A.Stud_no=S.Stud_no Group by S.Class;
++-------+---------------------------+
+| Class | Count(Distinct S.Stud_no) |
++-------+---------------------------+
+| AI    |                         1 |
+| CS    |                         3 |
+| DS    |                         1 |
+| ENTC  |                         2 |
+| IT    |                         2 |
+| MECH  |                         1 |
+| SECS  |                         1 |
+| SEIT  |                         1 |
++-------+---------------------------+
+8 rows in set (0.02 sec)
+
+mysql> create view Student_Allotment As Select S.Stud_no,S.Stud_name,A.Mach_no,A.Day_of_week from Allotment A inner join Student S;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> Select * from Student_Allotment;
++---------+----------------+---------+-------------+
+| Stud_no | Stud_name      | Mach_no | Day_of_week |
++---------+----------------+---------+-------------+
+|     100 | Diyan          |     105 | Friday      |
+|     100 | Diyan          |     109 | Friday      |
+|     100 | Diyan          |     106 | Thursday    |
+|     100 | Diyan          |     102 | Thursday    |
+|     100 | Diyan          |     107 | Wednesday   |
+|     100 | Diyan          |     107 | Wednesday   |
+|     100 | Diyan          |     104 | Tuesday     |
+|     100 | Diyan          |     104 | Tuesday     |
+|     100 | Diyan          |     101 | Monday      |
+|     100 | Diyan          |     101 | Monday      |
+|     100 | Diyan          |    4030 | Wednesday   |
+|     100 | Diyan          |    4044 | Monday      |
+|     100 | Diyan          |    4065 | Thursday    |
+|     101 | Swapnil        |     105 | Friday      |
+|     101 | Swapnil        |     109 | Friday      |
+|     101 | Swapnil        |     106 | Thursday    |
+|     101 | Swapnil        |     102 | Thursday    |
+|     101 | Swapnil        |     107 | Wednesday   |
+|     101 | Swapnil        |     107 | Wednesday   |
+|     101 | Swapnil        |     104 | Tuesday     |
+|     101 | Swapnil        |     104 | Tuesday     |
+|     101 | Swapnil        |     101 | Monday      |
+|     101 | Swapnil        |     101 | Monday      |
+|     101 | Swapnil        |    4030 | Wednesday   |
+|     101 | Swapnil        |    4044 | Monday      |
+|     101 | Swapnil        |    4065 | Thursday    |
+|     102 | Unus Angus     |     105 | Friday      |
+|     102 | Unus Angus     |     109 | Friday      |
+|     102 | Unus Angus     |     106 | Thursday    |
+|     102 | Unus Angus     |     102 | Thursday    |
+|     102 | Unus Angus     |     107 | Wednesday   |
+|     102 | Unus Angus     |     107 | Wednesday   |
+|     102 | Unus Angus     |     104 | Tuesday     |
+|     102 | Unus Angus     |     104 | Tuesday     |
+|     102 | Unus Angus     |     101 | Monday      |
+|     102 | Unus Angus     |     101 | Monday      |
+|     102 | Unus Angus     |    4030 | Wednesday   |
+|     102 | Unus Angus     |    4044 | Monday      |
+|     102 | Unus Angus     |    4065 | Thursday    |
+|       1 | Aarav Sharma   |     105 | Friday      |
+|       1 | Aarav Sharma   |     109 | Friday      |
+|       1 | Aarav Sharma   |     106 | Thursday    |
+|       1 | Aarav Sharma   |     102 | Thursday    |
+|       1 | Aarav Sharma   |     107 | Wednesday   |
+|       1 | Aarav Sharma   |     107 | Wednesday   |
+|       1 | Aarav Sharma   |     104 | Tuesday     |
+|       1 | Aarav Sharma   |     104 | Tuesday     |
+|       1 | Aarav Sharma   |     101 | Monday      |
+|       1 | Aarav Sharma   |     101 | Monday      |
+|       1 | Aarav Sharma   |    4030 | Wednesday   |
+|       1 | Aarav Sharma   |    4044 | Monday      |
+|       1 | Aarav Sharma   |    4065 | Thursday    |
+|       2 | Vivaan Singh   |     105 | Friday      |
+|       2 | Vivaan Singh   |     109 | Friday      |
+|       2 | Vivaan Singh   |     106 | Thursday    |
+|       2 | Vivaan Singh   |     102 | Thursday    |
+|       2 | Vivaan Singh   |     107 | Wednesday   |
+|       2 | Vivaan Singh   |     107 | Wednesday   |
+|       2 | Vivaan Singh   |     104 | Tuesday     |
+|       2 | Vivaan Singh   |     104 | Tuesday     |
+|       2 | Vivaan Singh   |     101 | Monday      |
+|       2 | Vivaan Singh   |     101 | Monday      |
+|       2 | Vivaan Singh   |    4030 | Wednesday   |
+|       2 | Vivaan Singh   |    4044 | Monday      |
+|       2 | Vivaan Singh   |    4065 | Thursday    |
+|       3 | Aditya Kumar   |     105 | Friday      |
+|       3 | Aditya Kumar   |     109 | Friday      |
+|       3 | Aditya Kumar   |     106 | Thursday    |
+|       3 | Aditya Kumar   |     102 | Thursday    |
+|       3 | Aditya Kumar   |     107 | Wednesday   |
+|       3 | Aditya Kumar   |     107 | Wednesday   |
+|       3 | Aditya Kumar   |     104 | Tuesday     |
+|       3 | Aditya Kumar   |     104 | Tuesday     |
+|       3 | Aditya Kumar   |     101 | Monday      |
+|       3 | Aditya Kumar   |     101 | Monday      |
+|       3 | Aditya Kumar   |    4030 | Wednesday   |
+|       3 | Aditya Kumar   |    4044 | Monday      |
+|       3 | Aditya Kumar   |    4065 | Thursday    |
+|       4 | Vihaan Gupta   |     105 | Friday      |
+|       4 | Vihaan Gupta   |     109 | Friday      |
+|       4 | Vihaan Gupta   |     106 | Thursday    |
+|       4 | Vihaan Gupta   |     102 | Thursday    |
+|       4 | Vihaan Gupta   |     107 | Wednesday   |
+|       4 | Vihaan Gupta   |     107 | Wednesday   |
+|       4 | Vihaan Gupta   |     104 | Tuesday     |
+|       4 | Vihaan Gupta   |     104 | Tuesday     |
+|       4 | Vihaan Gupta   |     101 | Monday      |
+|       4 | Vihaan Gupta   |     101 | Monday      |
+|       4 | Vihaan Gupta   |    4030 | Wednesday   |
+|       4 | Vihaan Gupta   |    4044 | Monday      |
+|       4 | Vihaan Gupta   |    4065 | Thursday    |
+|       5 | Arjun Patel    |     105 | Friday      |
+|       5 | Arjun Patel    |     109 | Friday      |
+|       5 | Arjun Patel    |     106 | Thursday    |
+|       5 | Arjun Patel    |     102 | Thursday    |
+|       5 | Arjun Patel    |     107 | Wednesday   |
+|       5 | Arjun Patel    |     107 | Wednesday   |
+|       5 | Arjun Patel    |     104 | Tuesday     |
+|       5 | Arjun Patel    |     104 | Tuesday     |
+|       5 | Arjun Patel    |     101 | Monday      |
+|       5 | Arjun Patel    |     101 | Monday      |
+|       5 | Arjun Patel    |    4030 | Wednesday   |
+|       5 | Arjun Patel    |    4044 | Monday      |
+|       5 | Arjun Patel    |    4065 | Thursday    |
+|       6 | Sai Reddy      |     105 | Friday      |
+|       6 | Sai Reddy      |     109 | Friday      |
+|       6 | Sai Reddy      |     106 | Thursday    |
+|       6 | Sai Reddy      |     102 | Thursday    |
+|       6 | Sai Reddy      |     107 | Wednesday   |
+|       6 | Sai Reddy      |     107 | Wednesday   |
+|       6 | Sai Reddy      |     104 | Tuesday     |
+|       6 | Sai Reddy      |     104 | Tuesday     |
+|       6 | Sai Reddy      |     101 | Monday      |
+|       6 | Sai Reddy      |     101 | Monday      |
+|       6 | Sai Reddy      |    4030 | Wednesday   |
+|       6 | Sai Reddy      |    4044 | Monday      |
+|       6 | Sai Reddy      |    4065 | Thursday    |
+|       7 | Reyansh Mishra |     105 | Friday      |
+|       7 | Reyansh Mishra |     109 | Friday      |
+|       7 | Reyansh Mishra |     106 | Thursday    |
+|       7 | Reyansh Mishra |     102 | Thursday    |
+|       7 | Reyansh Mishra |     107 | Wednesday   |
+|       7 | Reyansh Mishra |     107 | Wednesday   |
+|       7 | Reyansh Mishra |     104 | Tuesday     |
+|       7 | Reyansh Mishra |     104 | Tuesday     |
+|       7 | Reyansh Mishra |     101 | Monday      |
+|       7 | Reyansh Mishra |     101 | Monday      |
+|       7 | Reyansh Mishra |    4030 | Wednesday   |
+|       7 | Reyansh Mishra |    4044 | Monday      |
+|       7 | Reyansh Mishra |    4065 | Thursday    |
+|       8 | Krishna Verma  |     105 | Friday      |
+|       8 | Krishna Verma  |     109 | Friday      |
+|       8 | Krishna Verma  |     106 | Thursday    |
+|       8 | Krishna Verma  |     102 | Thursday    |
+|       8 | Krishna Verma  |     107 | Wednesday   |
+|       8 | Krishna Verma  |     107 | Wednesday   |
+|       8 | Krishna Verma  |     104 | Tuesday     |
+|       8 | Krishna Verma  |     104 | Tuesday     |
+|       8 | Krishna Verma  |     101 | Monday      |
+|       8 | Krishna Verma  |     101 | Monday      |
+|       8 | Krishna Verma  |    4030 | Wednesday   |
+|       8 | Krishna Verma  |    4044 | Monday      |
+|       8 | Krishna Verma  |    4065 | Thursday    |
+|       9 | Ishaan Joshi   |     105 | Friday      |
+|       9 | Ishaan Joshi   |     109 | Friday      |
+|       9 | Ishaan Joshi   |     106 | Thursday    |
+|       9 | Ishaan Joshi   |     102 | Thursday    |
+|       9 | Ishaan Joshi   |     107 | Wednesday   |
+|       9 | Ishaan Joshi   |     107 | Wednesday   |
+|       9 | Ishaan Joshi   |     104 | Tuesday     |
+|       9 | Ishaan Joshi   |     104 | Tuesday     |
+|       9 | Ishaan Joshi   |     101 | Monday      |
+|       9 | Ishaan Joshi   |     101 | Monday      |
+|       9 | Ishaan Joshi   |    4030 | Wednesday   |
+|       9 | Ishaan Joshi   |    4044 | Monday      |
+|       9 | Ishaan Joshi   |    4065 | Thursday    |
+|      10 | Advik Tiwari   |     105 | Friday      |
+|      10 | Advik Tiwari   |     109 | Friday      |
+|      10 | Advik Tiwari   |     106 | Thursday    |
+|      10 | Advik Tiwari   |     102 | Thursday    |
+|      10 | Advik Tiwari   |     107 | Wednesday   |
+|      10 | Advik Tiwari   |     107 | Wednesday   |
+|      10 | Advik Tiwari   |     104 | Tuesday     |
+|      10 | Advik Tiwari   |     104 | Tuesday     |
+|      10 | Advik Tiwari   |     101 | Monday      |
+|      10 | Advik Tiwari   |     101 | Monday      |
+|      10 | Advik Tiwari   |    4030 | Wednesday   |
+|      10 | Advik Tiwari   |    4044 | Monday      |
+|      10 | Advik Tiwari   |    4065 | Thursday    |
++---------+----------------+---------+-------------+
+169 rows in set (0.00 sec)
+
+mysql> create view Student_Allotment As Select S.Stud_no,S.Stud_name,A.Mach_no,A.Day_of_week from Allotment A inner join Student S Group by S.Stud_no;
+ERROR 1050 (42S01): Table 'Student_Allotment' already exists
+mysql> Drop view Studnet_Allotment;
+ERROR 1051 (42S02): Unknown table 'dbmspractical.studnet_allotment'
+mysql> Drop view [Studnet_Allotment];
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '[Studnet_Allotment]' at line 1
+mysql> Drop view Student_Allotment;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create view Student_Allotment As Select S.Stud_no,S.Stud_name,A.Mach_no,A.Day_of_week from Allotment A inner join Student S Group by S.Stud_no;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> Select * from Student_Allotment
+    -> ;
++---------+----------------+---------+-------------+
+| Stud_no | Stud_name      | Mach_no | Day_of_week |
++---------+----------------+---------+-------------+
+|     100 | Diyan          |     105 | Friday      |
+|     101 | Swapnil        |     105 | Friday      |
+|     102 | Unus Angus     |     105 | Friday      |
+|       1 | Aarav Sharma   |     105 | Friday      |
+|       2 | Vivaan Singh   |     105 | Friday      |
+|       3 | Aditya Kumar   |     105 | Friday      |
+|       4 | Vihaan Gupta   |     105 | Friday      |
+|       5 | Arjun Patel    |     105 | Friday      |
+|       6 | Sai Reddy      |     105 | Friday      |
+|       7 | Reyansh Mishra |     105 | Friday      |
+|       8 | Krishna Verma  |     105 | Friday      |
+|       9 | Ishaan Joshi   |     105 | Friday      |
+|      10 | Advik Tiwari   |     105 | Friday      |
++---------+----------------+---------+-------------+
+13 rows in set (0.00 sec)
+
+mysql> Drop view Student_Allotment;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create view Student_Allotment As Select S.Stud_no,S.Stud_name,Distinct A.Mach_no, Distinct A.Day_of_week from Allotment A inner join Student S Group by S.Stud_no,Mach_no,Day_of_week;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Distinct A.Mach_no, Distinct A.Day_of_week from Allotment A inner join Student S' at line 1
+mysql> create view Student_Allotment As Select S.Stud_no,S.Stud_name,Distinct A.Mach_no, Distinct A.Day_of_week from Allotment A inner join Student S Group by S.Stud_no,A.Mach_no,A.Day_of_week;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Distinct A.Mach_no, Distinct A.Day_of_week from Allotment A inner join Student S' at line 1
+mysql> create view Student_Allotment As Select S.Stud_no,S.Stud_name,A.Mach_no,A.Day_of_week from Allotment A inner join Student S on S.Stud_no=A.Stud_no Group by S.Stud_no;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> Select * from Student_Allotment;
++---------+----------------+---------+-------------+
+| Stud_no | Stud_name      | Mach_no | Day_of_week |
++---------+----------------+---------+-------------+
+|     100 | Diyan          |    4065 | Thursday    |
+|     101 | Swapnil        |    4044 | Monday      |
+|       1 | Aarav Sharma   |     101 | Monday      |
+|       5 | Arjun Patel    |     101 | Monday      |
+|       2 | Vivaan Singh   |     104 | Tuesday     |
+|       6 | Sai Reddy      |     104 | Tuesday     |
+|       3 | Aditya Kumar   |     107 | Wednesday   |
+|       7 | Reyansh Mishra |     107 | Wednesday   |
+|       4 | Vihaan Gupta   |     102 | Thursday    |
+|       8 | Krishna Verma  |     106 | Thursday    |
+|       9 | Ishaan Joshi   |     109 | Friday      |
+|      10 | Advik Tiwari   |     105 | Friday      |
++---------+----------------+---------+-------------+
+12 rows in set (0.00 sec)
+
+mysql> create view Student_Allotment2 As Select S.Stud_no,S.Stud_name,A.Mach_no,A.Day_of_week from Allotment A inner join Student S on S.Stud_no=A.Stud_no;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> Select * from Student_Allotment2;
++---------+----------------+---------+-------------+
+| Stud_no | Stud_name      | Mach_no | Day_of_week |
++---------+----------------+---------+-------------+
+|     100 | Diyan          |    4065 | Thursday    |
+|     101 | Swapnil        |    4044 | Monday      |
+|       1 | Aarav Sharma   |     101 | Monday      |
+|       5 | Arjun Patel    |     101 | Monday      |
+|       2 | Vivaan Singh   |     104 | Tuesday     |
+|       6 | Sai Reddy      |     104 | Tuesday     |
+|       3 | Aditya Kumar   |     107 | Wednesday   |
+|       7 | Reyansh Mishra |     107 | Wednesday   |
+|       4 | Vihaan Gupta   |     102 | Thursday    |
+|       8 | Krishna Verma  |     106 | Thursday    |
+|       9 | Ishaan Joshi   |     109 | Friday      |
+|      10 | Advik Tiwari   |     105 | Friday      |
++---------+----------------+---------+-------------+
+12 rows in set (0.00 sec)
+
+mysql> Create View Allotment_Thursday AS Select * from Allotment where Day_of_week="Thursday";
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select * from Allotment_Thursday;
++---------+---------+-------------+
+| Stud_no | Mach_no | Day_of_week |
++---------+---------+-------------+
+|     100 |    4065 | Thursday    |
+|       4 |     102 | Thursday    |
+|       8 |     106 | Thursday    |
++---------+---------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> CREATE TABLE DEPT (
+    ->     PTNO INT PRIMARY KEY,
+    ->     DNAME VARCHAR(50),
+    ->     LOC VARCHAR(50)
+    -> );
+ERROR 1050 (42S01): Table 'dept' already exists
+mysql>
+mysql> CREATE TABLE DEPT (
+    ->     PTNO INT PRIMARY KEY,
+    ->     DNAME VARCHAR(50),
+    ->     LOC VARCHAR(50)
+    -> );
+ERROR 1050 (42S01): Table 'dept' already exists
+mysql> CREATE TABLE DEPART (     PTNO INT PRIMARY KEY,
+    ->     DNAME VARCHAR(50),
+    ->     LOC VARCHAR(50)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO DEPART (PTNO, DNAME, LOC) VALUES (10, 'ACCOUNTING', 'NEW YORK'),
+    -> (20, 'RESEARCH', 'DALLAS'),
+    -> (30, 'SALES', 'CHICAGO'),
+    -> (40, 'OPERATIONS', 'BOSTON');
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> CREATE TABLE EMP (
+    ->     EMPNO INT PRIMARY KEY,
+    ->     ENAME VARCHAR(50),
+    ->     JOB VARCHAR(50),
+    ->     MGR INT,
+    ->     HIREDATE DATE,
+    ->     SAL INT,
+    ->     COMM INT,
+    ->     DEPTNO INT,
+    ->     FOREIGN KEY (DEPTNO) REFERENCES DEPART(PTNO) );
+ERROR 1050 (42S01): Table 'emp' already exists
+mysql> CREATE TABLE EMPLOY (     EMPNO INT PRIMARY KEY,
+    ->     ENAME VARCHAR(50),
+    ->     JOB VARCHAR(50),
+    ->     MGR INT,
+    ->     HIREDATE DATE,
+    ->     SAL INT,
+    ->     COMM INT,
+    ->     DEPTNO INT,
+    ->     FOREIGN KEY (DEPTNO) REFERENCES DEPART(PTNO) );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> INSERT INTO EMPLOY (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO) VALUES (7369, 'SMITH', 'CLERK', 7902, '1980-12-17', 800, NULL, 20),
+    -> (7499, 'ALLEN', 'SALESMAN', 7698, '1981-02-20', 1600, 300, 30),
+    -> (7521, 'WARD', 'SALESMAN', 7698, '1981-02-22', 1250, 500, 30),
+    -> (7566, 'JONES', 'MANAGER', 7839, '1981-04-02', 2975, NULL, 20),
+    -> (7654, 'MARTIN', 'SALESMAN', 7698, '1981-09-28', 1250, 1400, 30),
+    -> (7698, 'BLAKE', 'MANAGER', 7839, '1981-05-01', 2850, NULL, 30),
+    -> (7782, 'CLARK', 'MANAGER', 7839, '1981-06-09', 2450, NULL, 10),
+    -> (7788, 'SCOTT', 'ANALYST', 7566, '1982-12-09', 3000, NULL, 20),
+    -> (7839, 'KING', 'PRESIDENT', NULL, '1981-11-17', 5000, NULL, 10),
+    -> (7844, 'TURNER', 'SALESMAN', 7698, '1981-09-08', 1500, 0, 30),
+    -> (7876, 'ADAMS', 'CLERK', 7788, '1983-01-12', 1100, NULL, 20),
+    -> (7900, 'JAMES', 'CLERK', 7698, '1981-12-03', 950, NULL, 30),
+    -> (7902, 'FORD', 'ANALYST', 7566, '1981-12-03', 3000, NULL, 20),
+    -> (7934, 'MILLER', 'CLERK', 7782, '1982-01-23', 1300, NULL, 10);
+Query OK, 14 rows affected (0.01 sec)
+Records: 14  Duplicates: 0  Warnings: 0
+
+mysql> Select * from Emp where JOB="MANAGER" AND (DEPTNO=20 OR DEPTNO=30)
+    -> ;
+ERROR 1054 (42S22): Unknown column 'JOB' in 'where clause'
+mysql> Select * from EMPLOY where JOB="MANAGER" AND (DEPTNO=20 OR DEPTNO=30);
++-------+-------+---------+------+------------+------+------+--------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+-------+---------+------+------------+------+------+--------+
+|  7566 | JONES | MANAGER | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|  7698 | BLAKE | MANAGER | 7839 | 1981-05-01 | 2850 | NULL |     30 |
++-------+-------+---------+------+------------+------+------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT JOB,AVG(SAL) FROM EMPLOY WHERE EMPNO NOT IN (7788,7789,7790) GROUP BY JOB;
++-----------+-----------+
+| JOB       | AVG(SAL)  |
++-----------+-----------+
+| CLERK     | 1037.5000 |
+| SALESMAN  | 1400.0000 |
+| MANAGER   | 2758.3333 |
+| PRESIDENT | 5000.0000 |
+| ANALYST   | 3000.0000 |
++-----------+-----------+
+5 rows in set (0.02 sec)
+
+mysql> SELECT E.* FROM EMPLOY E INNER JOIN DEPART D ON E.PTNO=D.DEPTNO WHERE E.DEPTNO=(SELECT PTNO FROM DEPART WHERE LOC="DALLAS);
+    ">
+    "> ;
+    "> ;
+    ">
+    "> SELECT E.* FROM EMPLOY E INNER JOIN DEPART D ON E.PTNO=D.DEPTNO WHERE E.DEPTNO=(SELECT PTNO FROM DEPART WHERE LOC="DALLAS);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DALLAS)' at line 6
+mysql> SELECT E.* FROM EMPLOY E INNER JOIN DEPART D ON E.PTNO=D.DEPTNO WHERE E.DEPTNO=(SELECT PTNO FROM DEPART WHERE LOC="DALLAS");
+ERROR 1054 (42S22): Unknown column 'E.PTNO' in 'on clause'
+mysql> SELECT E.* FROM EMPLOY E INNER JOIN DEPART D ON E.PTNO=D.DEPTNO WHERE E.DEPTNO=(SELECT PTNO FROM DEPART WHERE LOC="DALLAS");
+ERROR 1054 (42S22): Unknown column 'E.PTNO' in 'on clause'
+mysql> SELECT E.* FROM EMPLOY E INNER JOIN DEPART D ON E.DEPTNO=D.PTNO WHERE E.DEPTNO=(SELECT PTNO FROM DEPART WHERE LOC="DALLAS");
++-------+-------+---------+------+------------+------+------+--------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+-------+---------+------+------------+------+------+--------+
+|  7369 | SMITH | CLERK   | 7902 | 1980-12-17 |  800 | NULL |     20 |
+|  7566 | JONES | MANAGER | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|  7788 | SCOTT | ANALYST | 7566 | 1982-12-09 | 3000 | NULL |     20 |
+|  7876 | ADAMS | CLERK   | 7788 | 1983-01-12 | 1100 | NULL |     20 |
+|  7902 | FORD  | ANALYST | 7566 | 1981-12-03 | 3000 | NULL |     20 |
++-------+-------+---------+------+------------+------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT E.* FROM EMPLOY E INNER JOIN DEPART D ON E.DEPTNP=D.PTNO WHERE E.DEPTNO=(SELECT PTNO FROM DEPART WHERE DNAME="ACCOUNTING" OR DNAME="SALES");
+ERROR 1054 (42S22): Unknown column 'E.DEPTNP' in 'on clause'
+mysql> SELECT E.* FROM EMPLOY E INNER JOIN DEPART D ON E.DEPTNO=D.PTNO WHERE E.DEPTNO=(SELECT PTNO FROM DEPART WHERE DNAME="ACCOUNTING" OR DNAME="SALES");
+ERROR 1242 (21000): Subquery returns more than 1 row
+mysql> SELECT E.* FROM EMPLOY E INNER JOIN DEPART D ON E.DEPTNO=D.PTNO WHERE E.DEPTNO=(SELECT PTNO FROM DEPART WHERE DNAME="ACCOUNTING") OR E.DEPTNO=(SELECT PTNO FROM DEPART WHERE DNAME="SALES");
++-------+--------+-----------+------+------------+------+------+--------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+--------+-----------+------+------------+------+------+--------+
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450 | NULL |     10 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000 | NULL |     10 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300 | NULL |     10 |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600 |  300 |     30 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250 |  500 |     30 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250 | 1400 |     30 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850 | NULL |     30 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500 |    0 |     30 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950 | NULL |     30 |
++-------+--------+-----------+------+------------+------+------+--------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT E.* FROM EMPLOY E INNER JOIN DEPART D ON E.DEPTNO=D.PTNO WHERE E.DEPTNO=(SELECT PTNO FROM DEPART WHERE DNAME="ACCOUNTING") OR E.DEPTNO=(SELECT PTNO FROM DEPART WHERE DNAME="SALES") AND (JOB="MANAGER" OR JOB="CLERK");
++-------+--------+-----------+------+------------+------+------+--------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+--------+-----------+------+------------+------+------+--------+
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450 | NULL |     10 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000 | NULL |     10 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300 | NULL |     10 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850 | NULL |     30 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950 | NULL |     30 |
++-------+--------+-----------+------+------------+------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT E.* FROM EMPLOY E INNER JOIN DEPART D ON E.DEPTNO=D.PTNO WHERE (E.DEPTNO=(SELECT PTNO FROM DEPART WHERE DNAME="ACCOUNTING") OR E.DEPTNO=(SELECT PTNO FROM DEPART WHERE DNAME="SALES")) AND (JOB="MANAGER" OR JOB="CLERK");
++-------+--------+---------+------+------------+------+------+--------+
+| EMPNO | ENAME  | JOB     | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+--------+---------+------+------------+------+------+--------+
+|  7782 | CLARK  | MANAGER | 7839 | 1981-06-09 | 2450 | NULL |     10 |
+|  7934 | MILLER | CLERK   | 7782 | 1982-01-23 | 1300 | NULL |     10 |
+|  7698 | BLAKE  | MANAGER | 7839 | 1981-05-01 | 2850 | NULL |     30 |
+|  7900 | JAMES  | CLERK   | 7698 | 1981-12-03 |  950 | NULL |     30 |
++-------+--------+---------+------+------------+------+------+--------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY WHERE NAME LIKE "%E";
+ERROR 1054 (42S22): Unknown column 'NAME' in 'where clause'
+mysql> SELECT * FROM EMPLOY WHERE ENAME LIKE "%E";
++-------+-------+---------+------+------------+------+------+--------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+-------+---------+------+------------+------+------+--------+
+|  7698 | BLAKE | MANAGER | 7839 | 1981-05-01 | 2850 | NULL |     30 |
++-------+-------+---------+------+------------+------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY WHERE ENAME LIKE "%E_";
++-------+--------+----------+------+------------+------+------+--------+
+| EMPNO | ENAME  | JOB      | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+--------+----------+------+------------+------+------+--------+
+|  7499 | ALLEN  | SALESMAN | 7698 | 1981-02-20 | 1600 |  300 |     30 |
+|  7566 | JONES  | MANAGER  | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|  7844 | TURNER | SALESMAN | 7698 | 1981-09-08 | 1500 |    0 |     30 |
+|  7900 | JAMES  | CLERK    | 7698 | 1981-12-03 |  950 | NULL |     30 |
+|  7934 | MILLER | CLERK    | 7782 | 1982-01-23 | 1300 | NULL |     10 |
++-------+--------+----------+------+------------+------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT MAX(SAL) FROM EMPLOY GROUP BY SAL;
++----------+
+| MAX(SAL) |
++----------+
+|      800 |
+|     1600 |
+|     1250 |
+|     2975 |
+|     2850 |
+|     2450 |
+|     3000 |
+|     5000 |
+|     1500 |
+|     1100 |
+|      950 |
+|     1300 |
++----------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT MAX(SAL) FROM EMPLOY GROUP BY EMPNO;
++----------+
+| MAX(SAL) |
++----------+
+|      800 |
+|     1600 |
+|     1250 |
+|     2975 |
+|     1250 |
+|     2850 |
+|     2450 |
+|     3000 |
+|     5000 |
+|     1500 |
+|     1100 |
+|      950 |
+|     3000 |
+|     1300 |
++----------+
+14 rows in set (0.00 sec)
+
+mysql> SELECT MAX(SAL) FROM EMPLOY;
++----------+
+| MAX(SAL) |
++----------+
+|     5000 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY WHERE JOB="ANALYST AND ENMAE NOT LIKE "%E";
+    "> ;
+    ">
+    "> SELECT * FROM EMPLOY WHERE JOB="ANALYST AND ENMAE NOT LIKE "%E";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '";
+;
+
+SELECT * FROM EMPLOY WHERE JOB="ANALYST AND ENMAE NOT LIKE "%E"' at line 1
+mysql> SELECT * FROM EMPLOY WHERE JOB="ANALYST AND ENMAE NOT LIKE "%E";
+    "> SELECT * FROM EMPLOY WHERE JOB="ANALYST AND ENMAE NOT LIKE "%E";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '";
+SELECT * FROM EMPLOY WHERE JOB="ANALYST AND ENMAE NOT LIKE "%E"' at line 1
+mysql> SELECT * FROM EMPLOY WHERE JOB="ANALYST" AND ENMAE NOT LIKE "%E";
+ERROR 1054 (42S22): Unknown column 'ENMAE' in 'where clause'
+mysql> SELECT * FROM EMPLOY WHERE JOB="ANALYST" AND ENAME NOT LIKE "%E";
++-------+-------+---------+------+------------+------+------+--------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+-------+---------+------+------------+------+------+--------+
+|  7788 | SCOTT | ANALYST | 7566 | 1982-12-09 | 3000 | NULL |     20 |
+|  7902 | FORD  | ANALYST | 7566 | 1981-12-03 | 3000 | NULL |     20 |
++-------+-------+---------+------+------------+------+------+--------+
+2 rows in set (0.00 sec)
+
+mysql> CREATE TABLE DEP (     PTNO INT PRIMARY KEY,
+    ->     DNAME VARCHAR(50),
+    ->     LOC VARCHAR(50)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> INSERT INTO DEP (PTNO, DNAME, LOC) VALUES (10, 'ACCOUNTING', 'NEW YORK'),
+    -> (20, 'RESEARCH', 'DALLAS'),
+    -> (30, 'SALES', 'CHICAGO'),
+    -> (40, 'OPERATIONS', 'BOSTON');
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE EM (     EMPNO INT PRIMARY KEY,
+    ->     ENAME VARCHAR(50),
+    ->     JOB VARCHAR(50),
+    ->     MGR INT,
+    ->     HIREDATE DATE,
+    ->     SAL INT,
+    ->     COMM INT,
+    ->     DEPTNO INT,
+    ->     FOREIGN KEY (DEPTNO) REFERENCES DEP(PTNO) );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>
+mysql> INSERT INTO EM (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO) VALUES (7369, 'SMITH', 'CLERK', 7902, '1980-12-17', 800, NULL, 20),
+    -> (7499, 'ALLEN', 'SALESMAN', 7698, '1981-02-20', 1600, 300, 30),
+    -> (7521, 'WARD', 'SALESMAN', 7698, '1981-02-22', 1250, 500, 30),
+    -> (7566, 'JONES', 'MANAGER', 7839, '1981-04-02', 2975, NULL, 20),
+    -> (7654, 'MARTIN', 'SALESMAN', 7698, '1981-09-28', 1250, 1400, 30),
+    -> (7698, 'BLAKE', 'MANAGER', 7839, '1981-05-01', 2850, NULL, 30),
+    -> (7782, 'CLARK', 'MANAGER', 7839, '1981-06-09', 2450, NULL, 10),
+    -> (7788, 'SCOTT', 'ANALYST', 7566, '1982-12-09', 3000, NULL, 20),
+    -> (7839, 'KING', 'PRESIDENT', NULL, '1981-11-17', 5000, NULL, 10),
+    -> (7844, 'TURNER', 'SALESMAN', 7698, '1981-09-08', 1500, 0, 30),
+    -> (7876, 'ADAMS', 'CLERK', 7788, '1983-01-12', 1100, NULL, 20),
+    -> (7900, 'JAMES', 'CLERK', 7698, '1981-12-03', 950, NULL, 30),
+    -> (7902, 'FORD', 'ANALYST', 7566, '1981-12-03', 3000, NULL, 20),
+    -> (7934, 'MILLER', 'CLERK', 7782, '1982-01-23', 1300, NULL, 10);
+Query OK, 14 rows affected (0.01 sec)
+Records: 14  Duplicates: 0  Warnings: 0
+
+mysql> SELECT JOB,MAX(SAL) FROM EM GROUP BY JOB;
++-----------+----------+
+| JOB       | MAX(SAL) |
++-----------+----------+
+| CLERK     |     1300 |
+| SALESMAN  |     1600 |
+| MANAGER   |     2975 |
+| ANALYST   |     3000 |
+| PRESIDENT |     5000 |
++-----------+----------+
+5 rows in set (0.00 sec)
+
+mysql> DROP TABLE EM;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> DROP TABLE DEP;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> SELECT * FROM EMPLOY WHERE JOB="MANAGER";
++-------+-------+---------+------+------------+------+------+--------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+-------+---------+------+------------+------+------+--------+
+|  7566 | JONES | MANAGER | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|  7698 | BLAKE | MANAGER | 7839 | 1981-05-01 | 2850 | NULL |     30 |
+|  7782 | CLARK | MANAGER | 7839 | 1981-06-09 | 2450 | NULL |     10 |
++-------+-------+---------+------+------------+------+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT D.* FROM DEPART D INNER JOIN EMPLOY E WHERE E.JOB="MANAGER";
++------+------------+----------+
+| PTNO | DNAME      | LOC      |
++------+------------+----------+
+|   10 | ACCOUNTING | NEW YORK |
+|   10 | ACCOUNTING | NEW YORK |
+|   10 | ACCOUNTING | NEW YORK |
+|   20 | RESEARCH   | DALLAS   |
+|   20 | RESEARCH   | DALLAS   |
+|   20 | RESEARCH   | DALLAS   |
+|   30 | SALES      | CHICAGO  |
+|   30 | SALES      | CHICAGO  |
+|   30 | SALES      | CHICAGO  |
+|   40 | OPERATIONS | BOSTON   |
+|   40 | OPERATIONS | BOSTON   |
+|   40 | OPERATIONS | BOSTON   |
++------+------------+----------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT D.* FROM DEPART D INNER JOIN EMPLOY E on E.DEPTNO=D.PTNO WHERE E.JOB="MANAGER";
++------+------------+----------+
+| PTNO | DNAME      | LOC      |
++------+------------+----------+
+|   20 | RESEARCH   | DALLAS   |
+|   30 | SALES      | CHICAGO  |
+|   10 | ACCOUNTING | NEW YORK |
++------+------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> alter table employ change column PTNO DEPTNO INT;
+ERROR 1054 (42S22): Unknown column 'PTNO' in 'employ'
+mysql> alter table EMPLOY change column PTNO DEPTNO INT;
+ERROR 1054 (42S22): Unknown column 'PTNO' in 'employ'
+mysql> alter table DEPART change column PTNO DEPTNO INT;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM DEPART;
++--------+------------+----------+
+| DEPTNO | DNAME      | LOC      |
++--------+------------+----------+
+|     10 | ACCOUNTING | NEW YORK |
+|     20 | RESEARCH   | DALLAS   |
+|     30 | SALES      | CHICAGO  |
+|     40 | OPERATIONS | BOSTON   |
++--------+------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY;
++-------+--------+-----------+------+------------+------+------+--------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+--------+-----------+------+------------+------+------+--------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800 | NULL |     20 |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600 |  300 |     30 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250 |  500 |     30 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250 | 1400 |     30 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850 | NULL |     30 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450 | NULL |     10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1982-12-09 | 3000 | NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000 | NULL |     10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500 |    0 |     30 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1983-01-12 | 1100 | NULL |     20 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950 | NULL |     30 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000 | NULL |     20 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300 | NULL |     10 |
++-------+--------+-----------+------+------------+------+------+--------+
+14 rows in set (0.00 sec)
+
+mysql> SELECT EMPNO,ENAME,(SAL+IFNULL(COMM,0) FROM EMPLOY;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM EMPLOY' at line 1
+mysql> SELECT EMPNO,ENAME,(SAL+IFNULL(COMM,0)) FROM EMPLOY;
++-------+--------+----------------------+
+| EMPNO | ENAME  | (SAL+IFNULL(COMM,0)) |
++-------+--------+----------------------+
+|  7369 | SMITH  |                  800 |
+|  7499 | ALLEN  |                 1900 |
+|  7521 | WARD   |                 1750 |
+|  7566 | JONES  |                 2975 |
+|  7654 | MARTIN |                 2650 |
+|  7698 | BLAKE  |                 2850 |
+|  7782 | CLARK  |                 2450 |
+|  7788 | SCOTT  |                 3000 |
+|  7839 | KING   |                 5000 |
+|  7844 | TURNER |                 1500 |
+|  7876 | ADAMS  |                 1100 |
+|  7900 | JAMES  |                  950 |
+|  7902 | FORD   |                 3000 |
+|  7934 | MILLER |                 1300 |
++-------+--------+----------------------+
+14 rows in set (0.00 sec)
+
+mysql> Select D.DNAME,D.LOC FOR DEPART D INNER JOIN EMPLOY E WHERE E.JOB="CLERK";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DEPART D INNER JOIN EMPLOY E WHERE E.JOB="CLERK"' at line 1
+mysql> Select D.DNAME,D.LOC FOR DEPART D INNER JOIN EMPLOY E ON E.DEPTNO=D.DEPTNO WHERE E.JOB="CLERK";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DEPART D INNER JOIN EMPLOY E ON E.DEPTNO=D.DEPTNO WHERE E.JOB="CLERK"' at line 1
+mysql> Select D.DNAME,D.LOC FORM DEPART D INNER JOIN EMPLOY E ON E.DEPTNO=D.DEPTNO WHERE E.JOB="CLERK";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DEPART D INNER JOIN EMPLOY E ON E.DEPTNO=D.DEPTNO WHERE E.JOB="CLERK"' at line 1
+mysql> Select D.DNAME,D.LOC FORM DEPART D INNER JOIN EMPLOY E ON E.DEPTNO=D.PTNO WHERE E.JOB="CLERK";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DEPART D INNER JOIN EMPLOY E ON E.DEPTNO=D.PTNO WHERE E.JOB="CLERK"' at line 1
+mysql> Select D.DNAME,D.LOC FORM DEPART D INNER JOIN EMPLOY E ON D.DEPTNO=E.DEPTNO WHERE E.JOB="CLERK";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DEPART D INNER JOIN EMPLOY E ON D.DEPTNO=E.DEPTNO WHERE E.JOB="CLERK"' at line 1
+mysql> SELECT D.DNAME,D.LOC FROM DEPART D INNER JOIN EMPLOY E ON E.DEPTNO=D.DEPTNO WHERE E.JOB="CLERK";
++------------+----------+
+| DNAME      | LOC      |
++------------+----------+
+| RESEARCH   | DALLAS   |
+| RESEARCH   | DALLAS   |
+| SALES      | CHICAGO  |
+| ACCOUNTING | NEW YORK |
++------------+----------+
+4 rows in set (0.02 sec)
+
+mysql> SELECT * FROM EMPLOY WHERE (DEPTNO=20 OR DEPTNO=30) AND JOB="MANAGER";
++-------+-------+---------+------+------------+------+------+--------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+-------+---------+------+------------+------+------+--------+
+|  7566 | JONES | MANAGER | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|  7698 | BLAKE | MANAGER | 7839 | 1981-05-01 | 2850 | NULL |     30 |
++-------+-------+---------+------+------------+------+------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY WHERE (SAL IS NOT BETWEEN 2500 AND 5000) AND DEPTNO IN (20,30);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 2500 AND 5000) AND DEPTNO IN (20,30)' at line 1
+mysql> SELECT * FROM EMPLOY WHERE (SAL NOT BETWEEN 2500 AND 5000) AND DEPTNO IN (20,30);
++-------+--------+----------+------+------------+------+------+--------+
+| EMPNO | ENAME  | JOB      | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+--------+----------+------+------------+------+------+--------+
+|  7369 | SMITH  | CLERK    | 7902 | 1980-12-17 |  800 | NULL |     20 |
+|  7876 | ADAMS  | CLERK    | 7788 | 1983-01-12 | 1100 | NULL |     20 |
+|  7499 | ALLEN  | SALESMAN | 7698 | 1981-02-20 | 1600 |  300 |     30 |
+|  7521 | WARD   | SALESMAN | 7698 | 1981-02-22 | 1250 |  500 |     30 |
+|  7654 | MARTIN | SALESMAN | 7698 | 1981-09-28 | 1250 | 1400 |     30 |
+|  7844 | TURNER | SALESMAN | 7698 | 1981-09-08 | 1500 |    0 |     30 |
+|  7900 | JAMES  | CLERK    | 7698 | 1981-12-03 |  950 | NULL |     30 |
++-------+--------+----------+------+------------+------+------+--------+
+7 rows in set (0.02 sec)
+
+mysql> SELECT * FROM EMPLOY WHERE JOB="MANAGER" AND MGR=NULL;
+Empty set (0.02 sec)
+
+mysql> SELECT MAX(SAL) FROM EMPLOY;
++----------+
+| MAX(SAL) |
++----------+
+|     5000 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY WHERE JOB="MANAGER" AND MGR IS NULL;
+Empty set (0.00 sec)
+
+mysql> SELECT ENAME,(SAL+IFCOMM(NULL,0)) AS TOTAL SALARY FROM EMPLOY WHERE (SAL+IFCOMM(NULL,0)>2000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SALARY FROM EMPLOY WHERE (SAL+IFCOMM(NULL,0)>2000' at line 1
+mysql> SELECT ENAME,(SAL+IFCOMM(NULL,0)) AS TOTAL_SALARY FROM EMPLOY WHERE (SAL+IFCOMM(NULL,0)>2000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> SELECT ENAME,(SAL+IFNULL(COMM,0)) AS TOTAL_SALARY FROM EMPLOY WHERE (SAL+IFCOMM(NULL,0)>2000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> SELECT ENAME,(SAL+IFNULL(COMM,0)) AS TOTAL_SALARY FROM EMPLOY WHERE (SAL+IFNULL(COMM,0)>2000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> SELECT ENAME,(SAL+IFNULL(COMM,0)) AS TOTAL_SALARY FROM EMPLOY WHERE (SAL+IFNULL(COMM,0))>2000;
++--------+--------------+
+| ENAME  | TOTAL_SALARY |
++--------+--------------+
+| JONES  |         2975 |
+| MARTIN |         2650 |
+| BLAKE  |         2850 |
+| CLARK  |         2450 |
+| SCOTT  |         3000 |
+| KING   |         5000 |
+| FORD   |         3000 |
++--------+--------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT E.DEPTNO,D.DNAME,SUM(E.SAL) FROM EMPLOY INNER JOIN DEPART ON E.DEPTNO=D.DEPTNO WHERE E.JOB IN ("MANAGER","ANALYST") AND AVG(E.SAL)>=3000 GROUP BY D.DNAME;
+ERROR 1054 (42S22): Unknown column 'E.DEPTNO' in 'field list'
+mysql> SELECT E.DEPTNO,D.DNAME,SUM(E.SAL) FROM EMPLOY E INNER JOIN DEPART D ON E.DEPTNO=D.DEPTNO WHERE E.JOB IN ("MANAGER","ANALYST") AND AVG(E.SAL)>=3000 GROUP BY D.DNAME;
+ERROR 1111 (HY000): Invalid use of group function
+mysql> SELECT E.DEPTNO,D.DNAME,SUM(E.SAL) FROM EMPLOY E INNER JOIN DEPART D ON E.DEPTNO=D.DEPTNO GROUP BY D.DNAME WHERE E.JOB IN ("MANAGER","ANALYST") AND AVG(E.SAL)>=3000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE E.JOB IN ("MANAGER","ANALYST") AND AVG(E.SAL)>=3000' at line 1
+mysql> SELECT E.DEPTNO,D.DNAME,SUM(E.SAL) FROM EMPLOY E INNER JOIN DEPART D ON E.DEPTNO=D.DEPTNO WHERE E.JOB IN ("MANAGER","ANALYST") GROUP BY D.DNAME HAVING AVG(SAL)>=3000;
+Empty set (0.02 sec)
+
+mysql> SELECT DEPTNO,SUM(SAL+ISNULL(COMM,0)) FROM EMPLOY WHERE JOB IN("MANAGER","ANALYST") GROUP BY DEPTNO HAVING AVG(SAL+ISNULL(COMM,0))>=3000;
+ERROR 1582 (42000): Incorrect parameter count in the call to native function 'ISNULL'
+mysql> SELECT DEPTNO,SUM(SAL+ISNULL(COMM,0)) FROM EMPLOY WHERE JOB IN("MANAGER","ANALYST") GROUP BY DEPTNO HAVING AVG(SAL+ISNULL(COMM,0))>=3000;
+ERROR 1582 (42000): Incorrect parameter count in the call to native function 'ISNULL'
+mysql> SELECT * FROM EMPLOY WHERE SAL>=2500 AND DEPTNO=20;
++-------+-------+---------+------+------------+------+------+--------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+-------+---------+------+------------+------+------+--------+
+|  7566 | JONES | MANAGER | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|  7788 | SCOTT | ANALYST | 7566 | 1982-12-09 | 3000 | NULL |     20 |
+|  7902 | FORD  | ANALYST | 7566 | 1981-12-03 | 3000 | NULL |     20 |
++-------+-------+---------+------+------------+------+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY WHERE (SAL+ISNULL(COMM,0))>=2500 AND DEPTNO=20;
+ERROR 1582 (42000): Incorrect parameter count in the call to native function 'ISNULL'
+mysql> SELECT * FROM EMPLOY WHERE SAL+ISNULL(COMM,0)>=2500 AND DEPTNO=20;
+ERROR 1582 (42000): Incorrect parameter count in the call to native function 'ISNULL'
+mysql> SELECT E.* FROM EMPLOY E INNER JOIN DEPART D ON E.DEPTNO=D.DEPTNO WHERE LOC="DALLAS";
++-------+-------+---------+------+------------+------+------+--------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+-------+---------+------+------------+------+------+--------+
+|  7369 | SMITH | CLERK   | 7902 | 1980-12-17 |  800 | NULL |     20 |
+|  7566 | JONES | MANAGER | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|  7788 | SCOTT | ANALYST | 7566 | 1982-12-09 | 3000 | NULL |     20 |
+|  7876 | ADAMS | CLERK   | 7788 | 1983-01-12 | 1100 | NULL |     20 |
+|  7902 | FORD  | ANALYST | 7566 | 1981-12-03 | 3000 | NULL |     20 |
++-------+-------+---------+------+------------+------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY WHERE (SAL+COALESCE(COMM,0))>=2500 AND DEPTNO=20;
++-------+-------+---------+------+------------+------+------+--------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+-------+---------+------+------------+------+------+--------+
+|  7566 | JONES | MANAGER | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|  7788 | SCOTT | ANALYST | 7566 | 1982-12-09 | 3000 | NULL |     20 |
+|  7902 | FORD  | ANALYST | 7566 | 1981-12-03 | 3000 | NULL |     20 |
++-------+-------+---------+------+------------+------+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY WHERE ENAME NOT LIKE IN (A%,S%);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'IN (A%,S%)' at line 1
+mysql> SELECT * FROM EMPLOY WHERE ENAME NOT LIKE IN(A%,S%);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'IN(A%,S%)' at line 1
+mysql> SELECT * FROM EMPLOY WHERE ENAME NOT LIKE A%;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%' at line 1
+mysql> SELECT * FROM EMPLOY WHERE ENAME NOT LIKE "A%";
++-------+--------+-----------+------+------------+------+------+--------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+--------+-----------+------+------------+------+------+--------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800 | NULL |     20 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250 |  500 |     30 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250 | 1400 |     30 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850 | NULL |     30 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450 | NULL |     10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1982-12-09 | 3000 | NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000 | NULL |     10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500 |    0 |     30 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950 | NULL |     30 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000 | NULL |     20 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300 | NULL |     10 |
++-------+--------+-----------+------+------------+------+------+--------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY WHERE ENAME NOT LIKE IN ("A%","S%");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'IN ("A%","S%")' at line 1
+mysql> SELECT * FROM EMPLOY WHERE JOB="MANAGER" AND DEPTNO IN (20,30);
++-------+-------+---------+------+------------+------+------+--------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+-------+---------+------+------------+------+------+--------+
+|  7566 | JONES | MANAGER | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|  7698 | BLAKE | MANAGER | 7839 | 1981-05-01 | 2850 | NULL |     30 |
++-------+-------+---------+------+------------+------+------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY WHERE ENAME NOT LIKE "A%" AND ENAME NOT LIKE "S%";
++-------+--------+-----------+------+------------+------+------+--------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+--------+-----------+------+------------+------+------+--------+
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250 |  500 |     30 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250 | 1400 |     30 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850 | NULL |     30 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450 | NULL |     10 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000 | NULL |     10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500 |    0 |     30 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950 | NULL |     30 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000 | NULL |     20 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300 | NULL |     10 |
++-------+--------+-----------+------+------------+------+------+--------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT * FROM DEPART;
++--------+------------+----------+
+| DEPTNO | DNAME      | LOC      |
++--------+------------+----------+
+|     10 | ACCOUNTING | NEW YORK |
+|     20 | RESEARCH   | DALLAS   |
+|     30 | SALES      | CHICAGO  |
+|     40 | OPERATIONS | BOSTON   |
++--------+------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE VIEW DEPART_VIEW AS SELECT * FROM DEPART;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> SELECT * FROM DEPART;
++--------+------------+----------+
+| DEPTNO | DNAME      | LOC      |
++--------+------------+----------+
+|     10 | ACCOUNTING | NEW YORK |
+|     20 | RESEARCH   | DALLAS   |
+|     30 | SALES      | CHICAGO  |
+|     40 | OPERATIONS | BOSTON   |
++--------+------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO DEPART_VIEW VALUES(50,"MARKETING","PUNE");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> SELECT * FROM DEPART;
++--------+------------+----------+
+| DEPTNO | DNAME      | LOC      |
++--------+------------+----------+
+|     10 | ACCOUNTING | NEW YORK |
+|     20 | RESEARCH   | DALLAS   |
+|     30 | SALES      | CHICAGO  |
+|     40 | OPERATIONS | BOSTON   |
+|     50 | MARKETING  | PUNE     |
++--------+------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> UPDATE VIEW DEPART_VIEW SET LOC="LONDON" WHERE DEPTNO=50;
+ERROR 1146 (42S02): Table 'dbmspractical.view' doesn't exist
+mysql> UPDATE DEPART_VIEW SET LOC="LONDON" WHERE DEPTNO=50;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM DEPART;
++--------+------------+----------+
+| DEPTNO | DNAME      | LOC      |
++--------+------------+----------+
+|     10 | ACCOUNTING | NEW YORK |
+|     20 | RESEARCH   | DALLAS   |
+|     30 | SALES      | CHICAGO  |
+|     40 | OPERATIONS | BOSTON   |
+|     50 | MARKETING  | LONDON   |
++--------+------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> CREATE VIEW MTVIEW AS SELECT E.EMPNO,E.ENAME,E.JOB,D.DNAME,E.DEPTNO,D.LOC FROM EMPLOY INNER JOIN DEPART ON E.DEPTNO=D.DEPTNO;
+ERROR 1054 (42S22): Unknown column 'E.EMPNO' in 'field list'
+mysql> CREATE VIEW MTVIEW AS SELECT E.EMPNO,E.ENAME,E.JOB,D.DNAME,E.DEPTNO,D.LOC FROM EMPLOY E INNER JOIN DEPART D ON E.DEPTNO=D.DEPTNO;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> SELECT * FROM MTVIEW;
++-------+--------+-----------+------------+--------+----------+
+| EMPNO | ENAME  | JOB       | DNAME      | DEPTNO | LOC      |
++-------+--------+-----------+------------+--------+----------+
+|  7782 | CLARK  | MANAGER   | ACCOUNTING |     10 | NEW YORK |
+|  7839 | KING   | PRESIDENT | ACCOUNTING |     10 | NEW YORK |
+|  7934 | MILLER | CLERK     | ACCOUNTING |     10 | NEW YORK |
+|  7369 | SMITH  | CLERK     | RESEARCH   |     20 | DALLAS   |
+|  7566 | JONES  | MANAGER   | RESEARCH   |     20 | DALLAS   |
+|  7788 | SCOTT  | ANALYST   | RESEARCH   |     20 | DALLAS   |
+|  7876 | ADAMS  | CLERK     | RESEARCH   |     20 | DALLAS   |
+|  7902 | FORD   | ANALYST   | RESEARCH   |     20 | DALLAS   |
+|  7499 | ALLEN  | SALESMAN  | SALES      |     30 | CHICAGO  |
+|  7521 | WARD   | SALESMAN  | SALES      |     30 | CHICAGO  |
+|  7654 | MARTIN | SALESMAN  | SALES      |     30 | CHICAGO  |
+|  7698 | BLAKE  | MANAGER   | SALES      |     30 | CHICAGO  |
+|  7844 | TURNER | SALESMAN  | SALES      |     30 | CHICAGO  |
+|  7900 | JAMES  | CLERK     | SALES      |     30 | CHICAGO  |
++-------+--------+-----------+------------+--------+----------+
+14 rows in set (0.01 sec)
+
+mysql> INSERT INTO MYVIEW VALUES(7901,"POKEMON","CLERK","MARKETING",40,"PUNE");
+ERROR 1146 (42S02): Table 'dbmspractical.myview' doesn't exist
+mysql> INSERT INTO MTVIEW VALUES(7901,"POKEMON","CLERK","MARKETING",40,"PUNE");
+ERROR 1394 (HY000): Can not insert into join view 'dbmspractical.mtview' without fields list
+mysql> INSERT INTO MTVIEW(EMPNO,ENAME,JOB,DNAME,DEPTNO,LOC) VALUES(7901,"POKEMON","CLERK","MARKETING",40,"PUNE");
+ERROR 1393 (HY000): Can not modify more than one base table through a join view 'dbmspractical.mtview'
+mysql> UPDATE MTVIEW SET LOC="PUNE" WHERE DEPTNO=30;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM DEPART;
++--------+------------+----------+
+| DEPTNO | DNAME      | LOC      |
++--------+------------+----------+
+|     10 | ACCOUNTING | NEW YORK |
+|     20 | RESEARCH   | DALLAS   |
+|     30 | SALES      | PUNE     |
+|     40 | OPERATIONS | BOSTON   |
+|     50 | MARKETING  | LONDON   |
++--------+------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY;
++-------+--------+-----------+------+------------+------+------+--------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+--------+-----------+------+------------+------+------+--------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800 | NULL |     20 |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600 |  300 |     30 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250 |  500 |     30 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250 | 1400 |     30 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850 | NULL |     30 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450 | NULL |     10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1982-12-09 | 3000 | NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000 | NULL |     10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500 |    0 |     30 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1983-01-12 | 1100 | NULL |     20 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950 | NULL |     30 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000 | NULL |     20 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300 | NULL |     10 |
++-------+--------+-----------+------+------------+------+------+--------+
+14 rows in set (0.00 sec)
+
+mysql> SELECT * FROM MTVIEW;
++-------+--------+-----------+------------+--------+----------+
+| EMPNO | ENAME  | JOB       | DNAME      | DEPTNO | LOC      |
++-------+--------+-----------+------------+--------+----------+
+|  7782 | CLARK  | MANAGER   | ACCOUNTING |     10 | NEW YORK |
+|  7839 | KING   | PRESIDENT | ACCOUNTING |     10 | NEW YORK |
+|  7934 | MILLER | CLERK     | ACCOUNTING |     10 | NEW YORK |
+|  7369 | SMITH  | CLERK     | RESEARCH   |     20 | DALLAS   |
+|  7566 | JONES  | MANAGER   | RESEARCH   |     20 | DALLAS   |
+|  7788 | SCOTT  | ANALYST   | RESEARCH   |     20 | DALLAS   |
+|  7876 | ADAMS  | CLERK     | RESEARCH   |     20 | DALLAS   |
+|  7902 | FORD   | ANALYST   | RESEARCH   |     20 | DALLAS   |
+|  7499 | ALLEN  | SALESMAN  | SALES      |     30 | PUNE     |
+|  7521 | WARD   | SALESMAN  | SALES      |     30 | PUNE     |
+|  7654 | MARTIN | SALESMAN  | SALES      |     30 | PUNE     |
+|  7698 | BLAKE  | MANAGER   | SALES      |     30 | PUNE     |
+|  7844 | TURNER | SALESMAN  | SALES      |     30 | PUNE     |
+|  7900 | JAMES  | CLERK     | SALES      |     30 | PUNE     |
++-------+--------+-----------+------------+--------+----------+
+14 rows in set (0.00 sec)
+
+mysql> CREATE TABLE EMPL(ENO INT PRIMARY KEY,ENAME VARCHAR(255) NOT NULL,DESIGNATON VARCHAR(100),SAL INT SAL>0, DATE_OF_JOINING DATE);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SAL>0, DATE_OF_JOINING DATE)' at line 1
+mysql> CREATE TABLE EMPL(ENO INT PRIMARY KEY,ENAME VARCHAR(255) NOT NULL,DESIGNATON VARCHAR(100),SAL INT >0, DATE_OF_JOINING DATE);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '>0, DATE_OF_JOINING DATE)' at line 1
+mysql> CREATE TABLE EMPL(ENO INT PRIMARY KEY,ENAME VARCHAR(255) NOT NULL,DESIGNATON VARCHAR(100),SAL INT (SAL>0), DATE_OF_JOINING DATE);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SAL>0), DATE_OF_JOINING DATE)' at line 1
+mysql> CREATE TABLE EMPL(ENO INT PRIMARY KEY,ENAME VARCHAR(255) NOT NULL,DESIGNATON VARCHAR(100),SAL INT CHECK(SAL>0), DATE_OF_JOINING DATE);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> DROP TABLE EMPL;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> ALTER TABLE EMP ADD COLUMN PHONE_NO INT;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM EMP;
++-----+-----------------+----------+-----------+------------+--------+--------+----------+
+| eno | ename           | jobtitle | managerno | hiredate   | salary | deptno | PHONE_NO |
++-----+-----------------+----------+-----------+------------+--------+--------+----------+
+| 100 | Harshili Thakre | Ass_Prof |        18 | 2015-01-04 |  50000 |     10 |     NULL |
+| 101 | Raj             | Prof     |        12 | 2015-01-04 |  80000 |     10 |     NULL |
+| 102 | Anya            | HOD      |         3 | 2020-04-05 |  50000 |     10 |     NULL |
+| 103 | Wagh            | Prof     |        11 | 2015-01-04 |  80000 |     10 |     NULL |
+| 200 | Anjum           | HOD      |         0 | 2016-04-01 | 100000 |     20 |     NULL |
+| 201 | Giga            | Prof     |         1 | 2020-04-01 |  40000 |     20 |     NULL |
+| 202 | Nigga           | Ass_Prof |         1 | 2020-04-01 |  50000 |     20 |     NULL |
+| 203 | ana             | Prof     |         3 | 2019-04-05 |  30000 |     20 |     NULL |
+| 300 | Aide Chick      | Prof     |         3 | 2019-04-01 |  30000 |     30 |     NULL |
+| 301 | Side Chick      | HOD      |         3 | 2012-04-01 | 300000 |     30 |     NULL |
+| 302 | Sonic           | Prof     |         3 | 2012-04-01 | 200000 |     30 |     NULL |
+| 303 | Slaga           | Ass_Prof |         3 | 2021-04-01 |  40000 |     30 |     NULL |
++-----+-----------------+----------+-----------+------------+--------+--------+----------+
+12 rows in set (0.00 sec)
+
+mysql> ALTER TABLE EMPLOY ADD COLUMN PHONE_NO INT;
+Query OK, 14 rows affected (0.07 sec)
+Records: 14  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM EMPLOY;
++-------+--------+-----------+------+------------+------+------+--------+----------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL  | COMM | DEPTNO | PHONE_NO |
++-------+--------+-----------+------+------------+------+------+--------+----------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800 | NULL |     20 |     NULL |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600 |  300 |     30 |     NULL |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250 |  500 |     30 |     NULL |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975 | NULL |     20 |     NULL |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250 | 1400 |     30 |     NULL |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850 | NULL |     30 |     NULL |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450 | NULL |     10 |     NULL |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1982-12-09 | 3000 | NULL |     20 |     NULL |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000 | NULL |     10 |     NULL |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500 |    0 |     30 |     NULL |
+|  7876 | ADAMS  | CLERK     | 7788 | 1983-01-12 | 1100 | NULL |     20 |     NULL |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950 | NULL |     30 |     NULL |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000 | NULL |     20 |     NULL |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300 | NULL |     10 |     NULL |
++-------+--------+-----------+------+------------+------+------+--------+----------+
+14 rows in set (0.00 sec)
+
+mysql> UPDATE EMPLOY SET PHONE_NO=9325877096 WHEERE EMPNO=7369;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHEERE EMPNO=7369' at line 1
+mysql> UPDATE EMPLOY SET PHONE_NO=9325877096 WHERE EMPNO=7369;
+Query OK, 1 row affected, 1 warning (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 1
+
+mysql> SELECT * FROM EMPLOY;
++-------+--------+-----------+------+------------+------+------+--------+------------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL  | COMM | DEPTNO | PHONE_NO   |
++-------+--------+-----------+------+------------+------+------+--------+------------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800 | NULL |     20 | 2147483647 |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600 |  300 |     30 |       NULL |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250 |  500 |     30 |       NULL |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975 | NULL |     20 |       NULL |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250 | 1400 |     30 |       NULL |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850 | NULL |     30 |       NULL |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450 | NULL |     10 |       NULL |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1982-12-09 | 3000 | NULL |     20 |       NULL |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000 | NULL |     10 |       NULL |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500 |    0 |     30 |       NULL |
+|  7876 | ADAMS  | CLERK     | 7788 | 1983-01-12 | 1100 | NULL |     20 |       NULL |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950 | NULL |     30 |       NULL |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000 | NULL |     20 |       NULL |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300 | NULL |     10 |       NULL |
++-------+--------+-----------+------+------------+------+------+--------+------------+
+14 rows in set (0.00 sec)
+
+mysql> ALTER TABLE EMPLOY MODIFY COLUMN PHONE_NO BIGINT;
+Query OK, 14 rows affected (0.06 sec)
+Records: 14  Duplicates: 0  Warnings: 0
+
+mysql> UPDATE EMPLOY SET PHONE_NO=9325877096 WHERE EMPNO=7369;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM EMPLOY;
++-------+--------+-----------+------+------------+------+------+--------+------------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL  | COMM | DEPTNO | PHONE_NO   |
++-------+--------+-----------+------+------------+------+------+--------+------------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800 | NULL |     20 | 9325877096 |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600 |  300 |     30 |       NULL |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250 |  500 |     30 |       NULL |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975 | NULL |     20 |       NULL |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250 | 1400 |     30 |       NULL |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850 | NULL |     30 |       NULL |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450 | NULL |     10 |       NULL |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1982-12-09 | 3000 | NULL |     20 |       NULL |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000 | NULL |     10 |       NULL |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500 |    0 |     30 |       NULL |
+|  7876 | ADAMS  | CLERK     | 7788 | 1983-01-12 | 1100 | NULL |     20 |       NULL |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950 | NULL |     30 |       NULL |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000 | NULL |     20 |       NULL |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300 | NULL |     10 |       NULL |
++-------+--------+-----------+------+------------+------+------+--------+------------+
+14 rows in set (0.00 sec)
+
+mysql> UPDATE EMP DELETE * FROM EMP WHERE jobtitle="HOD";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DELETE * FROM EMP WHERE jobtitle="HOD"' at line 1
+mysql> SELECT DEPTNO,COUNT(*) FROM EMPLOY GROUP BY DEPTNO;
++--------+----------+
+| DEPTNO | COUNT(*) |
++--------+----------+
+|     10 |        3 |
+|     20 |        5 |
+|     30 |        6 |
++--------+----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT E.ENAME FROM EMPLOY E INNER JOIN DEPART D ON E.DEPTNO=D.DEPTNO WHERE JOB="MANAGER" AND D.DNAME="ACCOUNTING";
++-------+
+| ENAME |
++-------+
+| CLARK |
++-------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM DEPART;
++--------+------------+----------+
+| DEPTNO | DNAME      | LOC      |
++--------+------------+----------+
+|     10 | ACCOUNTING | NEW YORK |
+|     20 | RESEARCH   | DALLAS   |
+|     30 | SALES      | PUNE     |
+|     40 | OPERATIONS | BOSTON   |
+|     50 | MARKETING  | LONDON   |
++--------+------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT D.DNAME FROM DEPART INNER JOIN EMPLOY E ON E.DEPTNO=D.DEPTNO WHERE D.LOC="PUNE" AND E.ENAME=WARD;
+ERROR 1054 (42S22): Unknown column 'D.DNAME' in 'field list'
+mysql> SELECT D.DNAME FROM DEPART D INNER JOIN EMPLOY E ON E.DEPTNO=D.DEPTNO WHERE D.LOC="PUNE" AND E.ENAME=WARD;
+ERROR 1054 (42S22): Unknown column 'WARD' in 'where clause'
+mysql> SELECT D.DNAME FROM DEPART D INNER JOIN EMPLOY E ON E.DEPTNO=D.DEPTNO WHERE D.LOC="PUNE" AND E.ENAME="WARD";
++-------+
+| DNAME |
++-------+
+| SALES |
++-------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY E INNER JOIN DEPART D ON E.DEPTNO=D.DEPTNO WHERE SAL>5000 AND D.DNAME="SALES";
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY E INNER JOIN DEPART D ON E.DEPTNO=D.DEPTNO WHERE SAL>2000 AND D.DNAME="SALES";
++-------+-------+---------+------+------------+------+------+--------+----------+--------+-------+------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL  | COMM | DEPTNO | PHONE_NO | DEPTNO | DNAME | LOC  |
++-------+-------+---------+------+------------+------+------+--------+----------+--------+-------+------+
+|  7698 | BLAKE | MANAGER | 7839 | 1981-05-01 | 2850 | NULL |     30 |     NULL |     30 | SALES | PUNE |
++-------+-------+---------+------+------------+------+------+--------+----------+--------+-------+------+
+1 row in set (0.00 sec)
+
+mysql> ALTER TABLE EMPLOY DROP COLUMN PHONE_NO;
+Query OK, 14 rows affected (0.06 sec)
+Records: 14  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM EMPLOY E INNER JOIN DEPART D ON E.DEPTNO=D.DEPTNO WHERE SAL>2000 AND D.DNAME="SALES";
++-------+-------+---------+------+------------+------+------+--------+--------+-------+------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL  | COMM | DEPTNO | DEPTNO | DNAME | LOC  |
++-------+-------+---------+------+------------+------+------+--------+--------+-------+------+
+|  7698 | BLAKE | MANAGER | 7839 | 1981-05-01 | 2850 | NULL |     30 |     30 | SALES | PUNE |
++-------+-------+---------+------+------------+------+------+--------+--------+-------+------+
+1 row in set (0.00 sec)
+
+mysql> UPDATE EMPLOY SET HIREDATE 2019-06-15 WHERE EMPNO=7698;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '2019-06-15 WHERE EMPNO=7698' at line 1
+mysql> UPDATE EMPLOY SET HIREDATE=2019-06-15 WHERE EMPNO=7698;
+Query OK, 1 row affected, 1 warning (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 1
+
+mysql> SELECT * FROM EMPLOY E INNER JOIN DEPART D ON E.DEPTNO=D.DEPTNO WHERE SAL>2000 AND D.DNAME="SALES";
++-------+-------+---------+------+------------+------+------+--------+--------+-------+------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL  | COMM | DEPTNO | DEPTNO | DNAME | LOC  |
++-------+-------+---------+------+------------+------+------+--------+--------+-------+------+
+|  7698 | BLAKE | MANAGER | 7839 | 0000-00-00 | 2850 | NULL |     30 |     30 | SALES | PUNE |
++-------+-------+---------+------+------------+------+------+--------+--------+-------+------+
+1 row in set (0.00 sec)
+
+mysql> UPDATE EMPLOY SET HIREDATE 2019-06-15 WHERE EMPNO=7698;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '2019-06-15 WHERE EMPNO=7698' at line 1
+mysql> UPDATE EMPLOY SET HIREDATE="2019-06-15" WHERE EMPNO=7698;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM EMPLOY E INNER JOIN DEPART D ON E.DEPTNO=D.DEPTNO WHERE SAL>2000 AND D.DNAME="SALES";
++-------+-------+---------+------+------------+------+------+--------+--------+-------+------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL  | COMM | DEPTNO | DEPTNO | DNAME | LOC  |
++-------+-------+---------+------+------------+------+------+--------+--------+-------+------+
+|  7698 | BLAKE | MANAGER | 7839 | 2019-06-15 | 2850 | NULL |     30 |     30 | SALES | PUNE |
++-------+-------+---------+------+------------+------+------+--------+--------+-------+------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM DEPART D INNER JOIN EMPLOY E ON E.DEPTNO=D.DEPTNO WHERE COUNT(E.DEPTNO)>3;
+ERROR 1111 (HY000): Invalid use of group function
+mysql> SELECT DNAME,COUNT(E.DEPTNO) FROM DEPART D INNER JOIN EMPLOY E ON E.DEPTNO=D.DEPTNO WHERE COUNT(E.DEPTNO)>3 GROUP BY D.DNAME;
+ERROR 1111 (HY000): Invalid use of group function
+mysql> SELECT DNAME,COUNT(E.DEPTNO) FROM DEPART D INNER JOIN EMPLOY E ON E.DEPTNO=D.DEPTNO GROUP BY D.DEPTNO HAVING COUNT>3;
+ERROR 1054 (42S22): Unknown column 'COUNT' in 'having clause'
+mysql> SELECT DNAME,COUNT(E.DEPTNO) FROM DEPART D INNER JOIN EMPLOY E ON E.DEPTNO=D.DEPTNO GROUP BY D.DEPTNO HAVING COUNT(E.DEPTNO)>3;
++----------+-----------------+
+| DNAME    | COUNT(E.DEPTNO) |
++----------+-----------------+
+| RESEARCH |               5 |
+| SALES    |               6 |
++----------+-----------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT JOB,AVG(SAL) FROM EMPLOY WHERE EMPNO NOT BETWEEN 7788 AND 7790;
++-------+-----------+
+| JOB   | AVG(SAL)  |
++-------+-----------+
+| CLERK | 2001.9231 |
++-------+-----------+
+1 row in set (0.02 sec)
+
+mysql> SELECT JOB,AVG(SAL) FROM EMPLOY WHERE EMPNO NOT BETWEEN 7788 AND 7790 GROUP BY JOB;;
++-----------+-----------+
+| JOB       | AVG(SAL)  |
++-----------+-----------+
+| CLERK     | 1037.5000 |
+| SALESMAN  | 1400.0000 |
+| MANAGER   | 2758.3333 |
+| PRESIDENT | 5000.0000 |
+| ANALYST   | 3000.0000 |
++-----------+-----------+
+5 rows in set (0.00 sec)
+
+ERROR:
+No query specified
+
+mysql> DELETE FROM EMP WHERE jobtitle="HOD";
+Query OK, 3 rows affected, 1 warning (0.02 sec)
+
+mysql> SELECT * FROM EMP;
++-----+-----------------+----------+-----------+------------+--------+--------+----------+
+| eno | ename           | jobtitle | managerno | hiredate   | salary | deptno | PHONE_NO |
++-----+-----------------+----------+-----------+------------+--------+--------+----------+
+| 100 | Harshili Thakre | Ass_Prof |        18 | 2015-01-04 |  50000 |     10 |     NULL |
+| 101 | Raj             | Prof     |        12 | 2015-01-04 |  80000 |     10 |     NULL |
+| 103 | Wagh            | Prof     |        11 | 2015-01-04 |  80000 |     10 |     NULL |
+| 201 | Giga            | Prof     |         1 | 2020-04-01 |  40000 |     20 |     NULL |
+| 202 | Nigga           | Ass_Prof |         1 | 2020-04-01 |  50000 |     20 |     NULL |
+| 203 | ana             | Prof     |         3 | 2019-04-05 |  30000 |     20 |     NULL |
+| 300 | Aide Chick      | Prof     |         3 | 2019-04-01 |  30000 |     30 |     NULL |
+| 302 | Sonic           | Prof     |         3 | 2012-04-01 | 200000 |     30 |     NULL |
+| 303 | Slaga           | Ass_Prof |         3 | 2021-04-01 |  40000 |     30 |     NULL |
++-----+-----------------+----------+-----------+------------+--------+--------+----------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT D.DEPTNO,D.DNAME,SUM(E.SAL) FROM EMPLOY E INNER JOIN DEPART D ON E.DEPTNO=D.DEPTNO WHERE E.JOB IN ("MANAGER","ANALYST") GROUP BY D.DEPTNO HAVING AVG(SAL)>=3000;
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY;
++-------+--------+-----------+------+------------+------+------+--------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+--------+-----------+------+------------+------+------+--------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800 | NULL |     20 |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600 |  300 |     30 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250 |  500 |     30 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250 | 1400 |     30 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 2019-06-15 | 2850 | NULL |     30 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450 | NULL |     10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1982-12-09 | 3000 | NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000 | NULL |     10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500 |    0 |     30 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1983-01-12 | 1100 | NULL |     20 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950 | NULL |     30 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000 | NULL |     20 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300 | NULL |     10 |
++-------+--------+-----------+------+------------+------+------+--------+
+14 rows in set (0.00 sec)
+
+mysql> SELECT D.DEPTNO,D.DNAME,SUM(E.SAL) FROM EMPLOY E INNER JOIN DEPART D ON E.DEPTNO=D.DEPTNO WHERE E.JOB IN ("MANAGER","ANALYST") GROUP BY D.DEPTNO HAVING AVG(SAL)>=1000;
++--------+------------+------------+
+| DEPTNO | DNAME      | SUM(E.SAL) |
++--------+------------+------------+
+|     20 | RESEARCH   |       8975 |
+|     30 | SALES      |       2850 |
+|     10 | ACCOUNTING |       2450 |
++--------+------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT D.DEPTNO,D.DNAME,SUM(E.SAL) FROM EMPLOY E INNER JOIN DEPART D ON E.DEPTNO=D.DEPTNO WHERE E.JOB IN ("MANAGER","ANALYST") GROUP BY D.DEPTNO HAVING AVG(E.SAL)>=3000;
+Empty set (0.00 sec)
+
+mysql> SELECT D.DEPTNO,D.DNAME,SUM(E.SAL) FROM EMPLOY E INNER JOIN DEPART D ON E.DEPTNO=D.DEPTNO WHERE E.JOB IN ("MANAGER","ANALYST") GROUP BY D.DEPTNO HAVING AVG(E.SAL)>=1000;
++--------+------------+------------+
+| DEPTNO | DNAME      | SUM(E.SAL) |
++--------+------------+------------+
+|     20 | RESEARCH   |       8975 |
+|     30 | SALES      |       2850 |
+|     10 | ACCOUNTING |       2450 |
++--------+------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY HAVING COUNT(EMPNO)>1;
++-------+-------+-------+------+------------+------+------+--------+
+| EMPNO | ENAME | JOB   | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+-------+-------+------+------------+------+------+--------+
+|  7369 | SMITH | CLERK | 7902 | 1980-12-17 |  800 | NULL |     20 |
++-------+-------+-------+------+------------+------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY GROUP BY EMPNO HAVING COUNT(EMPNO)>1;
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY GROUP BY * HAVING COUNT(EMPNO)>1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '* HAVING COUNT(EMPNO)>1' at line 1
+mysql> SELECT * FROM EMPLOY GROUP BY EMPNO HAVING COUNT(EMPNO)>1;
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY GROUP BY SAL HAVING COUNT(EMPNO)>1;
++-------+-------+----------+------+------------+------+------+--------+
+| EMPNO | ENAME | JOB      | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+-------+----------+------+------------+------+------+--------+
+|  7521 | WARD  | SALESMAN | 7698 | 1981-02-22 | 1250 |  500 |     30 |
+|  7788 | SCOTT | ANALYST  | 7566 | 1982-12-09 | 3000 | NULL |     20 |
++-------+-------+----------+------+------------+------+------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT
+    ->     EMPNO,
+    ->     ENAME,
+    ->     JOB,
+    ->     MGR,
+    ->     HIREDATE,
+    ->     SAL,
+    ->     COMM,
+    ->     DEPTNO,
+    ->     COUNT(*) AS Duplicate_Count -- Select the count of each identical row
+    -> FROM
+    ->     EMPLOY
+    -> GROUP BY
+    ->     EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO -- Group by ALL columns to find identical rows
+    -> HAVING
+    ->     COUNT(*) > 1; -- Keep only those groups (identical rows) that appear more than once
+Empty set (0.00 sec)
+
+mysql> SELECT *,COUNT(*) FROM EMPLOY GROUP BY EMPLOY.* HAVING COUNT(*)>1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '* HAVING COUNT(*)>1' at line 1
+mysql> SELECT ENAME FROM EMPLOY WHERE SAL > (SELECT MAX(SAL) FROM EMPLOY WHERE JOB="MANAGER");
++-------+
+| ENAME |
++-------+
+| SCOTT |
+| KING  |
+| FORD  |
++-------+
+3 rows in set (0.01 sec)
+
+mysql> SELECT * FROM EMPLOY WHERE SAL>(SELECT MAX(SAL) FROM EMPLOY WHERE JOB="MANAGER");
++-------+-------+-----------+------+------------+------+------+--------+
+| EMPNO | ENAME | JOB       | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+-------+-----------+------+------------+------+------+--------+
+|  7788 | SCOTT | ANALYST   | 7566 | 1982-12-09 | 3000 | NULL |     20 |
+|  7839 | KING  | PRESIDENT | NULL | 1981-11-17 | 5000 | NULL |     10 |
+|  7902 | FORD  | ANALYST   | 7566 | 1981-12-03 | 3000 | NULL |     20 |
++-------+-------+-----------+------+------------+------+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY WHERE SAL>(SELECT SAL FROM EMPLOY WHERE JOB="MANAGER");
+ERROR 1242 (21000): Subquery returns more than 1 row
+mysql> SELECT * FROM EMPLOY WHERE SAL>(SELECT MIN(SAL) FROM EMPLOY WHERE JOB="MANAGER");
++-------+-------+-----------+------+------------+------+------+--------+
+| EMPNO | ENAME | JOB       | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+-------+-----------+------+------------+------+------+--------+
+|  7566 | JONES | MANAGER   | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|  7698 | BLAKE | MANAGER   | 7839 | 2019-06-15 | 2850 | NULL |     30 |
+|  7788 | SCOTT | ANALYST   | 7566 | 1982-12-09 | 3000 | NULL |     20 |
+|  7839 | KING  | PRESIDENT | NULL | 1981-11-17 | 5000 | NULL |     10 |
+|  7902 | FORD  | ANALYST   | 7566 | 1981-12-03 | 3000 | NULL |     20 |
++-------+-------+-----------+------+------------+------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT EMPNO,JOB,SAL FROM EMPLOY WHERE JOB="ANALYST" AND SAL>(SELECT MIN(SAL) FROM EMPLOY WHERE JOB="MANAGER");
++-------+---------+------+
+| EMPNO | JOB     | SAL  |
++-------+---------+------+
+|  7788 | ANALYST | 3000 |
+|  7902 | ANALYST | 3000 |
++-------+---------+------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY INNER JOIN DEPART D ON E.DEPTNO=D.DEPTNO WHERE D.LOC="DALLAS";
+ERROR 1054 (42S22): Unknown column 'E.DEPTNO' in 'on clause'
+mysql> SELECT * FROM EMPLOY E INNER JOIN DEPART D ON E.DEPTNO=D.DEPTNO WHERE D.LOC="DALLAS";
++-------+-------+---------+------+------------+------+------+--------+--------+----------+--------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL  | COMM | DEPTNO | DEPTNO | DNAME    | LOC    |
++-------+-------+---------+------+------------+------+------+--------+--------+----------+--------+
+|  7369 | SMITH | CLERK   | 7902 | 1980-12-17 |  800 | NULL |     20 |     20 | RESEARCH | DALLAS |
+|  7566 | JONES | MANAGER | 7839 | 1981-04-02 | 2975 | NULL |     20 |     20 | RESEARCH | DALLAS |
+|  7788 | SCOTT | ANALYST | 7566 | 1982-12-09 | 3000 | NULL |     20 |     20 | RESEARCH | DALLAS |
+|  7876 | ADAMS | CLERK   | 7788 | 1983-01-12 | 1100 | NULL |     20 |     20 | RESEARCH | DALLAS |
+|  7902 | FORD  | ANALYST | 7566 | 1981-12-03 | 3000 | NULL |     20 |     20 | RESEARCH | DALLAS |
++-------+-------+---------+------+------------+------+------+--------+--------+----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT D.DNAME,D.LOC FOR DEPART D INNER JOIN EMPLOY E ON E.DEPTNO=D.DEPTNO WHERE DEPTNO=(SELECT DEPTNO FROM EMPLOY WHERE ENAME="CLARK");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DEPART D INNER JOIN EMPLOY E ON E.DEPTNO=D.DEPTNO WHERE DEPTNO=(SELECT DEPTNO FR' at line 1
+mysql> SELECT D.DNAME,D.LOC FOR DEPART D INNER JOIN EMPLOY E ON E.DEPTNO=D.DEPTNO WHERE E.DEPTNO=(SELECT DEPTNO FROM EMPLOY WHERE ENAME="CLARK");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DEPART D INNER JOIN EMPLOY E ON E.DEPTNO=D.DEPTNO WHERE E.DEPTNO=(SELECT DEPTNO ' at line 1
+mysql> SELECT D.DNAME,D.LOC FORM DEPART D INNER JOIN EMPLOY E ON E.DEPTNO=D.DEPTNO WHERE E.DEPTNO=(SELECT DEPTNO FROM EMPLOY WHERE ENAME="CLARK");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DEPART D INNER JOIN EMPLOY E ON E.DEPTNO=D.DEPTNO WHERE E.DEPTNO=(SELECT DEPTNO ' at line 1
+mysql> SELECT D.DNAME,D.LOC FORM DEPART D INNER JOIN EMPLOY E ON E.DEPTNO=D.DEPTNO WHERE E.DEPTNO=(SELECT E.DEPTNO FROM EMPLOY E WHERE E.ENAME="CLARK");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DEPART D INNER JOIN EMPLOY E ON E.DEPTNO=D.DEPTNO WHERE E.DEPTNO=(SELECT E.DEPTN' at line 1
+mysql> SELECT D.DNAME,D.LOC FROM DEPART D INNER JOIN EMPLOY E ON E.DEPTNO=D.DEPTNO WHERE E.DEPTNO=(SELECT E.DEPTNO FROM EMPLOY E WHERE E.ENAME="CLARK");
++------------+----------+
+| DNAME      | LOC      |
++------------+----------+
+| ACCOUNTING | NEW YORK |
+| ACCOUNTING | NEW YORK |
+| ACCOUNTING | NEW YORK |
++------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT D.DNAME,D.LOC FROM DEPART D INNER JOIN EMPLOY E ON E.DEPTNO=D.DEPTNO WHERE E.DEPTNO=(SELECT E.DEPTNO FROM EMPLOY E WHERE E.ENAME="CLARK") AND E.ENAME!="CLARK";
++------------+----------+
+| DNAME      | LOC      |
++------------+----------+
+| ACCOUNTING | NEW YORK |
+| ACCOUNTING | NEW YORK |
++------------+----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM DEPART D INNER JOIN EMPLOY E ON E.DEPTNO=D.DEPTNO WHERE E.JON="MANAGER";
+ERROR 1054 (42S22): Unknown column 'E.JON' in 'where clause'
+mysql> SELECT * FROM DEPART D INNER JOIN EMPLOY E ON E.DEPTNO=D.DEPTNO WHERE E.JOB="MANAGER";
++--------+------------+----------+-------+-------+---------+------+------------+------+------+--------+
+| DEPTNO | DNAME      | LOC      | EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++--------+------------+----------+-------+-------+---------+------+------------+------+------+--------+
+|     20 | RESEARCH   | DALLAS   |  7566 | JONES | MANAGER | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|     30 | SALES      | PUNE     |  7698 | BLAKE | MANAGER | 7839 | 2019-06-15 | 2850 | NULL |     30 |
+|     10 | ACCOUNTING | NEW YORK |  7782 | CLARK | MANAGER | 7839 | 1981-06-09 | 2450 | NULL |     10 |
++--------+------------+----------+-------+-------+---------+------+------------+------+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT MAX(SAL) FROM EMPLOY GROUP BY SAL;
++----------+
+| MAX(SAL) |
++----------+
+|      800 |
+|     1600 |
+|     1250 |
+|     2975 |
+|     2850 |
+|     2450 |
+|     3000 |
+|     5000 |
+|     1500 |
+|     1100 |
+|      950 |
+|     1300 |
++----------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT MAX(SAL) FROM EMPLOY GROUP BY DEPTNO;
++----------+
+| MAX(SAL) |
++----------+
+|     5000 |
+|     3000 |
+|     2850 |
++----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT MAX(SAL) FROM EMPLOY;
++----------+
+| MAX(SAL) |
++----------+
+|     5000 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT EMPNO,ENAME,JON,SAL,DEPTNO FROM EMPLOY WHERE JOB="MANAGER";
+ERROR 1054 (42S22): Unknown column 'JON' in 'field list'
+mysql> SELECT EMPNO,ENAME,JOB,SAL,DEPTNO FROM EMPLOY WHERE JOB="MANAGER";
++-------+-------+---------+------+--------+
+| EMPNO | ENAME | JOB     | SAL  | DEPTNO |
++-------+-------+---------+------+--------+
+|  7566 | JONES | MANAGER | 2975 |     20 |
+|  7698 | BLAKE | MANAGER | 2850 |     30 |
+|  7782 | CLARK | MANAGER | 2450 |     10 |
++-------+-------+---------+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY E INNER JOIN DEPART D ON E.DEPTNO=D.DEPTNO WHERE E.JOB IN("MANAGER","CLERK") AND D.DNMAE IN ("ACCOUNTING","SALES");
+ERROR 1054 (42S22): Unknown column 'D.DNMAE' in 'where clause'
+mysql> SELECT * FROM EMPLOY E INNER JOIN DEPART D ON E.DEPTNO=D.DEPTNO WHERE E.JOB IN("MANAGER","CLERK") AND D.DNAME IN ("ACCOUNTING","SALES");
++-------+--------+---------+------+------------+------+------+--------+--------+------------+----------+
+| EMPNO | ENAME  | JOB     | MGR  | HIREDATE   | SAL  | COMM | DEPTNO | DEPTNO | DNAME      | LOC      |
++-------+--------+---------+------+------------+------+------+--------+--------+------------+----------+
+|  7782 | CLARK  | MANAGER | 7839 | 1981-06-09 | 2450 | NULL |     10 |     10 | ACCOUNTING | NEW YORK |
+|  7934 | MILLER | CLERK   | 7782 | 1982-01-23 | 1300 | NULL |     10 |     10 | ACCOUNTING | NEW YORK |
+|  7698 | BLAKE  | MANAGER | 7839 | 2019-06-15 | 2850 | NULL |     30 |     30 | SALES      | PUNE     |
+|  7900 | JAMES  | CLERK   | 7698 | 1981-12-03 |  950 | NULL |     30 |     30 | SALES      | PUNE     |
++-------+--------+---------+------+------------+------+------+--------+--------+------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY E INNER JOIN DEPART D ON E.DEPTNO=D.DEPTNO WHERE D.DNAME="SALES" AND LOC!="DALLAS";
++-------+--------+----------+------+------------+------+------+--------+--------+-------+------+
+| EMPNO | ENAME  | JOB      | MGR  | HIREDATE   | SAL  | COMM | DEPTNO | DEPTNO | DNAME | LOC  |
++-------+--------+----------+------+------------+------+------+--------+--------+-------+------+
+|  7499 | ALLEN  | SALESMAN | 7698 | 1981-02-20 | 1600 |  300 |     30 |     30 | SALES | PUNE |
+|  7521 | WARD   | SALESMAN | 7698 | 1981-02-22 | 1250 |  500 |     30 |     30 | SALES | PUNE |
+|  7654 | MARTIN | SALESMAN | 7698 | 1981-09-28 | 1250 | 1400 |     30 |     30 | SALES | PUNE |
+|  7698 | BLAKE  | MANAGER  | 7839 | 2019-06-15 | 2850 | NULL |     30 |     30 | SALES | PUNE |
+|  7844 | TURNER | SALESMAN | 7698 | 1981-09-08 | 1500 |    0 |     30 |     30 | SALES | PUNE |
+|  7900 | JAMES  | CLERK    | 7698 | 1981-12-03 |  950 | NULL |     30 |     30 | SALES | PUNE |
++-------+--------+----------+------+------------+------+------+--------+--------+-------+------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY E INNER JOIN DEPART D ON E.DEPTNO=D.DEPTNO WHERE E.JOB="SALESMAN" AND LOC!="DALLAS";
++-------+--------+----------+------+------------+------+------+--------+--------+-------+------+
+| EMPNO | ENAME  | JOB      | MGR  | HIREDATE   | SAL  | COMM | DEPTNO | DEPTNO | DNAME | LOC  |
++-------+--------+----------+------+------------+------+------+--------+--------+-------+------+
+|  7499 | ALLEN  | SALESMAN | 7698 | 1981-02-20 | 1600 |  300 |     30 |     30 | SALES | PUNE |
+|  7521 | WARD   | SALESMAN | 7698 | 1981-02-22 | 1250 |  500 |     30 |     30 | SALES | PUNE |
+|  7654 | MARTIN | SALESMAN | 7698 | 1981-09-28 | 1250 | 1400 |     30 |     30 | SALES | PUNE |
+|  7844 | TURNER | SALESMAN | 7698 | 1981-09-08 | 1500 |    0 |     30 |     30 | SALES | PUNE |
++-------+--------+----------+------+------------+------+------+--------+--------+-------+------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT D.DNAME,D.LOC FROM EMPLOY E INNER JOIN DEPART D ON E.DEPTNO=D.DEPTNO WHERE E.MGR=(SELECT EMPNO FROM EMPLOY WHERE ENAME=CLARK);
+ERROR 1054 (42S22): Unknown column 'CLARK' in 'where clause'
+mysql> SELECT D.DNAME,D.LOC FROM EMPLOY E INNER JOIN DEPART D ON E.DEPTNO=D.DEPTNO WHERE E.MGR=(SELECT EMPNO FROM EMPLOY WHERE ENAME="CLARK");
++------------+----------+
+| DNAME      | LOC      |
++------------+----------+
+| ACCOUNTING | NEW YORK |
++------------+----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM DEPART D INNER JOIN EMPLOY E ON E.DEPTNO=D.DEPTNO WHERE E.JOB="MANAGER";
++--------+------------+----------+-------+-------+---------+------+------------+------+------+--------+
+| DEPTNO | DNAME      | LOC      | EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++--------+------------+----------+-------+-------+---------+------+------------+------+------+--------+
+|     20 | RESEARCH   | DALLAS   |  7566 | JONES | MANAGER | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|     30 | SALES      | PUNE     |  7698 | BLAKE | MANAGER | 7839 | 2019-06-15 | 2850 | NULL |     30 |
+|     10 | ACCOUNTING | NEW YORK |  7782 | CLARK | MANAGER | 7839 | 1981-06-09 | 2450 | NULL |     10 |
++--------+------------+----------+-------+-------+---------+------+------------+------+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM DEPART D INNER JOIN EMPLOY E ON E.DEPTNO=D.DEPTNO WHERE D.LOC="DALLAS";
++--------+----------+--------+-------+-------+---------+------+------------+------+------+--------+
+| DEPTNO | DNAME    | LOC    | EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++--------+----------+--------+-------+-------+---------+------+------------+------+------+--------+
+|     20 | RESEARCH | DALLAS |  7369 | SMITH | CLERK   | 7902 | 1980-12-17 |  800 | NULL |     20 |
+|     20 | RESEARCH | DALLAS |  7566 | JONES | MANAGER | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|     20 | RESEARCH | DALLAS |  7788 | SCOTT | ANALYST | 7566 | 1982-12-09 | 3000 | NULL |     20 |
+|     20 | RESEARCH | DALLAS |  7876 | ADAMS | CLERK   | 7788 | 1983-01-12 | 1100 | NULL |     20 |
+|     20 | RESEARCH | DALLAS |  7902 | FORD  | ANALYST | 7566 | 1981-12-03 | 3000 | NULL |     20 |
++--------+----------+--------+-------+-------+---------+------+------------+------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY WHERE SAL>=2500 AND DEPTNO=20;
++-------+-------+---------+------+------------+------+------+--------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+-------+---------+------+------------+------+------+--------+
+|  7566 | JONES | MANAGER | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|  7788 | SCOTT | ANALYST | 7566 | 1982-12-09 | 3000 | NULL |     20 |
+|  7902 | FORD  | ANALYST | 7566 | 1981-12-03 | 3000 | NULL |     20 |
++-------+-------+---------+------+------------+------+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY WHERE JOB="MANAGER" AND DEPTNO IN (20,30);
++-------+-------+---------+------+------------+------+------+--------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+-------+---------+------+------------+------+------+--------+
+|  7566 | JONES | MANAGER | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|  7698 | BLAKE | MANAGER | 7839 | 2019-06-15 | 2850 | NULL |     30 |
++-------+-------+---------+------+------------+------+------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY WHERE MGR ISNULL;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ISNULL' at line 1
+mysql> SELECT * FROM EMPLOY WHERE MGR IS NULL;
++-------+-------+-----------+------+------------+------+------+--------+
+| EMPNO | ENAME | JOB       | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+-------+-----------+------+------------+------+------+--------+
+|  7839 | KING  | PRESIDENT | NULL | 1981-11-17 | 5000 | NULL |     10 |
++-------+-------+-----------+------+------------+------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY WHERE COMM NOT NULL;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NULL' at line 1
+mysql> SELECT * FROM EMPLOY WHERE COMM IS NOT NULL;
++-------+--------+----------+------+------------+------+------+--------+
+| EMPNO | ENAME  | JOB      | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+--------+----------+------+------------+------+------+--------+
+|  7499 | ALLEN  | SALESMAN | 7698 | 1981-02-20 | 1600 |  300 |     30 |
+|  7521 | WARD   | SALESMAN | 7698 | 1981-02-22 | 1250 |  500 |     30 |
+|  7654 | MARTIN | SALESMAN | 7698 | 1981-09-28 | 1250 | 1400 |     30 |
+|  7844 | TURNER | SALESMAN | 7698 | 1981-09-08 | 1500 |    0 |     30 |
++-------+--------+----------+------+------------+------+------+--------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY WHERE COMM IS NOT NULL AND COMM!=0;
++-------+--------+----------+------+------------+------+------+--------+
+| EMPNO | ENAME  | JOB      | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+--------+----------+------+------------+------+------+--------+
+|  7499 | ALLEN  | SALESMAN | 7698 | 1981-02-20 | 1600 |  300 |     30 |
+|  7521 | WARD   | SALESMAN | 7698 | 1981-02-22 | 1250 |  500 |     30 |
+|  7654 | MARTIN | SALESMAN | 7698 | 1981-09-28 | 1250 | 1400 |     30 |
++-------+--------+----------+------+------------+------+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY WHERE (COMM IS NOT NULL AND COMM!=0) AND JOB NOT IN ("MANAGER","ANALYST");
++-------+--------+----------+------+------------+------+------+--------+
+| EMPNO | ENAME  | JOB      | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+--------+----------+------+------------+------+------+--------+
+|  7499 | ALLEN  | SALESMAN | 7698 | 1981-02-20 | 1600 |  300 |     30 |
+|  7521 | WARD   | SALESMAN | 7698 | 1981-02-22 | 1250 |  500 |     30 |
+|  7654 | MARTIN | SALESMAN | 7698 | 1981-09-28 | 1250 | 1400 |     30 |
++-------+--------+----------+------+------------+------+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY WHERE JOB="ANALYST" AND ENAME NOT LIKE "%S";
++-------+-------+---------+------+------------+------+------+--------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+-------+---------+------+------------+------+------+--------+
+|  7788 | SCOTT | ANALYST | 7566 | 1982-12-09 | 3000 | NULL |     20 |
+|  7902 | FORD  | ANALYST | 7566 | 1981-12-03 | 3000 | NULL |     20 |
++-------+-------+---------+------+------------+------+------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY WHERE ENAME LIKE "%
+    "> E_";
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY WHERE ENAME LIKE "%E_";
++-------+--------+----------+------+------------+------+------+--------+
+| EMPNO | ENAME  | JOB      | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+--------+----------+------+------------+------+------+--------+
+|  7499 | ALLEN  | SALESMAN | 7698 | 1981-02-20 | 1600 |  300 |     30 |
+|  7566 | JONES  | MANAGER  | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|  7844 | TURNER | SALESMAN | 7698 | 1981-09-08 | 1500 |    0 |     30 |
+|  7900 | JAMES  | CLERK    | 7698 | 1981-12-03 |  950 | NULL |     30 |
+|  7934 | MILLER | CLERK    | 7782 | 1982-01-23 | 1300 | NULL |     10 |
++-------+--------+----------+------+------------+------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOY WHERE (SAL+IFNULL(COMM,0))>2000;
++-------+--------+-----------+------+------------+------+------+--------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+--------+-----------+------+------------+------+------+--------+
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975 | NULL |     20 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250 | 1400 |     30 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 2019-06-15 | 2850 | NULL |     30 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450 | NULL |     10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1982-12-09 | 3000 | NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000 | NULL |     10 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000 | NULL |     20 |
++-------+--------+-----------+------+------------+------+------+--------+
+7 rows in set (0.00 sec)
+

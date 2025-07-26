@@ -1,0 +1,79 @@
+CREATE TABLE employees (
+    employee_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    department_id INT,
+    salary DECIMAL(10, 2)
+);
+
+
+CREATE TABLE departments (
+    department_id INT PRIMARY KEY,
+    department_name VARCHAR(100)
+);
+
+
+INSERT INTO employees (employee_id, name, department_id, salary)
+VALUES (1, 'John Doe', 101, 50000.00),
+       (2, 'Jane Smith', 102, 55000.00),
+       (3, 'Bob Brown', 101, 60000.00);
+
+
+INSERT INTO departments (department_id, department_name)
+VALUES (101, 'HR'),
+       (102, 'Finance');
+
+
+CREATE VIEW employee_view AS
+SELECT e.employee_id, e.name, d.department_name, e.salary
+FROM employees e
+JOIN departments d ON e.department_id = d.department_id;
+
+
+SELECT * FROM employee_view;
+
+
+UPDATE employee_view
+SET salary = 52000.00
+WHERE employee_id = 1;
+
+
+SELECT * FROM employees;
+
+
+INSERT INTO employee_view (employee_id, name, department_name, salary)
+VALUES (4, 'Alice Johnson', 'Finance', 65000.00);
+
+
+
+SELECT * FROM employees;
+
+
+CREATE VIEW salary_summary AS
+SELECT department_name, SUM(salary) AS total_salary
+FROM employees e
+JOIN departments d ON e.department_id = d.department_id
+GROUP BY department_name;
+
+
+
+UPDATE salary_summary
+SET total_salary = 100000.00
+WHERE department_name = 'HR';
+
+
+
+DELETE FROM employee_view WHERE employee_id = 1;
+
+
+SELECT * FROM employees;
+
+
+CREATE VIEW employee_department_view AS
+SELECT e.employee_id, e.name, d.department_name, e.salary
+FROM employees e
+JOIN departments d ON e.department_id = d.department_id
+WHERE d.department_name = 'HR';
+
+
+
+SELECT * FROM employee_department_view;

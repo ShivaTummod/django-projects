@@ -1,0 +1,86 @@
+a) Display job-wise maximum salary.
+SELECT JOB, MAX(SALARY) AS MAXIMUM_SALARY
+    -> FROM EMP
+    -> GROUP BY JOB;
++-----------+----------------+
+| JOB       | MAXIMUM_SALARY |
++-----------+----------------+
+| CLERK     |        1300.00 |
+| SALESMAN  |        1600.00 |
+| MANAGER   |        2975.00 |
+| ANALYST   |        3000.00 |
+| PRESIDENT |        5000.00 |
++-----------+----------------+
+
+
+b) Select all the departmental information for all the managers.
+ SELECT D.*
+    -> FROM DEPT D
+    -> INNER JOIN EMP E ON D.DEPTNO = E.DEPTNO
+    -> WHERE E.JOB = 'MANAGER';
++--------+------------+----------+
+| DEPTNO | DNAME      | LOC      |
++--------+------------+----------+
+|     20 | RESEARCH   | DALLAS   |
+|     30 | SALES      | CHICAGO  |
+|     10 | ACCOUNTING | NEW YORK |
++--------+------------+----------+
+
+c) Display all the employees who total salary is more than 2000. (Total Salary= Sal + Comm)
+SELECT *
+    -> FROM EMP
+    -> WHERE SALARY + COALESCE(COMMISSION, 0) > 2000;
++-------+--------+-----------+---------+------------+---------+------------+--------+
+| EMPNO | ENAME  | JOB       | MANAGER | HIREDATE   | SALARY  | COMMISSION | DEPTNO |
++-------+--------+-----------+---------+------------+---------+------------+--------+
+|  7566 | JONES  | MANAGER   |    7839 | 1981-04-02 | 2975.00 |     100.00 |     20 |
+|  7654 | MARTIN | SALESMAN  |    7698 | 1981-09-28 | 1250.00 |    1400.00 |     30 |
+|  7698 | BLAKE  | MANAGER   |    7839 | 1981-05-01 | 2850.00 |     150.00 |     30 |
+|  7782 | CLARK  | MANAGER   |    7839 | 1981-06-09 | 2450.00 |     200.00 |     10 |
+|  7788 | SCOTT  | ANALYST   |    7566 | 1982-12-09 | 3000.00 |     110.00 |     20 |
+|  7839 | KING   | PRESIDENT |    7777 | 1981-11-17 | 5000.00 |     120.00 |     10 |
+|  7902 | FORD   | ANALYST   |    7566 | 1981-12-03 | 3000.00 |     310.00 |     20 |
++-------+--------+-----------+---------+------------+---------+------------+--------+
+
+
+d) Select department name & location of all the employees working for CLARK.
+SELECT D.DNAME, D.LOC
+    -> FROM DEPT D
+    -> INNER JOIN EMP E ON D.DEPTNO = E.DEPTNO
+    -> WHERE E.ENAME = 'CLARK';
++------------+----------+
+| DNAME      | LOC      |
++------------+----------+
+| ACCOUNTING | NEW YORK |
+
+
+
+e) Display all the managers working in 20 & 30 department.
+ SELECT *
+    -> FROM EMP
+    -> WHERE JOB = 'MANAGER' AND DEPTNO IN (20, 30);
++-------+-------+---------+---------+------------+---------+------------+--------+
+| EMPNO | ENAME | JOB     | MANAGER | HIREDATE   | SALARY  | COMMISSION | DEPTNO |
++-------+-------+---------+---------+------------+---------+------------+--------+
+|  7566 | JONES | MANAGER |    7839 | 1981-04-02 | 2975.00 |     100.00 |     20 |
+|  7698 | BLAKE | MANAGER |    7839 | 1981-05-01 | 2850.00 |     150.00 |     30 |
++-------+-------+---------+---------+------------+---------+------------+--------+
+
+
+f) Display all the employees who earning salary not in the range of 2500 and5000 in department 10 & 20.
+ SELECT *
+    -> FROM EMP
+    -> WHERE DEPTNO IN (10, 20) AND SALARY NOT BETWEEN 2500 AND 5000;
++-------+--------+---------+---------+------------+---------+------------+--------+
+| EMPNO | ENAME  | JOB     | MANAGER | HIREDATE   | SALARY  | COMMISSION | DEPTNO |
++-------+--------+---------+---------+------------+---------+------------+--------+
+|  7369 | SMITH  | CLERK   |    7902 | 1980-12-17 |  800.00 |     240.00 |     20 |
+|  7782 | CLARK  | MANAGER |    7839 | 1981-06-09 | 2450.00 |     200.00 |     10 |
+|  7876 | ADAMS  | CLERK   |    7788 | 1983-01-12 | 1100.00 |     240.00 |     20 |
+|  7934 | MILLER | CLERK   |    7782 | 1982-01-23 | 1300.00 |     150.00 |     10 |
++-------+--------+---------+---------+------------+---------+------------+--------+
+
+
+
+g) Display all the managers who don’t have a manager
+

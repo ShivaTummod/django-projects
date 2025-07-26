@@ -1,0 +1,54 @@
+12
+
+
+
+CREATE TABLE Dept (
+    deptno INT PRIMARY KEY,
+    dname VARCHAR(50),
+    loc VARCHAR(50)
+);
+
+
+
+CREATE TABLE Emp (
+    eno INT PRIMARY KEY,
+    ename VARCHAR(50),
+    jobtitle VARCHAR(30),
+    managerno INT,
+    hiredate DATE,
+    salary DECIMAL(10, 2),
+    comm DECIMAL(10, 2),
+    deptno INT,
+    FOREIGN KEY (deptno) REFERENCES Dept(deptno)
+);
+
+
+SELECT jobtitle, MAX(salary) AS max_salary
+FROM Emp
+GROUP BY jobtitle;
+
+
+
+SELECT deptno, COUNT(*) AS emp_count
+FROM Emp
+GROUP BY deptno
+HAVING COUNT(*) > 3;
+
+
+SELECT jobtitle, AVG(salary) AS avg_salary
+FROM Emp
+WHERE eno NOT BETWEEN 7788 AND 7790
+GROUP BY jobtitle;
+
+
+SELECT deptno, SUM(salary) AS total_salary, AVG(salary) AS avg_salary
+FROM Emp
+WHERE jobtitle IN ('MANAGER', 'ANALYST')
+GROUP BY deptno
+HAVING AVG(salary) >= 3000;
+
+
+SELECT eno, ename, jobtitle, managerno, hiredate, salary, comm, deptno, COUNT(*) AS dup_count
+FROM Emp
+GROUP BY eno, ename, jobtitle, managerno, hiredate, salary, comm, deptno
+HAVING COUNT(*) > 1;

@@ -1,0 +1,74 @@
+ create database answer2;
+ use answer2;
+
+CREATE TABLE Dept (
+    deptno INT PRIMARY KEY,
+    dname VARCHAR(50),
+    loc VARCHAR(50)
+);
+
+INSERT INTO Dept (deptno, dname, loc) VALUES
+(10, 'HR', 'New Delhi'),
+(20, 'Finance', 'Mumbai'),
+(30, 'Marketing', 'Pune');
+
+
+CREATE TABLE Emp (
+    eno INT PRIMARY KEY,
+    ename VARCHAR(50),
+    jobtitle VARCHAR(50),
+    managerno INT,
+    hiredate DATE,
+    salary DECIMAL(10, 2),
+    deptno INT,
+    FOREIGN KEY (deptno) REFERENCES Dept(deptno)
+);
+
+INSERT INTO Emp (eno, ename, jobtitle, managerno, hiredate, salary, deptno) VALUES
+(1, 'Ananya', 'HR Manager', 1, '2023-01-05', 50000.00, 10),
+(2, 'Kunal', 'Marketing Director', 3, '2023-03-12', 30000.00, 30),
+(3, 'Raj', 'Marketing Manager', 2, '2023-01-10', 52000.00, 30),
+(4, 'Ruchika', 'HR Executive', 4, '2023-11-15', 38000.00, 10),
+(5, 'Aryan', 'Finance Intern', 3, '2023-04-10', 25000.00, 20),
+(6, 'Ketan', 'Finance Consultant', 2, '2024-06-20', 38000.00, 20),
+(7, 'Ankita', 'HR Assistant', 1, '2024-11-15', 47000.00, 10),
+(8, 'Virat', 'Finance Supervisor', 4, '2024-07-25', 42000.00, 20),
+(9, 'Rajat', 'Marketing Analyst', 3, '2024-09-05', 27000.00, 30);
+
+ select * from dept;
+ 
+
+ select * from emp;
+
+
+  SELECT * FROM Emp WHERE deptno IN (10, 20, 30);
+
+
+ SELECT *FROM Emp WHERE ename LIKE 'A%';
+
+ SELECT Emp.*, Dept.dname FROM Emp INNER JOIN Dept ON Emp.deptno = Dept.deptno;
+
+
+INSERT INTO Emp (eno, ename, jobtitle, managerno, hiredate, salary, deptno)
+VALUES (10, 'Kruthika', 'HR Manager', 1, '2024-01-01', 55000.00, 10);
+SELECT * from emP;
+
+
+
+SELECT Emp.*FROM Emp INNER JOIN Dept ON Emp.deptno = Dept.deptno WHERE Dept.dname = 'Marketing';
+
+
+    UPDATE Dept
+    SET dname = 'Human Resources'
+    WHERE deptno = 10;
+ SELECT * from dept;
+
+
+ SELECT e.*
+FROM Emp as e
+INNER JOIN (
+    SELECT deptno, MAX(salary) AS max_salary
+    FROM Emp
+    GROUP BY deptno
+) AS max_salaries ON e.deptno = max_salaries.deptno AND e.salary = max_salaries.max_salary;
+

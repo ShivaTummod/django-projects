@@ -1,0 +1,55 @@
+create database ass4;
+use database ass4;
+
+ CREATE TABLE Students (
+         StudentID INT PRIMARY KEY,
+         Name VARCHAR(50) NOT NULL,
+     Email VARCHAR(55) UNIQUE,
+      Year INT
+       );
+
+INSERT INTO Students (StudentID, Name, Email, Year)
+VALUES (1001, 'Riya Sharma', 'riya.sharma@dce.in', 1),
+       (1002, 'Rahul Kumar', 'rahul.kumar@dce.in', 2),
+       (1003, 'Priya Singh', 'priya.singh@dce.in', 3),
+       (1004, 'Vikram Joshi', 'vikram.joshi@dce.in', 4),
+       (1005, 'Aisha Kapoor', 'aisha.kapoor@dce.in', 1),
+       (1006, 'Dev Patel', 'dev.patel@dce.in', 2);
+
+CREATE TABLE Courses (
+  CourseID INT PRIMARY KEY,
+  CourseName VARCHAR(255) NOT NULL,
+  Department VARCHAR(255) NOT NULL,
+  Instructor VARCHAR(255) NOT NULL
+);
+
+INSERT INTO Courses (CourseID, CourseName, Department, Instructor)
+VALUES (201, 'Data Structures & Algorithms', 'Computer Science', 'Prof. Mehta'),
+       (202, 'Discrete Mathematics', 'Mathematics', 'Prof. Iyer'),
+       (203, 'Object Oriented Programming', 'Computer Science', 'Prof. Desai'),
+       (204, 'Machine Learning', 'Computer Science', 'Prof. Ghosh'),
+       (205, 'Indian History', 'History', 'Prof. Bose'),
+       (206, 'Economics for Business', 'Economics', 'Prof. Khan');
+
+CREATE TABLE Enrollment (
+  StudentID INT,
+  CourseID INT,
+  Semester VARCHAR(100),
+  Year INT,
+  FOREIGN KEY (StudentID) REFERENCES Students(StudentID),
+  FOREIGN KEY (CourseID) REFERENCES Courses(CourseID),
+  PRIMARY KEY (StudentID, CourseID, Semester, Year)
+);
+
+INSERT INTO Enrollment (StudentID, CourseID, Semester, Year)
+VALUES (1001, 201, 'Odd Semester', 2024),
+       (1001, 202, 'Odd Semester', 2024),
+       (1002, 203, 'Even Semester', 2024),
+       (1002, 204, 'Even Semester', 2024),
+       (1003, 205, 'Odd Semester', 2024),
+       (1004, 201, 'Odd Semester', 2023),
+       (1005, 206, 'Even Semester', 2024),
+       (1006, 202, 'Odd Semester', 2023);
+
+
+

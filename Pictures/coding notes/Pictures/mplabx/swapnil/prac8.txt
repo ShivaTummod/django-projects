@@ -1,0 +1,57 @@
+8.
+
+CREATE TABLE employees (
+    employee_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    salary DECIMAL(10, 2)
+);
+
+
+INSERT INTO employees (employee_id, name, salary) 
+VALUES (1, 'John Doe', 50000.00);
+
+INSERT INTO employees (employee_id, name, salary) 
+VALUES (2, 'Jane Smith', 55000.00);
+
+
+
+
+DELIMITER $$
+
+CREATE PROCEDURE update_employee_salary(IN p_employee_id INT, IN p_new_salary DECIMAL(10, 2))
+BEGIN
+    UPDATE employees
+    SET salary = p_new_salary
+    WHERE employee_id = p_employee_id;
+    
+    SELECT 'Salary updated successfully' AS message;
+END $$
+
+DELIMITER ;
+
+
+
+CALL update_employee_salary(1, 60000.00);
+
+
+SELECT * FROM employees;
+
+
+DELIMITER $$
+
+CREATE FUNCTION total_salary()
+RETURNS DECIMAL(10, 2)
+DETERMINISTIC
+BEGIN
+    DECLARE total DECIMAL(10, 2);
+    
+    SELECT SUM(salary) INTO total
+    FROM employees;
+    
+    RETURN total;
+END $$
+
+DELIMITER ;
+
+
+SELECT total_salary();

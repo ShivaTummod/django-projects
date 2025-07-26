@@ -1,0 +1,81 @@
+ create database answer1;
+ use answer1;
+
+CREATE TABLE College_info (
+    college_code INT PRIMARY KEY,
+    college_name VARCHAR(100),
+    address VARCHAR(255)
+);
+
+INSERT INTO College_info (college_code, college_name, address) VALUES
+(1, 'IIT Bombay', 'Maharashtra'),
+(2, 'IIM Ahmedabad', 'Gujarat'),
+(3, 'IST Kolkata', 'West Bengal');
+
+-- Create Faculty_info table
+CREATE TABLE Faculty_info (
+    college_code INT,
+    faculty_code INT PRIMARY KEY,
+    faculty_name VARCHAR(100),
+    qualification VARCHAR(100),
+    experience_in_no_of_years INT,
+    address VARCHAR(255),
+    FOREIGN KEY (college_code) REFERENCES College_info(college_code)
+);
+
+INSERT INTO Faculty_info (college_code, faculty_code, faculty_name, qualification, experience_in_no_of_years, address) VALUES
+(1, 101, 'Dr. Anil Kumar', 'M.Tech', 10, 'Maharashtra'),
+(1, 102, 'Dr. Meera Gupta', 'CA', 8, 'Maharashtra'),
+(2, 201, 'Prof. Rajesh Patel', 'M.Tech', 15, 'Gujarat'),
+(2, 202, 'Dr. Priya Sharma', 'MBBS', 24, 'Gujarat'),
+(3, 301, 'Prof. Arun Das', 'M.Tech', 20, 'West Bengal'),
+(3, 302, 'Dr. Sneha Banerjee', 'Ph.D', 10, 'West Bengal');
+
+ select * from college_info;
++--------------+---------------+-------------+
+| college_code | college_name  | address     |
++--------------+---------------+-------------+
+|            1 | IIT Bombay    | Maharashtra |
+|            2 | IIM Ahmedabad | Gujarat     |
+|            3 | IST Kolkata   | West Bengal |
++--------------+---------------+-------------+
+
+ select * from faculty_info;
++--------------+--------------+--------------------+---------------+---------------------------+-------------+
+| college_code | faculty_code | faculty_name       | qualification | experience_in_no_of_years | address     |
++--------------+--------------+--------------------+---------------+---------------------------+-------------+
+|            1 |          101 | Dr. Anil Kumar     | M.Tech        |                        10 | Maharashtra |
+|            1 |          102 | Dr. Meera Gupta    | CA            |                         8 | Maharashtra |
+|            2 |          201 | Prof. Rajesh Patel | M.Tech        |                        15 | Gujarat     |
+|            2 |          202 | Dr. Priya Sharma   | MBBS          |                        24 | Gujarat     |
+|            3 |          301 | Prof. Arun Das     | M.Tech        |                        20 | West Bengal |
+|            3 |          302 | Dr. Sneha Banerjee | Ph.D          |                        10 | West Bengal |
++--------------+--------------+--------------------+---------------+---------------------------+-------------+
+
+
+Q.1 SELECT *
+FROM Faculty_info
+WHERE experience_in_no_of_years >= 10
+AND qualification = 'M.Tech';
+--------------+--------------+--------------------+---------------+---------------------------+-------------+
+| college_code | faculty_code | faculty_name       | qualification | experience_in_no_of_years | address     |
++--------------+--------------+--------------------+---------------+---------------------------+-------------+
+|            1 |          101 | Dr. Anil Kumar     | M.Tech        |                        10 | Maharashtra |
+|            2 |          201 | Prof. Rajesh Patel | M.Tech        |                        15 | Gujarat     |
+|            3 |          301 | Prof. Arun Das     | M.Tech        |                        20 | West Bengal |
++--------------+--------------+--------------------+---------------+---------------------------+-------------+
+
+Q.2 SELECT *
+FROM Faculty_info
+WHERE experience_in_no_of_years >= 10
+AND qualification != 'M.Tech';
+
++--------------+--------------+--------------------+---------------+---------------------------+-------------+
+| college_code | faculty_code | faculty_name       | qualification | experience_in_no_of_years | address     |
++--------------+--------------+--------------------+---------------+---------------------------+-------------+
+|            2 |          202 | Dr. Priya Sharma   | MBBS          |                        24 | Gujarat     |
+|            3 |          302 | Dr. Sneha Banerjee | Ph.D          |                        10 | West Bengal |
++--------------+--------------+--------------------+---------------+---------------------------+-------------+
+
+
+
