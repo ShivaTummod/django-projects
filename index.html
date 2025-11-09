@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Django Projects - A collection of Django web applications including CSV upload, database manager, and real estate management systems">
+    <title>Django Projects</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #0c4a6e 0%, #075985 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px 30px;
+        }
+        
+        .intro {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .intro h2 {
+            color: #0c4a6e;
+            margin-bottom: 15px;
+            font-size: 2em;
+        }
+        
+        .intro p {
+            color: #666;
+            font-size: 1.1em;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .project-card {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border-color: #667eea;
+        }
+        
+        .project-card h3 {
+            color: #0c4a6e;
+            margin-bottom: 12px;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+        }
+        
+        .project-card h3::before {
+            content: "🚀";
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+        
+        .project-card p {
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .project-card .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .tech-tag {
+            background: #e0e7ff;
+            color: #4338ca;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+        
+        footer {
+            background: #f1f5f9;
+            padding: 30px;
+            text-align: center;
+            color: #64748b;
+        }
+        
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .github-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: #0c4a6e;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        
+        .github-link:hover {
+            background: #075985;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+            
+            .intro h2 {
+                font-size: 1.5em;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Django Projects</h1>
+            <p>A Collection of Modern Django Web Applications</p>
+        </header>
+        
+        <div class="content">
+            <div class="intro">
+                <h2>Welcome to My Django Portfolio</h2>
+                <p>
+                    Explore a collection of full-stack Django applications demonstrating various 
+                    web development capabilities including database management, CSV processing, 
+                    dynamic schema creation, and real estate management systems.
+                </p>
+            </div>
+            
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3>CSV Upload Manager</h3>
+                    <p>
+                        A dynamic Django application for uploading and processing CSV files. 
+                        Features include automated data parsing, validation, and database storage 
+                        with an intuitive user interface.
+                    </p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Django</span>
+                        <span class="tech-tag">SQLite</span>
+                        <span class="tech-tag">CSV Processing</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <h3>Database Manager</h3>
+                    <p>
+                        A comprehensive database management system built with Django. 
+                        Features table creation, data insertion, column management, 
+                        CSV upload functionality, and audit logging capabilities.
+                    </p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Django</span>
+                        <span class="tech-tag">Database Admin</span>
+                        <span class="tech-tag">Audit Logging</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <h3>Dynamic SQLAlchemy App</h3>
+                    <p>
+                        Advanced database application using SQLAlchemy ORM with Django. 
+                        Supports dynamic table creation, flexible schema management, 
+                        and seamless data insertion with SQLAlchemy's powerful features.
+                    </p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Django</span>
+                        <span class="tech-tag">SQLAlchemy</span>
+                        <span class="tech-tag">Dynamic Schema</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <h3>Dynamic Model Creator</h3>
+                    <p>
+                        A Django project that enables runtime model creation with dynamic 
+                        field definitions. Demonstrates advanced Django ORM capabilities 
+                        and meta-programming techniques for flexible data modeling.
+                    </p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Django</span>
+                        <span class="tech-tag">ORM</span>
+                        <span class="tech-tag">Meta-Programming</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <h3>Real Estate Manager</h3>
+                    <p>
+                        A full-featured real estate management application built with Django. 
+                        Includes property listing management, user input forms, data validation, 
+                        and success tracking for real estate operations.
+                    </p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Django</span>
+                        <span class="tech-tag">Forms</span>
+                        <span class="tech-tag">Real Estate</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Built with Django and deployed on GitHub Pages</p>
+            <a href="https://github.com/ShivaTummod/django-projects" class="github-link" target="_blank">
+                View on GitHub
+            </a>
+            <p style="margin-top: 20px;">© 2025 Django Projects. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
